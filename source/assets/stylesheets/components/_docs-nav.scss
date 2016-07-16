@@ -1,3 +1,7 @@
 .c-docs-nav {
   @include grid-column(3);
 }
+
+.c-docs-nav__heading {
+  font-size: $base-font-size;
+}

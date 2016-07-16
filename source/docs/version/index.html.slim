@@ -6,12 +6,13 @@
 - content_for(:preferred_path, "docs/#{version}")
 
 div.p-container
-
   nav.c-docs-nav role="navigation"
+    h2.c-docs-nav__heading Version
     ol
       - versions.each do |version|
         li
           = link_to version, "/docs/#{version}"
+    h2.c-docs-nav__heading Features
     ol
       - version.doc_items.each do |item|
         li

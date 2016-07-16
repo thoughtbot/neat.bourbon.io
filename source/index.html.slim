@@ -1,35 +1,37 @@
 header
   div.p-container
-    h1 Neat
-    h2
-      | A lightweight and flexible Sass&nbsp;grid
-    = config[:latest_version]
-    nav role="navigation"
-      = link_to "Documentation",
-        "/docs/latest/",
-        class: "c-button"
-    ul
-      li
-        | File bugs and questions on
-          #{link_to "GitHub", "https://github.com/thoughtbot/neat"}.
-      li
-        | Find feature and API changes in the
-          #{link_to "change log", "/changelog/"}.
-      li
-        | Follow us on
-          #{link_to "Twitter", "https://twitter.com/bourbonsass"}
-          for announcements.
+    .p-column--8.p-column--push-2
+      h1 Neat
+      h2
+        | A lightweight and flexible Sass&nbsp;grid
+      = config[:latest_version]
+      nav role="navigation"
+        = link_to "Documentation",
+          "/docs/latest/",
+          class: "c-button"
+      ul
+        li
+          | File bugs and questions on
+            #{link_to "GitHub", "https://github.com/thoughtbot/neat"}.
+        li
+          | Find feature and API changes in the
+            #{link_to "change log", "/changelog/"}.
+        li
+          | Follow us on
+            #{link_to "Twitter", "https://twitter.com/bourbonsass"}
+            for announcements.
 
 section
   div.p-container
-    h3
-      | Welcome to the family
-    p
-      span.c-emoji
-        ' 👋
-      br
-      | Neat also works great with Bourbon, Bitters,
-        and Refills. They are all lightweight and
-        easy to work with so it’s a blast to try
-        them out and see if they’re right for your
-        next project.
+    .p-column--8.p-column--push-2
+      h3
+        | Welcome to the family
+      p
+        span.c-emoji
+          ' 👋
+        br
+        | Neat also works great with Bourbon, Bitters,
+          and Refills. They are all lightweight and
+          easy to work with so it’s a blast to try
+          them out and see if they’re right for your
+          next project.
