@@ -1,11 +1,12 @@
 nav.c-site-nav role="navigation"
-  div.p-container
-    = link_to "Neat",
-              "/",
-              class: "c-site-nav__link"
-    = link_to "Documentation",
-              "/docs/latest/",
-              class: "c-site-nav__link"
-    = link_to "GitHub",
-              "https://github.com/thoughtbot/neat",
-              class: "c-site-nav__link"
+  .p-container.c-site-nav__container
+    .p-column--12
+      = link_to "Neat",
+                "/",
+                class: "c-site-nav__link c-site-nav__link--logo"
+      = link_to "Documentation",
+                "/docs/latest/",
+                class: "c-site-nav__link"
+      = link_to "GitHub",
+                "https://github.com/thoughtbot/neat",
+                class: "c-site-nav__link"

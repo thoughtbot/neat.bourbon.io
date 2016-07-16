@@ -1,6 +1,7 @@
 .c-site-nav {
   @include padding($base-spacing null);
   border-bottom: $base-border;
+  font-size: $base-font-size;
   margin-bottom: $base-spacing;
 
   a {
@@ -18,5 +19,15 @@
 }
 
 .c-site-nav__link {
-  @include grid-column(3);
+  float: right;
+  margin-left: $gutter * 2;
+}
+
+.c-site-nav__link--logo {
+  float: left;
+  margin: 0;
+}
+
+.c-site-nav__container {
+  margin-bottom: 0;
 }
