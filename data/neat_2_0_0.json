@@ -1,0 +1,639 @@
+[
+  {
+    "description": "Determine if a column count has been given.\nIf no columns have been given return the grid's total column count.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 14
+    },
+    "context": {
+      "type": "function",
+      "name": "_neat-column-default",
+      "code": "\n  @if $columns == null {\n    $_grid-columns: _retrieve-neat-setting($grid, columns);\n    @return $_grid-columns;\n  } @else {\n    @return $columns;\n  }\n",
+      "line": {
+        "start": 16,
+        "end": 23
+      }
+    },
+    "parameter": [
+      {
+        "type": "map",
+        "name": "grid"
+      },
+      {
+        "type": "number (unitless) | null",
+        "name": "columns"
+      }
+    ],
+    "return": {
+      "type": "number"
+    },
+    "example": [
+      {
+        "type": "scss",
+        "code": "_neat-column-default($neat-grid, 4)"
+      }
+    ],
+    "access": "private",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      }
+    ],
+    "file": {
+      "path": "neat/functions/_neat-column-default.scss",
+      "name": "_neat-column-default.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates Neat a grid column of requested size.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "grid-column",
+          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
+          "line": {
+            "start": 21,
+            "end": 29
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Determine the ratio of `$columns` to the total column count.\nIf `$columns` is more than one value, they are handed to\n`_neat-parse-columns()` which will detirmine the total columns and use this\nvalue instead of `total-columns`.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 16
+    },
+    "context": {
+      "type": "function",
+      "name": "_neat-column-ratio",
+      "code": "\n  @if length($columns) > 1 {\n    @return nth($columns, 1) / _neat-parse-columns($columns);\n  } @else if $columns {\n    @return $columns / _retrieve-neat-setting($grid, columns);\n  }\n",
+      "line": {
+        "start": 18,
+        "end": 24
+      }
+    },
+    "parameter": [
+      {
+        "type": "map",
+        "name": "grid"
+      },
+      {
+        "type": "number | list",
+        "name": "columns"
+      }
+    ],
+    "return": {
+      "type": "number"
+    },
+    "example": [
+      {
+        "type": "scss",
+        "code": "_neat-column-ratio($grid, 3)"
+      }
+    ],
+    "access": "private",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "function",
+        "name": "_neat-parse-columns"
+      },
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      }
+    ],
+    "file": {
+      "path": "neat/functions/_neat-column-ratio.scss",
+      "name": "_neat-column-ratio.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Return a calulated column width that can then be passed in to a `calc()`.\n\n",
+        "context": {
+          "type": "function",
+          "name": "_neat-column-width",
+          "code": "\n  $_column-ratio: _neat-column-ratio($grid, $columns);\n  $_gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $_gutter == 0 {\n    @return unquote(\"#{percentage($_column-ratio)}\");\n  } @else {\n    $_gutter-affordance: $_gutter + ($_gutter * $_column-ratio);\n    @return unquote(\"#{percentage($_column-ratio)} - #{$_gutter-affordance}\");\n  }\n",
+          "line": {
+            "start": 15,
+            "end": 25
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Return a calulated column width that can then be passed in to a `calc()`.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 13
+    },
+    "context": {
+      "type": "function",
+      "name": "_neat-column-width",
+      "code": "\n  $_column-ratio: _neat-column-ratio($grid, $columns);\n  $_gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $_gutter == 0 {\n    @return unquote(\"#{percentage($_column-ratio)}\");\n  } @else {\n    $_gutter-affordance: $_gutter + ($_gutter * $_column-ratio);\n    @return unquote(\"#{percentage($_column-ratio)} - #{$_gutter-affordance}\");\n  }\n",
+      "line": {
+        "start": 15,
+        "end": 25
+      }
+    },
+    "parameter": [
+      {
+        "type": "map",
+        "name": "grid"
+      },
+      {
+        "type": "number",
+        "name": "columns"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "example": [
+      {
+        "type": "scss",
+        "code": "_neat-column-width($neat-grid, 4)"
+      }
+    ],
+    "access": "private",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "function",
+        "name": "_neat-column-ratio"
+      },
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      }
+    ],
+    "file": {
+      "path": "neat/functions/_neat-column-width.scss",
+      "name": "_neat-column-width.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates Neat a grid column of requested size.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "grid-column",
+          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
+          "line": {
+            "start": 21,
+            "end": 29
+          }
+        }
+      },
+      {
+        "description": "Push or pull a Neat grid column by manipulating its left margin.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "grid-push",
+          "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-left: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-left: $_margin-value;\n  }\n",
+          "line": {
+            "start": 20,
+            "end": 32
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Parse a column count like `3 of 5` and retur the total coloumn count.\nThis is to allow a shorthand for custom grids without using a settings map.\n\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 13
+    },
+    "context": {
+      "type": "function",
+      "name": "_neat-parse-columns",
+      "code": "\n  @if length($span) == 3 {\n    $_total-columns: nth($span, 3);\n    @return $_total-columns;\n  } @else if length($span) == 2 or if length($span) >= 3 {\n    @error \"`$column` should contain 2 values, seperated by an `of`\";\n  }\n",
+      "line": {
+        "start": 15,
+        "end": 22
+      }
+    },
+    "parameter": [
+      {
+        "type": "list",
+        "name": "span"
+      }
+    ],
+    "return": {
+      "type": "number"
+    },
+    "example": [
+      {
+        "type": "scss",
+        "code": "_neat-parse-columns(3 of 5)"
+      }
+    ],
+    "access": "private",
+    "group": [
+      "undefined"
+    ],
+    "require": [],
+    "throw": [
+      "`$column` should contain 2 values, seperated by an `of`"
+    ],
+    "file": {
+      "path": "neat/functions/_neat-parse-columns.scss",
+      "name": "_neat-parse-columns.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Determine the ratio of `$columns` to the total column count.\nIf `$columns` is more than one value, they are handed to\n`_neat-parse-columns()` which will detirmine the total columns and use this\nvalue instead of `total-columns`.\n\n",
+        "context": {
+          "type": "function",
+          "name": "_neat-column-ratio",
+          "code": "\n  @if length($columns) > 1 {\n    @return nth($columns, 1) / _neat-parse-columns($columns);\n  } @else if $columns {\n    @return $columns / _retrieve-neat-setting($grid, columns);\n  }\n",
+          "line": {
+            "start": 18,
+            "end": 24
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Return a Neat setting.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 13
+    },
+    "context": {
+      "type": "function",
+      "name": "_retrieve-neat-setting",
+      "code": "\n  $_grid-settings: map-merge($_neat-grid-defaults, $grid);\n  @return map-get($_grid-settings, $setting);\n",
+      "line": {
+        "start": 15,
+        "end": 18
+      }
+    },
+    "parameter": [
+      {
+        "type": "map",
+        "name": "grid"
+      },
+      {
+        "type": "string",
+        "name": "setting"
+      }
+    ],
+    "return": {
+      "type": "boolean | color | list | number | string"
+    },
+    "example": [
+      {
+        "type": "scss",
+        "code": "_retrieve-neat-setting($neat-grid, columns)"
+      }
+    ],
+    "access": "private",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "variable",
+        "name": "_neat-grid-defaults"
+      }
+    ],
+    "file": {
+      "path": "neat/functions/_retrieve-neat-settings.scss",
+      "name": "_retrieve-neat-settings.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Determine if a column count has been given.\nIf no columns have been given return the grid's total column count.\n\n",
+        "context": {
+          "type": "function",
+          "name": "_neat-column-default",
+          "code": "\n  @if $columns == null {\n    $_grid-columns: _retrieve-neat-setting($grid, columns);\n    @return $_grid-columns;\n  } @else {\n    @return $columns;\n  }\n",
+          "line": {
+            "start": 16,
+            "end": 23
+          }
+        }
+      },
+      {
+        "description": "Determine the ratio of `$columns` to the total column count.\nIf `$columns` is more than one value, they are handed to\n`_neat-parse-columns()` which will detirmine the total columns and use this\nvalue instead of `total-columns`.\n\n",
+        "context": {
+          "type": "function",
+          "name": "_neat-column-ratio",
+          "code": "\n  @if length($columns) > 1 {\n    @return nth($columns, 1) / _neat-parse-columns($columns);\n  } @else if $columns {\n    @return $columns / _retrieve-neat-setting($grid, columns);\n  }\n",
+          "line": {
+            "start": 18,
+            "end": 24
+          }
+        }
+      },
+      {
+        "description": "Return a calulated column width that can then be passed in to a `calc()`.\n\n",
+        "context": {
+          "type": "function",
+          "name": "_neat-column-width",
+          "code": "\n  $_column-ratio: _neat-column-ratio($grid, $columns);\n  $_gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $_gutter == 0 {\n    @return unquote(\"#{percentage($_column-ratio)}\");\n  } @else {\n    $_gutter-affordance: $_gutter + ($_gutter * $_column-ratio);\n    @return unquote(\"#{percentage($_column-ratio)} - #{$_gutter-affordance}\");\n  }\n",
+          "line": {
+            "start": 15,
+            "end": 25
+          }
+        }
+      },
+      {
+        "description": "Creates Neat a grid column of requested size.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "grid-column",
+          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
+          "line": {
+            "start": 21,
+            "end": 29
+          }
+        }
+      },
+      {
+        "description": "Push or pull a Neat grid column by manipulating its left margin.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "grid-push",
+          "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-left: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-left: $_margin-value;\n  }\n",
+          "line": {
+            "start": 20,
+            "end": 32
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Creates Neat a grid column of requested size.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 19
+    },
+    "context": {
+      "type": "mixin",
+      "name": "grid-column",
+      "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
+      "line": {
+        "start": 21,
+        "end": 29
+      }
+    },
+    "parameter": [
+      {
+        "type": "number (unitless)",
+        "name": "columns",
+        "default": "null"
+      },
+      {
+        "type": "map",
+        "name": "grid",
+        "default": "$neat-grid",
+        "description": "The grid used to generate the column.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include grid-column(3);\n}"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  width: calc(25% - 25px);\n  float: left;\n  margin-left: 20px;\n}"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "function",
+        "name": "_neat-column-default"
+      },
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      },
+      {
+        "type": "function",
+        "name": "_neat-column-width"
+      }
+    ],
+    "file": {
+      "path": "neat/mixins/_grid-column.scss",
+      "name": "_grid-column.scss"
+    }
+  },
+  {
+    "description": "Creates a Neat grid container with clearfix.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 17
+    },
+    "context": {
+      "type": "mixin",
+      "name": "grid-container",
+      "code": "\n  &::after {\n    clear: both;\n    content: \"\";\n    display: block;\n  }\n",
+      "line": {
+        "start": 19,
+        "end": 25
+      }
+    },
+    "parameter": [
+      {
+        "type": "map",
+        "name": "grid",
+        "default": "$neat-grid",
+        "description": "The type of grid for this column.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include grid-container;\n}"
+      },
+      {
+        "type": "css",
+        "code": ".element::after {\n  clear: both;\n  content: \"\";\n  display: block;\n}"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "neat/mixins/_grid-container.scss",
+      "name": "_grid-container.scss"
+    }
+  },
+  {
+    "description": "Push or pull a Neat grid column by manipulating its left margin.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 18
+    },
+    "context": {
+      "type": "mixin",
+      "name": "grid-push",
+      "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-left: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-left: $_margin-value;\n  }\n",
+      "line": {
+        "start": 20,
+        "end": 32
+      }
+    },
+    "parameter": [
+      {
+        "type": "number (unitless)",
+        "name": "push",
+        "default": "false"
+      },
+      {
+        "type": "map",
+        "name": "grid",
+        "default": "$neat-grid",
+        "description": "The grid to be used to generate the column.\n  By default, the global `$neat-grid` will be used.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include grid-push(3);\n}"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  margin-left: calc(25% - 25px + 40px);\n}"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      },
+      {
+        "type": "function",
+        "name": "_neat-column-width"
+      }
+    ],
+    "file": {
+      "path": "neat/mixins/_grid-push.scss",
+      "name": "_grid-push.scss"
+    }
+  },
+  {
+    "description": "Neat’s default grid.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 12
+    },
+    "context": {
+      "type": "variable",
+      "name": "_neat-grid-defaults",
+      "value": "(\n  columns: 12,\n  gutter: 20px,\n)",
+      "scope": "private",
+      "line": {
+        "start": 14,
+        "end": 17
+      }
+    },
+    "type": "map",
+    "property": [
+      {
+        "type": "number (unitless)",
+        "name": "columns",
+        "default": "12",
+        "description": "Deefault number of grid columns."
+      },
+      {
+        "type": "number (with unit)",
+        "name": "gutter",
+        "default": "20px",
+        "description": "Default grid gutter width."
+      }
+    ],
+    "access": "private",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "neat/settings/_settings.scss",
+      "name": "_settings.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Return a Neat setting.\n\n",
+        "context": {
+          "type": "function",
+          "name": "_retrieve-neat-setting",
+          "code": "\n  $_grid-settings: map-merge($_neat-grid-defaults, $grid);\n  @return map-get($_grid-settings, $setting);\n",
+          "line": {
+            "start": 15,
+            "end": 18
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "This variable is a sass map that overrides Neat's default grid settings.\nUse this to define your project's grid properties incluting gutters, and\ntotal column count.\n\n",
+    "commentRange": {
+      "start": 19,
+      "end": 35
+    },
+    "context": {
+      "type": "variable",
+      "name": "neat-grid",
+      "value": "()",
+      "scope": "default",
+      "line": {
+        "start": 37,
+        "end": 37
+      }
+    },
+    "type": "map",
+    "property": [
+      {
+        "type": "number (unitless)",
+        "name": "columns",
+        "default": "12",
+        "description": "Number of grid columns."
+      },
+      {
+        "type": "number (with unit)",
+        "name": "gutter",
+        "default": "20px",
+        "description": "Grid gutter width."
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "$neat-grid: (\n  columns: 12,\n  gutter: 20px,\n);"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "neat/settings/_settings.scss",
+      "name": "_settings.scss"
+    }
+  }
+]

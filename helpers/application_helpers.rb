@@ -1,6 +1,6 @@
 module ApplicationHelpers
   def github_file_url(file_path, version)
-    "https://github.com/thoughtbot/bourbon/blob/v#{version}/core/#{file_path}"
+    "https://github.com/thoughtbot/neat/blob/v#{version}/core/#{file_path}"
   end
 
   def markdown(contents)
