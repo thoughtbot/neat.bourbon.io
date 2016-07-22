@@ -1,0 +1,1209 @@
+[
+  {
+    "description": "Returns a media context (media query / grid context) that can be stored in a variable and passed to `media()` as a single-keyword argument. Media contexts defined using `new-breakpoint` are used by the visual grid, as long as they are defined before importing Neat.\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 35
+    },
+    "context": {
+      "type": "function",
+      "name": "new-breakpoint",
+      "code": "\n  @if length($query) == 1 {\n    $query: $default-feature nth($query, 1) $total-columns;\n  } @else if is-even(length($query)) {\n    $query: append($query, $total-columns);\n  }\n\n  @if is-not(belongs-to($query, $visual-grid-breakpoints)) {\n    $visual-grid-breakpoints: append($visual-grid-breakpoints, $query, comma) !global;\n  }\n\n  @return $query;\n",
+      "line": {
+        "start": 37,
+        "end": 49
+      }
+    },
+    "parameter": [
+      {
+        "type": "List",
+        "name": "query",
+        "description": "A list of media query features and values. Each `$feature` should have a corresponding `$value`.\n\n  If there is only a single `$value` in `$query`, `$default-feature` is going to be used.\n\n  The number of total columns in the grid can be set by passing `$columns` at the end of the list (overrides `$total-columns`). For a list of valid values for `$feature`, click [here](http://www.w3.org/TR/css3-mediaqueries/#media1).\n"
+      },
+      {
+        "type": "Number (unitless)",
+        "name": "total-columns",
+        "description": "($grid-columns)\n  - Number of columns to use in the new grid context. Can be set as a shorthand in the first parameter.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "$mobile: new-breakpoint(max-width 480px 4);\n\n.element {\n  @include media($mobile) {\n    @include span-columns(4);\n  }\n}",
+        "description": "Usage"
+      },
+      {
+        "type": "css",
+        "code": "@media screen and (max-width: 480px) {\n  .element {\n    display: block;\n    float: left;\n    margin-right: 7.42297%;\n    width: 100%;\n  }\n  .element:last-child {\n    margin-right: 0;\n  }\n}",
+        "description": "CSS Output"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "variable",
+        "name": "default-feature"
+      }
+    ],
+    "file": {
+      "path": "functions/_new-breakpoint.scss",
+      "name": "_new-breakpoint.scss"
+    }
+  },
+  {
+    "description": "Changes the direction property used by other mixins called in the code block argument.\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 19
+    },
+    "context": {
+      "type": "mixin",
+      "name": "direction-context",
+      "code": "\n  $scope-direction: $layout-direction;\n\n  @if to-lower-case($direction) == \"left-to-right\" {\n    $layout-direction: LTR !global;\n  } @else if to-lower-case($direction) == \"right-to-left\" {\n    $layout-direction: RTL !global;\n  }\n\n  @content;\n\n  $layout-direction: $scope-direction !global;\n",
+      "line": {
+        "start": 21,
+        "end": 33
+      }
+    },
+    "parameter": [
+      {
+        "type": "String",
+        "name": "direction",
+        "description": "(left-to-right)\n  Layout direction to be used within the block. Can be `left-to-right` or `right-to-left`.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "@include direction-context(right-to-left) {\n .right-to-left-block {\n   @include span-columns(6);\n  }\n}",
+        "description": "Usage"
+      },
+      {
+        "type": "css",
+        "code": ".right-to-left-block {\n  float: right;\n   ...\n}",
+        "description": "CSS Output"
+      }
+    ],
+    "access": "public",
+    "content": "",
+    "group": [
+      "undefined"
+    ],
+    "require": [],
+    "file": {
+      "path": "grid/_direction-context.scss",
+      "name": "_direction-context.scss"
+    }
+  },
+  {
+    "description": "Changes the display property used by other mixins called in the code block argument.\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 19
+    },
+    "context": {
+      "type": "mixin",
+      "name": "display-context",
+      "code": "\n  $scope-display: $container-display-table;\n  $container-display-table: $display == table !global;\n\n  @content;\n\n  $container-display-table: $scope-display !global;\n",
+      "line": {
+        "start": 21,
+        "end": 28
+      }
+    },
+    "parameter": [
+      {
+        "type": "String",
+        "name": "display",
+        "description": "(block)\n  Display value to be used within the block. Can be `table` or `block`.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "@include display-context(table) {\n .display-table {\n   @include span-columns(6);\n  }\n}"
+      },
+      {
+        "type": "css",
+        "code": ".display-table {\n   display: table-cell;\n   ...\n}"
+      }
+    ],
+    "access": "public",
+    "content": "",
+    "group": [
+      "undefined"
+    ],
+    "require": [],
+    "file": {
+      "path": "grid/_display-context.scss",
+      "name": "_display-context.scss"
+    }
+  },
+  {
+    "description": "Forces the element to fill its parent container.\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 16
+    },
+    "context": {
+      "type": "mixin",
+      "name": "fill-parent",
+      "code": "\n  width: 100%;\n\n  @if $border-box-sizing == false {\n    @include box-sizing(border-box);\n  }\n",
+      "line": {
+        "start": 18,
+        "end": 24
+      }
+    },
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include fill-parent;\n}",
+        "description": "Usage"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  width: 100%;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}",
+        "description": "CSS Output"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "variable",
+        "name": "border-box-sizing"
+      }
+    ],
+    "file": {
+      "path": "grid/_fill-parent.scss",
+      "name": "_fill-parent.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Designates the element as a row of columns in the grid layout. It clears the floats on the element and sets its display property. Rows can't be nested, but there can be more than one row element—with different display properties—per layout.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "row",
+          "code": "\n  @if $direction != $default-layout-direction {\n    @include -neat-warn(\"The $direction argument will be deprecated in future versions in favor of the direction(){...} mixin.\");\n  }\n\n  $layout-direction: $direction !global;\n\n  @if $display != default {\n    @include -neat-warn(\"The $display argument will be deprecated in future versions in favor of the display(){...} mixin.\");\n  }\n\n  @if $display == table {\n    display: table;\n    @include fill-parent;\n    table-layout: fixed;\n    $container-display-table: true !global;\n  } @else {\n    @include clearfix;\n    display: block;\n    $container-display-table: false !global;\n  }\n",
+          "line": {
+            "start": 31,
+            "end": 52
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Outputs a media-query block with an optional grid context (the total number of columns used in the grid).\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 55
+    },
+    "context": {
+      "type": "mixin",
+      "name": "media",
+      "code": "\n  @if length($query) == 1 {\n    @media screen and ($default-feature: nth($query, 1)) {\n      $default-grid-columns: $grid-columns;\n      $grid-columns: $total-columns !global;\n      @content;\n      $grid-columns: $default-grid-columns !global;\n    }\n  } @else {\n    $loop-to: length($query);\n    $media-query: \"screen and \";\n    $default-grid-columns: $grid-columns;\n    $grid-columns: $total-columns !global;\n\n    @if is-not(is-even(length($query))) {\n      $grid-columns: nth($query, $loop-to) !global;\n      $loop-to: $loop-to - 1;\n    }\n\n    $i: 1;\n    @while $i <= $loop-to {\n      $media-query: $media-query + \"(\" + nth($query, $i) + \": \" + nth($query, $i + 1) + \") \";\n\n      @if ($i + 1) != $loop-to {\n        $media-query: $media-query + \"and \";\n      }\n\n      $i: $i + 2;\n    }\n\n    @media #{$media-query} {\n      @content;\n      $grid-columns: $default-grid-columns !global;\n    }\n  }\n",
+      "line": {
+        "start": 57,
+        "end": 92
+      }
+    },
+    "parameter": [
+      {
+        "type": "List",
+        "name": "query",
+        "description": "A list of media query features and values, where each `$feature` should have a corresponding `$value`.\n  For a list of valid values for `$feature`, click [here](http://www.w3.org/TR/css3-mediaqueries/#media1).\n\n  If there is only a single `$value` in `$query`, `$default-feature` is going to be used.\n\n  The number of total columns in the grid can be set by passing `$columns` at the end of the list (overrides `$total-columns`).\n\n"
+      },
+      {
+        "type": "Number (unitless)",
+        "name": "total-columns",
+        "description": "($grid-columns)\n  - Number of columns to use in the new grid context. Can be set as a shorthand in the first parameter.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": " .responsive-element {\n    @include media(769px) {\n      @include span-columns(6);\n    }\n }\n\n.new-context-element {\n  @include media(min-width 320px max-width 480px, 6) {\n    @include span-columns(6);\n  }\n}",
+        "description": "Usage"
+      },
+      {
+        "type": "css",
+        "code": "@media screen and (min-width: 769px) {\n  .responsive-element {\n    display: block;\n    float: left;\n    margin-right: 2.35765%;\n    width: 48.82117%;\n  }\n\n  .responsive-element:last-child {\n    margin-right: 0;\n  }\n}\n\n@media screen and (min-width: 320px) and (max-width: 480px) {\n  .new-context-element {\n    display: block;\n    float: left;\n    margin-right: 4.82916%;\n    width: 100%;\n  }\n\n  .new-context-element:last-child {\n    margin-right: 0;\n  }\n}",
+        "description": "CSS Output"
+      }
+    ],
+    "access": "public",
+    "content": "",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "variable",
+        "name": "default-feature"
+      },
+      {
+        "type": "variable",
+        "name": "grid-columns"
+      }
+    ],
+    "file": {
+      "path": "grid/_media.scss",
+      "name": "_media.scss"
+    }
+  },
+  {
+    "description": "Removes the element's gutter margin, regardless of its position in the grid hierarchy or display property. It can target a specific element, or every `nth-child` occurrence. Works only with `block` layouts.\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 32
+    },
+    "context": {
+      "type": "mixin",
+      "name": "omega",
+      "code": "\n  $table: belongs-to(table, $query);\n  $auto: belongs-to(auto, $query);\n\n  @if $direction != default {\n    @include -neat-warn(\"The omega mixin will no longer take a $direction argument. To change the layout direction, use the direction(){...} mixin.\");\n  } @else {\n    $direction: get-direction($layout-direction, $default-layout-direction);\n  }\n\n  @if $table {\n    @include -neat-warn(\"The omega mixin no longer removes padding in table layouts.\");\n  }\n\n  @if length($query) == 1 {\n    @if $auto {\n      &:last-child {\n        margin-#{$direction}: 0;\n      }\n    }\n\n    @else if contains-display-value($query) and $table == false {\n      margin-#{$direction}: 0;\n    }\n\n    @else {\n      @include nth-child($query, $direction);\n    }\n  } @else if length($query) == 2 {\n    @if $auto {\n      &:last-child {\n        margin-#{$direction}: 0;\n      }\n    } @else {\n      @include nth-child(nth($query, 1), $direction);\n    }\n  } @else {\n    @include -neat-warn(\"Too many arguments passed to the omega() mixin.\");\n  }\n",
+      "line": {
+        "start": 34,
+        "end": 73
+      }
+    },
+    "parameter": [
+      {
+        "type": "List",
+        "name": "query",
+        "description": "(block)\n  List of arguments. Supported arguments are `nth-child` selectors (targets a specific pseudo element) and `auto` (targets `last-child`).\n\n  When passed an `nth-child` argument of type `*n` with `block` display, the omega mixin automatically adds a clear to the `*n+1` th element. Note that composite arguments such as `2n+1` do not support this feature.\n\n  **Deprecation warning**: The omega mixin will no longer take a `$direction` argument. To change the layout direction, use `row($direction)` or set `$default-layout-direction` instead.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include omega;\n}\n\n.nth-element {\n  @include omega(4n);\n}",
+        "description": "Usage"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  margin-right: 0;\n}\n\n.nth-element:nth-child(4n) {\n  margin-right: 0;\n}\n\n.nth-element:nth-child(4n+1) {\n  clear: left;\n}",
+        "description": "CSS Output"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "variable",
+        "name": "default-layout-direction"
+      }
+    ],
+    "file": {
+      "path": "grid/_omega.scss",
+      "name": "_omega.scss"
+    }
+  },
+  {
+    "description": "Makes an element a outer container by centring it in the viewport, clearing its floats, and setting its `max-width`.\nAlthough optional, using `outer-container` is recommended. The mixin can be called on more than one element per page, as long as they are not nested.\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 29
+    },
+    "context": {
+      "type": "mixin",
+      "name": "outer-container",
+      "code": "\n  @include clearfix;\n  max-width: $local-max-width;\n  margin: {\n    left: auto;\n    right: auto;\n  }\n",
+      "line": {
+        "start": 31,
+        "end": 38
+      }
+    },
+    "parameter": [
+      {
+        "type": "Number (unit)",
+        "name": "local-max-width",
+        "description": "($max-width)\n  Max width to be applied to the element. Can be a percentage or a measure.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include outer-container(100%);\n}",
+        "description": "Usage"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  *zoom: 1;\n  max-width: 100%;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.element:before, .element:after {\n  content: \" \";\n  display: table;\n}\n\n.element:after {\n  clear: both;\n}",
+        "description": "CSS Output"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [],
+    "file": {
+      "path": "grid/_outer-container.scss",
+      "name": "_outer-container.scss"
+    }
+  },
+  {
+    "description": "Adds padding to the element.\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 16
+    },
+    "context": {
+      "type": "mixin",
+      "name": "pad",
+      "code": "\n  $padding-list: null;\n  @each $value in $padding {\n    $value: if($value == 'default', flex-gutter(), $value);\n    $padding-list: join($padding-list, $value);\n  }\n  padding: $padding-list;\n",
+      "line": {
+        "start": 18,
+        "end": 25
+      }
+    },
+    "parameter": [
+      {
+        "type": "List",
+        "name": "padding",
+        "description": "(flex-gutter())\n  A list of padding value(s) to use. Passing `default` in the list will result in using the gutter width as a padding value.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include pad(30px -20px 10px default);\n}",
+        "description": "Usage"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  padding: 30px -20px 10px 2.35765%;\n}",
+        "description": "CSS Output"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [],
+    "file": {
+      "path": "grid/_pad.scss",
+      "name": "_pad.scss"
+    }
+  },
+  {
+    "description": "Designates the element as a row of columns in the grid layout. It clears the floats on the element and sets its display property. Rows can't be nested, but there can be more than one row element—with different display properties—per layout.\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 29
+    },
+    "context": {
+      "type": "mixin",
+      "name": "row",
+      "code": "\n  @if $direction != $default-layout-direction {\n    @include -neat-warn(\"The $direction argument will be deprecated in future versions in favor of the direction(){...} mixin.\");\n  }\n\n  $layout-direction: $direction !global;\n\n  @if $display != default {\n    @include -neat-warn(\"The $display argument will be deprecated in future versions in favor of the display(){...} mixin.\");\n  }\n\n  @if $display == table {\n    display: table;\n    @include fill-parent;\n    table-layout: fixed;\n    $container-display-table: true !global;\n  } @else {\n    @include clearfix;\n    display: block;\n    $container-display-table: false !global;\n  }\n",
+      "line": {
+        "start": 31,
+        "end": 52
+      }
+    },
+    "parameter": [
+      {
+        "type": "String",
+        "name": "display",
+        "description": "(default)\n Sets the display property of the element and the display context that will be used by its children. Can be `block` or `table`.\n"
+      },
+      {
+        "type": "String",
+        "name": "direction",
+        "description": "($default-layout-direction)\n Sets the layout direction. Can be `LTR` (left-to-right) or `RTL` (right-to-left).\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include row();\n}",
+        "description": "Usage"
+      },
+      {
+        "type": "css",
+        "code": " .element {\n   *zoom: 1;\n   display: block;\n }\n\n.element:before, .element:after {\n  content: \" \";\n  display: table;\n}\n\n.element:after {\n  clear: both;\n}",
+        "description": "CSS Output"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "mixin",
+        "name": "fill-parent"
+      },
+      {
+        "type": "variable",
+        "name": "default-layout-direction"
+      }
+    ],
+    "file": {
+      "path": "grid/_row.scss",
+      "name": "_row.scss"
+    }
+  },
+  {
+    "description": "Translates an element horizontally by a number of columns. Positive arguments shift the element to the active layout direction, while negative ones shift it to the opposite direction.\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 16
+    },
+    "context": {
+      "type": "mixin",
+      "name": "shift",
+      "code": "\n  @include shift-in-context($n-columns);\n",
+      "line": {
+        "start": 18,
+        "end": 20
+      }
+    },
+    "parameter": [
+      {
+        "type": "Number (unitless)",
+        "name": "n-columns",
+        "description": "(1)\n  Number of columns by which the element shifts.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include shift(-3);\n}",
+        "description": "Usage"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  margin-left: -25.58941%;\n}",
+        "description": "CSS output"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "mixin",
+        "name": "shift-in-context"
+      }
+    ],
+    "file": {
+      "path": "grid/_shift.scss",
+      "name": "_shift.scss"
+    }
+  },
+  {
+    "description": "Translates an element horizontally by a number of columns, in a specific nesting context.\n\n",
+    "commentRange": {
+      "start": 22,
+      "end": 37
+    },
+    "context": {
+      "type": "mixin",
+      "name": "shift-in-context",
+      "code": "\n  $n-columns: nth($shift, 1);\n  $parent-columns: container-shift($shift) !global;\n\n  $direction: get-direction($layout-direction, $default-layout-direction);\n  $opposite-direction: get-opposite-direction($direction);\n\n  margin-#{$opposite-direction}: $n-columns * flex-grid(1, $parent-columns) + $n-columns * flex-gutter($parent-columns);\n\n  // Reset nesting context\n  $parent-columns: $grid-columns !global;\n",
+      "line": {
+        "start": 39,
+        "end": 50
+      }
+    },
+    "parameter": [
+      {
+        "type": "List",
+        "name": "shift",
+        "description": "A list containing the number of columns to shift (`$columns`) and the number of columns of the parent element (`$container-columns`).\n\n  The two values can be separated with any string such as `of`, `/`, etc.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include shift(-3 of 6);\n}",
+        "description": "Usage"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  margin-left: -52.41458%;\n}",
+        "description": "CSS output"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "variable",
+        "name": "default-layout-direction"
+      },
+      {
+        "type": "variable",
+        "name": "grid-columns"
+      }
+    ],
+    "file": {
+      "path": "grid/_shift.scss",
+      "name": "_shift.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Translates an element horizontally by a number of columns. Positive arguments shift the element to the active layout direction, while negative ones shift it to the opposite direction.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "shift",
+          "code": "\n  @include shift-in-context($n-columns);\n",
+          "line": {
+            "start": 18,
+            "end": 20
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Specifies the number of columns an element should span. If the selector is nested the number of columns of its parent element should be passed as an argument as well.\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 49
+    },
+    "context": {
+      "type": "mixin",
+      "name": "span-columns",
+      "code": "\n  $columns: nth($span, 1);\n  $container-columns: container-span($span);\n\n  $parent-columns: get-parent-columns($container-columns) !global;\n\n  $direction: get-direction($layout-direction, $default-layout-direction);\n  $opposite-direction: get-opposite-direction($direction);\n\n  $display-table: is-display-table($container-display-table, $display);\n\n  @if $display-table  {\n    display: table-cell;\n    width: percentage($columns / $container-columns);\n  } @else {\n    float: #{$opposite-direction};\n\n    @if $display != no-display {\n      display: block;\n    }\n\n    @if $display == collapse {\n      @include -neat-warn(\"The 'collapse' argument will be deprecated. Use 'block-collapse' instead.\");\n    }\n\n    @if $display == collapse or $display == block-collapse {\n      width: flex-grid($columns, $container-columns) + flex-gutter($container-columns);\n\n      &:last-child {\n        width: flex-grid($columns, $container-columns);\n      }\n\n    } @else {\n      margin-#{$direction}: flex-gutter($container-columns);\n      width: flex-grid($columns, $container-columns);\n\n      &:last-child {\n        margin-#{$direction}: 0;\n      }\n    }\n  }\n",
+      "line": {
+        "start": 51,
+        "end": 92
+      }
+    },
+    "parameter": [
+      {
+        "type": "List",
+        "name": "span",
+        "description": "A list containing `$columns`, the unitless number of columns the element spans (required), and `$container-columns`, the number of columns the parent element spans (optional).\n\n  If only one value is passed, it is assumed that it's `$columns` and that that `$container-columns` is equal to `$grid-columns`, the total number of columns in the grid.\n\n  The values can be separated with any string such as `of`, `/`, etc.\n"
+      },
+      {
+        "type": "String",
+        "name": "display",
+        "description": "(block)\n  Sets the display property of the element. By default it sets the display propert of the element to `block`.\n\n  If passed `block-collapse`, it also removes the margin gutter by adding it to the element width.\n\n  If passed `table`, it sets the display property to `table-cell` and calculates the width of the element without taking gutters into consideration. The result does not align with the block-based grid.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": " .element {\n   @include span-columns(6);\n\n  .nested-element {\n    @include span-columns(2 of 6);\n  }\n}",
+        "description": "Usage"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  display: block;\n  float: left;\n  margin-right: 2.35765%;\n  width: 48.82117%;\n}\n\n.element:last-child {\n  margin-right: 0;\n}\n\n.element .nested-element {\n  display: block;\n  float: left;\n  margin-right: 4.82916%;\n  width: 30.11389%;\n}\n\n.element .nested-element:last-child {\n  margin-right: 0;\n}",
+        "description": "CSS Output"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "variable",
+        "name": "default-layout-direction"
+      }
+    ],
+    "file": {
+      "path": "grid/_span-columns.scss",
+      "name": "_span-columns.scss"
+    }
+  },
+  {
+    "description": "Resets the active display property to `block`. Particularly useful when changing the display property in a single row.\n\n",
+    "commentRange": {
+      "start": 51,
+      "end": 60
+    },
+    "context": {
+      "type": "mixin",
+      "name": "reset-display",
+      "code": "\n  $container-display-table: false !global;\n  @include -neat-warn(\"Resetting $display will be deprecated in future versions in favor of the display(){...} mixin.\");\n",
+      "line": {
+        "start": 62,
+        "end": 65
+      }
+    },
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include row(table);\n  // Context changed to table display\n}\n\n@include reset-display;\n// Context is reset to block display",
+        "description": "Usage"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [],
+    "file": {
+      "path": "grid/_to-deprecate.scss",
+      "name": "_to-deprecate.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Resets both the active layout direction and the active display property.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "reset-all",
+          "code": "\n  @include reset-display;\n  @include reset-layout-direction;\n",
+          "line": {
+            "start": 94,
+            "end": 97
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Resets the active layout direction to the default value set in `$default-layout-direction`. Particularly useful when changing the layout direction in a single row.\n\n",
+    "commentRange": {
+      "start": 67,
+      "end": 76
+    },
+    "context": {
+      "type": "mixin",
+      "name": "reset-layout-direction",
+      "code": "\n  $layout-direction: $default-layout-direction !global;\n  @include -neat-warn(\"Resetting $direction will be deprecated in future versions in favor of the direction(){...} mixin.\");\n",
+      "line": {
+        "start": 78,
+        "end": 81
+      }
+    },
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include row($direction: RTL);\n  // Context changed to right-to-left\n}\n\n@include reset-layout-direction;\n// Context is reset to left-to-right",
+        "description": "Usage"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "variable",
+        "name": "default-layout-direction"
+      }
+    ],
+    "file": {
+      "path": "grid/_to-deprecate.scss",
+      "name": "_to-deprecate.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Resets both the active layout direction and the active display property.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "reset-all",
+          "code": "\n  @include reset-display;\n  @include reset-layout-direction;\n",
+          "line": {
+            "start": 94,
+            "end": 97
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Resets both the active layout direction and the active display property.\n\n",
+    "commentRange": {
+      "start": 83,
+      "end": 92
+    },
+    "context": {
+      "type": "mixin",
+      "name": "reset-all",
+      "code": "\n  @include reset-display;\n  @include reset-layout-direction;\n",
+      "line": {
+        "start": 94,
+        "end": 97
+      }
+    },
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include row(table, RTL);\n  // Context changed to table table and right-to-left\n}\n\n@include reset-all;\n// Context is reset to block display and left-to-right",
+        "description": "Usage"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "mixin",
+        "name": "reset-display"
+      },
+      {
+        "type": "mixin",
+        "name": "reset-layout-direction"
+      }
+    ],
+    "file": {
+      "path": "grid/_to-deprecate.scss",
+      "name": "_to-deprecate.scss"
+    }
+  },
+  {
+    "description": "Disable all deprecation warnings. Defaults to `false`. Set with a `!global` flag.\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 5
+    },
+    "context": {
+      "type": "variable",
+      "name": "disable-warnings",
+      "value": "false",
+      "scope": "default",
+      "line": {
+        "start": 7,
+        "end": 7
+      }
+    },
+    "type": "Bool",
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "settings/_disable-warnings.scss",
+      "name": "_disable-warnings.scss"
+    }
+  },
+  {
+    "description": "Sets the relative width of a single grid column. The unit used should be the same one used to define `$gutter`. To learn more about golden-ratio() see [Bourbon docs](http://bourbon.io/docs/#golden-ratio). Set with a `!global` flag.\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 5
+    },
+    "context": {
+      "type": "variable",
+      "name": "column",
+      "value": "golden-ratio(1em, 3)",
+      "scope": "default",
+      "line": {
+        "start": 7,
+        "end": 7
+      }
+    },
+    "type": "Number (Unit)",
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "settings/_grid.scss",
+      "name": "_grid.scss"
+    }
+  },
+  {
+    "description": "Sets the relative width of a single grid gutter. The unit used should be the same one used to define `$column`. To learn more about golden-ratio() see [Bourbon docs](http://bourbon.io/docs/#golden-ratio). Set with the `!global` flag.\n\n",
+    "commentRange": {
+      "start": 9,
+      "end": 11
+    },
+    "context": {
+      "type": "variable",
+      "name": "gutter",
+      "value": "golden-ratio(1em, 1)",
+      "scope": "default",
+      "line": {
+        "start": 13,
+        "end": 13
+      }
+    },
+    "type": "Number (Unit)",
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "settings/_grid.scss",
+      "name": "_grid.scss"
+    }
+  },
+  {
+    "description": "Sets the total number of columns in the grid. Its value can be overridden inside a media query using the `media()` mixin. Set with the `!global` flag.\n\n",
+    "commentRange": {
+      "start": 15,
+      "end": 17
+    },
+    "context": {
+      "type": "variable",
+      "name": "grid-columns",
+      "value": "12",
+      "scope": "default",
+      "line": {
+        "start": 19,
+        "end": 19
+      }
+    },
+    "type": "Number (Unitless)",
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "settings/_grid.scss",
+      "name": "_grid.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Outputs a media-query block with an optional grid context (the total number of columns used in the grid).\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "media",
+          "code": "\n  @if length($query) == 1 {\n    @media screen and ($default-feature: nth($query, 1)) {\n      $default-grid-columns: $grid-columns;\n      $grid-columns: $total-columns !global;\n      @content;\n      $grid-columns: $default-grid-columns !global;\n    }\n  } @else {\n    $loop-to: length($query);\n    $media-query: \"screen and \";\n    $default-grid-columns: $grid-columns;\n    $grid-columns: $total-columns !global;\n\n    @if is-not(is-even(length($query))) {\n      $grid-columns: nth($query, $loop-to) !global;\n      $loop-to: $loop-to - 1;\n    }\n\n    $i: 1;\n    @while $i <= $loop-to {\n      $media-query: $media-query + \"(\" + nth($query, $i) + \": \" + nth($query, $i + 1) + \") \";\n\n      @if ($i + 1) != $loop-to {\n        $media-query: $media-query + \"and \";\n      }\n\n      $i: $i + 2;\n    }\n\n    @media #{$media-query} {\n      @content;\n      $grid-columns: $default-grid-columns !global;\n    }\n  }\n",
+          "line": {
+            "start": 57,
+            "end": 92
+          }
+        }
+      },
+      {
+        "description": "Translates an element horizontally by a number of columns, in a specific nesting context.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "shift-in-context",
+          "code": "\n  $n-columns: nth($shift, 1);\n  $parent-columns: container-shift($shift) !global;\n\n  $direction: get-direction($layout-direction, $default-layout-direction);\n  $opposite-direction: get-opposite-direction($direction);\n\n  margin-#{$opposite-direction}: $n-columns * flex-grid(1, $parent-columns) + $n-columns * flex-gutter($parent-columns);\n\n  // Reset nesting context\n  $parent-columns: $grid-columns !global;\n",
+          "line": {
+            "start": 39,
+            "end": 50
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Sets the max-width property of the element that includes `outer-container()`. To learn more about `em()` see [Bourbon docs](http://bourbon.io/docs/#px-to-em). Set with the `!global` flag.\n\n",
+    "commentRange": {
+      "start": 21,
+      "end": 24
+    },
+    "context": {
+      "type": "variable",
+      "name": "max-width",
+      "value": "em(1088)",
+      "scope": "default",
+      "line": {
+        "start": 25,
+        "end": 25
+      }
+    },
+    "type": "Number (Unit)",
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "settings/_grid.scss",
+      "name": "_grid.scss"
+    }
+  },
+  {
+    "description": "When set to true, it sets the box-sizing property of all elements to `border-box`. Set with a `!global` flag.\n\n",
+    "commentRange": {
+      "start": 27,
+      "end": 41
+    },
+    "context": {
+      "type": "variable",
+      "name": "border-box-sizing",
+      "value": "true",
+      "scope": "default",
+      "line": {
+        "start": 43,
+        "end": 43
+      }
+    },
+    "type": "Bool",
+    "example": [
+      {
+        "type": "css",
+        "code": "html {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box; }\n\n*, *:before, *:after {\n  -webkit-box-sizing: inherit;\n  -moz-box-sizing: inherit;\n  box-sizing: inherit;\n}",
+        "description": "CSS Output"
+      }
+    ],
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "settings/_grid.scss",
+      "name": "_grid.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Forces the element to fill its parent container.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "fill-parent",
+          "code": "\n  width: 100%;\n\n  @if $border-box-sizing == false {\n    @include box-sizing(border-box);\n  }\n",
+          "line": {
+            "start": 18,
+            "end": 24
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Sets the default [media feature](http://www.w3.org/TR/css3-mediaqueries/#media) that `media()` and `new-breakpoint()` revert to when only a breakpoint value is passed. Set with a `!global` flag.\n\n",
+    "commentRange": {
+      "start": 45,
+      "end": 47
+    },
+    "context": {
+      "type": "variable",
+      "name": "default-feature",
+      "value": "min-width",
+      "scope": "private",
+      "line": {
+        "start": 49,
+        "end": 49
+      }
+    },
+    "type": "String",
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "settings/_grid.scss",
+      "name": "_grid.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Returns a media context (media query / grid context) that can be stored in a variable and passed to `media()` as a single-keyword argument. Media contexts defined using `new-breakpoint` are used by the visual grid, as long as they are defined before importing Neat.\n\n",
+        "context": {
+          "type": "function",
+          "name": "new-breakpoint",
+          "code": "\n  @if length($query) == 1 {\n    $query: $default-feature nth($query, 1) $total-columns;\n  } @else if is-even(length($query)) {\n    $query: append($query, $total-columns);\n  }\n\n  @if is-not(belongs-to($query, $visual-grid-breakpoints)) {\n    $visual-grid-breakpoints: append($visual-grid-breakpoints, $query, comma) !global;\n  }\n\n  @return $query;\n",
+          "line": {
+            "start": 37,
+            "end": 49
+          }
+        }
+      },
+      {
+        "description": "Outputs a media-query block with an optional grid context (the total number of columns used in the grid).\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "media",
+          "code": "\n  @if length($query) == 1 {\n    @media screen and ($default-feature: nth($query, 1)) {\n      $default-grid-columns: $grid-columns;\n      $grid-columns: $total-columns !global;\n      @content;\n      $grid-columns: $default-grid-columns !global;\n    }\n  } @else {\n    $loop-to: length($query);\n    $media-query: \"screen and \";\n    $default-grid-columns: $grid-columns;\n    $grid-columns: $total-columns !global;\n\n    @if is-not(is-even(length($query))) {\n      $grid-columns: nth($query, $loop-to) !global;\n      $loop-to: $loop-to - 1;\n    }\n\n    $i: 1;\n    @while $i <= $loop-to {\n      $media-query: $media-query + \"(\" + nth($query, $i) + \": \" + nth($query, $i + 1) + \") \";\n\n      @if ($i + 1) != $loop-to {\n        $media-query: $media-query + \"and \";\n      }\n\n      $i: $i + 2;\n    }\n\n    @media #{$media-query} {\n      @content;\n      $grid-columns: $default-grid-columns !global;\n    }\n  }\n",
+          "line": {
+            "start": 57,
+            "end": 92
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Sets the default layout direction of the grid. Can be `LTR` or `RTL`. Set with a `!global` flag.\n\n",
+    "commentRange": {
+      "start": 51,
+      "end": 53
+    },
+    "context": {
+      "type": "variable",
+      "name": "default-layout-direction",
+      "value": "LTR",
+      "scope": "default",
+      "line": {
+        "start": 55,
+        "end": 55
+      }
+    },
+    "type": "String",
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "settings/_grid.scss",
+      "name": "_grid.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Removes the element's gutter margin, regardless of its position in the grid hierarchy or display property. It can target a specific element, or every `nth-child` occurrence. Works only with `block` layouts.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "omega",
+          "code": "\n  $table: belongs-to(table, $query);\n  $auto: belongs-to(auto, $query);\n\n  @if $direction != default {\n    @include -neat-warn(\"The omega mixin will no longer take a $direction argument. To change the layout direction, use the direction(){...} mixin.\");\n  } @else {\n    $direction: get-direction($layout-direction, $default-layout-direction);\n  }\n\n  @if $table {\n    @include -neat-warn(\"The omega mixin no longer removes padding in table layouts.\");\n  }\n\n  @if length($query) == 1 {\n    @if $auto {\n      &:last-child {\n        margin-#{$direction}: 0;\n      }\n    }\n\n    @else if contains-display-value($query) and $table == false {\n      margin-#{$direction}: 0;\n    }\n\n    @else {\n      @include nth-child($query, $direction);\n    }\n  } @else if length($query) == 2 {\n    @if $auto {\n      &:last-child {\n        margin-#{$direction}: 0;\n      }\n    } @else {\n      @include nth-child(nth($query, 1), $direction);\n    }\n  } @else {\n    @include -neat-warn(\"Too many arguments passed to the omega() mixin.\");\n  }\n",
+          "line": {
+            "start": 34,
+            "end": 73
+          }
+        }
+      },
+      {
+        "description": "Designates the element as a row of columns in the grid layout. It clears the floats on the element and sets its display property. Rows can't be nested, but there can be more than one row element—with different display properties—per layout.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "row",
+          "code": "\n  @if $direction != $default-layout-direction {\n    @include -neat-warn(\"The $direction argument will be deprecated in future versions in favor of the direction(){...} mixin.\");\n  }\n\n  $layout-direction: $direction !global;\n\n  @if $display != default {\n    @include -neat-warn(\"The $display argument will be deprecated in future versions in favor of the display(){...} mixin.\");\n  }\n\n  @if $display == table {\n    display: table;\n    @include fill-parent;\n    table-layout: fixed;\n    $container-display-table: true !global;\n  } @else {\n    @include clearfix;\n    display: block;\n    $container-display-table: false !global;\n  }\n",
+          "line": {
+            "start": 31,
+            "end": 52
+          }
+        }
+      },
+      {
+        "description": "Translates an element horizontally by a number of columns, in a specific nesting context.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "shift-in-context",
+          "code": "\n  $n-columns: nth($shift, 1);\n  $parent-columns: container-shift($shift) !global;\n\n  $direction: get-direction($layout-direction, $default-layout-direction);\n  $opposite-direction: get-opposite-direction($direction);\n\n  margin-#{$opposite-direction}: $n-columns * flex-grid(1, $parent-columns) + $n-columns * flex-gutter($parent-columns);\n\n  // Reset nesting context\n  $parent-columns: $grid-columns !global;\n",
+          "line": {
+            "start": 39,
+            "end": 50
+          }
+        }
+      },
+      {
+        "description": "Specifies the number of columns an element should span. If the selector is nested the number of columns of its parent element should be passed as an argument as well.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "span-columns",
+          "code": "\n  $columns: nth($span, 1);\n  $container-columns: container-span($span);\n\n  $parent-columns: get-parent-columns($container-columns) !global;\n\n  $direction: get-direction($layout-direction, $default-layout-direction);\n  $opposite-direction: get-opposite-direction($direction);\n\n  $display-table: is-display-table($container-display-table, $display);\n\n  @if $display-table  {\n    display: table-cell;\n    width: percentage($columns / $container-columns);\n  } @else {\n    float: #{$opposite-direction};\n\n    @if $display != no-display {\n      display: block;\n    }\n\n    @if $display == collapse {\n      @include -neat-warn(\"The 'collapse' argument will be deprecated. Use 'block-collapse' instead.\");\n    }\n\n    @if $display == collapse or $display == block-collapse {\n      width: flex-grid($columns, $container-columns) + flex-gutter($container-columns);\n\n      &:last-child {\n        width: flex-grid($columns, $container-columns);\n      }\n\n    } @else {\n      margin-#{$direction}: flex-gutter($container-columns);\n      width: flex-grid($columns, $container-columns);\n\n      &:last-child {\n        margin-#{$direction}: 0;\n      }\n    }\n  }\n",
+          "line": {
+            "start": 51,
+            "end": 92
+          }
+        }
+      },
+      {
+        "description": "Resets the active layout direction to the default value set in `$default-layout-direction`. Particularly useful when changing the layout direction in a single row.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "reset-layout-direction",
+          "code": "\n  $layout-direction: $default-layout-direction !global;\n  @include -neat-warn(\"Resetting $direction will be deprecated in future versions in favor of the direction(){...} mixin.\");\n",
+          "line": {
+            "start": 78,
+            "end": 81
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Displays the visual grid when set to true. The overlaid grid may be few pixels off depending on the browser's rendering engine and pixel rounding algorithm. Set with the `!global` flag.\n\n",
+    "commentRange": {
+      "start": 3,
+      "end": 5
+    },
+    "context": {
+      "type": "variable",
+      "name": "visual-grid",
+      "value": "false",
+      "scope": "default",
+      "line": {
+        "start": 7,
+        "end": 7
+      }
+    },
+    "type": "Bool",
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "settings/_visual-grid.scss",
+      "name": "_visual-grid.scss"
+    }
+  },
+  {
+    "description": "Sets the visual grid color. Set with `!global` flag.\n\n",
+    "commentRange": {
+      "start": 9,
+      "end": 11
+    },
+    "context": {
+      "type": "variable",
+      "name": "visual-grid-color",
+      "value": "#eee",
+      "scope": "default",
+      "line": {
+        "start": 13,
+        "end": 13
+      }
+    },
+    "type": "Color",
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "settings/_visual-grid.scss",
+      "name": "_visual-grid.scss"
+    }
+  },
+  {
+    "description": "Sets the `z-index` property of the visual grid. Can be `back` (behind content) or `front` (in front of content). Set with `!global` flag.\n\n",
+    "commentRange": {
+      "start": 15,
+      "end": 17
+    },
+    "context": {
+      "type": "variable",
+      "name": "visual-grid-index",
+      "value": "back",
+      "scope": "default",
+      "line": {
+        "start": 19,
+        "end": 19
+      }
+    },
+    "type": "String",
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "settings/_visual-grid.scss",
+      "name": "_visual-grid.scss"
+    }
+  },
+  {
+    "description": "Sets the opacity property of the visual grid. Set with `!global` flag.\n\n",
+    "commentRange": {
+      "start": 21,
+      "end": 23
+    },
+    "context": {
+      "type": "variable",
+      "name": "visual-grid-opacity",
+      "value": "0.4",
+      "scope": "default",
+      "line": {
+        "start": 25,
+        "end": 25
+      }
+    },
+    "type": "Number (unitless)",
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "settings/_visual-grid.scss",
+      "name": "_visual-grid.scss"
+    }
+  }
+]
