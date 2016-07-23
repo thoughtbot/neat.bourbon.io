@@ -28,12 +28,22 @@ $base-z-index: 0;
 $letter-spacing-small: 0.02em;
 $letter-spacing-extra-small: $letter-spacing-small / 2;
 $heading-spacing: 1rem;
-$gutter: 20px;
 
-// Grid
+// Grids
+
 $neat-grid: (
-  "columns": 12,
-  "gutter": 2rem,
+  columns: 12,
+  gutter: 1rem,
+);
+
+$neat-grid-tablet: (
+  gutter: 2rem,
+  media: 600px,
+);
+
+$neat-grid-desktop: (
+  gutter: 2rem,
+  media: 1000px,
 );
 
 // Colors

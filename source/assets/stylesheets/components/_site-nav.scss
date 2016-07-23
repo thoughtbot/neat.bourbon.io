@@ -6,7 +6,9 @@
 }
 
 .c-site-nav__section {
-  float: right;
+  @include grid-media($neat-grid-tablet) {
+    float: right;
+  }
 }
 
 .c-site-nav__link,
@@ -15,12 +17,19 @@
   color: $base-font-color;
   font-weight: 700;
   letter-spacing: $letter-spacing-small;
-  margin-left: $gutter * 2;
 
   &:focus,
   &:hover {
     border: 0;
     color: $link-color;
+  }
+}
+
+.c-site-nav__link {
+  margin-left: map-get($neat-grid, gutter);
+
+  @include grid-media($neat-grid-tablet) {
+    margin-left: map-get($neat-grid, gutter);
   }
 }
 
