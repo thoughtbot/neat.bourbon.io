@@ -5,14 +5,14 @@
     lightweight Sass tool set.
 - content_for(:preferred_path, "docs/#{version}")
 
-div.p-container
-  nav.c-docs-nav role="navigation"
-    h2.c-docs-nav__heading Version
+div.container
+  nav.docs-nav role="navigation"
+    h2.docs-nav__heading Version
     ol
       - versions.each do |version|
         li
           = link_to version, "/docs/#{version}"
-    h2.c-docs-nav__heading Features
+    h2.docs-nav__heading Features
     ol
       - version.doc_items.each do |item|
         li
@@ -20,12 +20,15 @@ div.p-container
             code
               = item.context.name
 
-  section.c-docs-list
+  section.docs-list
     - version.doc_items.each do |item|
-      article.c-doc-item id="#{item.context.name}"
-        = partial "partials/doc_item_header",
-                  locals: { item: item, version: version }
+      article.doc-item id="#{item.context.name}"
+        .doc-item__section
+          = partial "partials/doc_item_header",
+                    locals: { item: item, version: version }
         - if item.parameter.present?
-          = partial "partials/doc_item_arguments", locals: { item: item }
+          .doc-item__section
+            = partial "partials/doc_item_arguments", locals: { item: item }
         - if item.example.present?
-          = partial "partials/doc_item_example", locals: { item: item }
+          .doc-item__section
+            = partial "partials/doc_item_example", locals: { item: item }

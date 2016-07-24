@@ -1,14 +1,14 @@
-nav.c-site-nav role="navigation"
-  .p-container.c-site-nav__container
-    .p-column--12
+nav.site-nav role="navigation"
+  .container.site-nav__container
+    .column--12
       = link_to "/",
-                class: "c-site-nav__logo" do
-        = image_tag 'logo.svg', class: "c-site-nav__logo__image"
-        span.c-site-nav__logo__text Neat
-      .c-site-nav__section
+                class: "site-nav__logo" do
+        = image_tag 'logo.svg', class: "site-nav__logo__image"
+        span.site-nav__logo__text Neat
+      .site-nav__section
         = link_to "Documentation",
                   "/docs/latest/",
-                  class: "c-site-nav__link"
+                  class: "site-nav__link"
         = link_to "GitHub",
                   "https://github.com/thoughtbot/neat",
-                  class: "c-site-nav__link"
+                  class: "site-nav__link"

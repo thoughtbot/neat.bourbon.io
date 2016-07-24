@@ -1,18 +1,18 @@
-.c-site-nav {
+.site-nav {
   @include padding($base-spacing null);
   border-bottom: $base-border;
   font-size: $base-font-size;
   margin-bottom: $base-spacing;
 }
 
-.c-site-nav__section {
+.site-nav__section {
   @include grid-media($neat-grid-tablet) {
     float: right;
   }
 }
 
-.c-site-nav__link,
-.c-site-nav__logo {
+.site-nav__link,
+.site-nav__logo {
   border: 0;
   color: $base-font-color;
   font-weight: 700;
@@ -25,7 +25,7 @@
   }
 }
 
-.c-site-nav__link {
+.site-nav__link {
   margin-left: map-get($neat-grid, gutter);
 
   @include grid-media($neat-grid-tablet) {
@@ -33,7 +33,7 @@
   }
 }
 
-.c-site-nav__logo {
+.site-nav__logo {
   float: left;
   margin: 0;
 
@@ -42,7 +42,7 @@
   }
 }
 
-.c-site-nav__logo__image {
+.site-nav__logo__image {
   @include size(20px);
   display: inline;
   margin-top: -3px;
@@ -50,10 +50,6 @@
   vertical-align: middle;
 }
 
-.c-site-nav__logo__text {
-
-}
-
-.c-site-nav__container {
+.site-nav__container {
   margin-bottom: 0;
 }

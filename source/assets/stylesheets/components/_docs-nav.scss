@@ -1,4 +1,4 @@
-.c-docs-nav {
+.docs-nav {
   @include grid-column(12);
 
   @include grid-media($neat-grid-tablet) {
@@ -6,6 +6,6 @@
   }
 }
 
-.c-docs-nav__heading {
+.docs-nav__heading {
   font-size: $base-font-size;
 }

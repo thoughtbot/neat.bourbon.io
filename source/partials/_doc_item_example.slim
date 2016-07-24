@@ -3,7 +3,8 @@ h4 Example
 - item.example.each do |example|
 
   - if example.description.present?
-    p= example.description
+    p
+      = example.description
 
   - if example.type == "scss"
     figure.doc-item__code-example
