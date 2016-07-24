@@ -10,6 +10,7 @@ activate :syntax do |syntax|
 end
 
 set :css_dir, "assets/stylesheets"
+set :images_dir, "assets/images"
 set :markdown_engine, :redcarpet
 set :markdown,
   autolink: true,
