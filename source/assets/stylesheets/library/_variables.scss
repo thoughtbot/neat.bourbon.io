@@ -50,7 +50,8 @@ $neat-grid-desktop: (
 $black: #000;
 $dark-gray: #333;
 $medium-gray: #999;
-$light-gray: #ddd;
+$light-gray: #ccc;
+$extra-light-gray: #eee;
 $white: #fff;
 
 $bourbon-orange: #f27126;
@@ -65,7 +66,8 @@ $link-color: $thoughtbot-red;
 
 // Border
 $base-border-color: $light-gray;
-$base-border: 1px solid $base-border-color;
+$base-border: 4px solid $neat-blue;
+$secondary-border: 1px solid $light-gray;
 
 // Background Colors
 $base-background-color: #fff;
@@ -74,6 +76,11 @@ $secondary-background-color: tint($base-border-color, 75%);
 // Forms
 $form-box-shadow: inset 0 1px 3px rgba($black, 0.06);
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
+
+// Code
+$code-background-color: rgba(#000, 0.06);
+$code-block-box-shadow: 0 0 0 3px $extra-light-gray;
+$code-block-spacing: 10px;
 
 // Animations
 $base-duration: 150ms;

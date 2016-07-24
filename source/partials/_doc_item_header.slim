@@ -6,12 +6,12 @@ h3.doc-item__title
     = item.context.name
 
 - if item.return.present?
-  div.doc-item__returns
+  .doc-item__returns
     | Returns: #{ item.return.type }
 
-div.doc-item__source-link
+.doc-item__source-link
   = link_to "View Source", github_file_url(item.file.path, version)
 
 - if item.description.present?
-  div.doc-item__description
+  .doc-item__description
     = markdown(item.description)

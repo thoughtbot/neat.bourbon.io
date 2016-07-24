@@ -1,0 +1,33 @@
+code {
+  font-family: $monospace-font-family;
+  word-break: keep-all;
+
+  td &,
+  li &,
+  p & {
+    background-color: $code-background-color;
+    border-radius: $base-border-radius;
+    padding: 0.2em 0;
+    white-space: nowrap;
+
+    &::before,
+    &::after {
+      content: "\00a0";
+      letter-spacing: -0.1em;
+    }
+  }
+
+  pre & {
+    border-radius: $base-border-radius;
+    border: $secondary-border;
+    box-shadow: $code-block-box-shadow;
+    display: block;
+    padding: $code-block-spacing;
+  }
+}
+
+pre {
+  line-height: 1.5;
+  margin: 0 0 $small-spacing;
+  padding: 3px;
+}

@@ -1,4 +1,12 @@
 .doc-item {
   margin-bottom: 3rem;
-  padding-bottom: 4rem;
+  padding-bottom: 3rem;
+
+  &:not(:last-child) {
+    border-bottom: $base-border;
+  }
+}
+
+.doc-item__section:not(:last-child) {
+  margin-bottom: $base-spacing;
 }
