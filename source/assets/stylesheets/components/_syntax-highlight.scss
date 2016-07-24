@@ -1,0 +1,346 @@
+$syntax-highlight-color: (
+  comment: $cool-gray,
+  error: $cool-gray,
+  generic: $base-font-color,
+  keyword: $dark-green,
+  literal: $base-font-color,
+  name: $base-font-color,
+  operator: $dark-green,
+  other: $dark-red,
+  punctuation: $base-font-color,
+  comment-multiline: $cool-gray,
+  comment-pre-proc: $dark-green,
+  comment-single: $cool-gray,
+  comment-special: $dark-green,
+  generic-deleted: $teal,
+  generic-emph: $base-font-color,
+  generic-error: $red,
+  generic-heading: $dark-red,
+  generic-inserted: $dark-green,
+  generic-output: $base-font-color,
+  generic-prompt: $base-font-color,
+  generic-strong: $base-font-color,
+  generic-sub-heading: $dark-red,
+  generic-trace-back: $base-font-color,
+  keyword-constant: $dark-red,
+  keyword-declaration: $neat-dark-blue,
+  keyword-name-space: $dark-green,
+  keyword-pseudo: $dark-green,
+  keyword-reserved: $neat-dark-blue,
+  keyword-type: $red,
+  literal-date: $base-font-color,
+  literal-number: $teal,
+  literal-string: $teal,
+  name-attribute: $base-font-color,
+  name-built-in: $gold,
+  name-class: $neat-dark-blue,
+  name-constant: $dark-red,
+  name-decorator: $neat-dark-blue,
+  name-entity: $dark-red,
+  name-exception: $dark-red,
+  name-function: $neat-dark-blue,
+  name-label: $base-font-color,
+  name-name-space: $base-font-color,
+  name-other: $medium-gray,
+  name-property: $base-font-color,
+  name-tag: $neat-dark-blue,
+  name-variable: $neat-dark-blue,
+  operatorword: $dark-green,
+  textwhitespace: $base-font-color,
+  literal-number-float: $teal,
+  literal-number-hex: $teal,
+  literal-number-integer: $teal,
+  literal-number-oct: $teal,
+  literal-string-backtick: $cool-gray,
+  literal-string-char: $teal,
+  literal-string-doc: $base-font-color,
+  literal-string-double: $teal,
+  literal-string-escape: $dark-red,
+  literal-string-heredoc: $base-font-color,
+  literal-string-interpol: $teal,
+  literal-string-other: $teal,
+  literal-string-regex: $red,
+  literal-string-single: $teal,
+  literal-string-symbol: $teal,
+  name-built-in-pseudo: $neat-dark-blue,
+  name-variable-class: $neat-dark-blue,
+  name-variable-global: $neat-dark-blue,
+  name-variable-instance: $neat-dark-blue,
+  literal-number-integer-long: $teal,
+);
+
+.syntax-highlight {
+  .c {
+    color: map-get($syntax-highlight-color, comment);
+  }
+
+  .err {
+    color: map-get($syntax-highlight-color, error);
+  }
+
+  .g {
+    color: map-get($syntax-highlight-color, generic);
+  }
+
+  .k {
+    color: map-get($syntax-highlight-color, keyword);
+  }
+
+  .l {
+    color: map-get($syntax-highlight-color, literal);
+  }
+
+  .n {
+    color: map-get($syntax-highlight-color, name);
+  }
+
+  .o {
+    color: map-get($syntax-highlight-color, operator);
+  }
+
+  .x {
+    color: map-get($syntax-highlight-color, other);
+  }
+
+  .p {
+    color: map-get($syntax-highlight-color, punctuation);
+  }
+
+  .cm {
+    color: map-get($syntax-highlight-color, comment-multiline);
+  }
+
+  .cp {
+    color: map-get($syntax-highlight-color, comment-pre-proc);
+  }
+
+  .c1 {
+    color: map-get($syntax-highlight-color, comment-single);
+  }
+
+  .cs {
+    color: map-get($syntax-highlight-color, comment-special);
+  }
+
+  .gd {
+    color: map-get($syntax-highlight-color, generic-deleted);
+  }
+
+  .ge {
+    color: map-get($syntax-highlight-color, generic-emph);
+    font-style: italic;
+  }
+
+  .gr {
+    color: map-get($syntax-highlight-color, generic-error);
+  }
+
+  .gh {
+    color: map-get($syntax-highlight-color, generic-heading);
+  }
+
+  .gi {
+    color: map-get($syntax-highlight-color, generic-inserted);
+  }
+
+  .go {
+    color: map-get($syntax-highlight-color, generic-output);
+  }
+
+  .gp {
+    color: map-get($syntax-highlight-color, generic-prompt);
+  }
+
+  .gs {
+    color: map-get($syntax-highlight-color, generic-strong);
+    font-weight: bold;
+  }
+
+  .gu {
+    color: map-get($syntax-highlight-color, generic-sub-heading);
+  }
+
+  .gt {
+    color: map-get($syntax-highlight-color, generic-trace-back);
+  }
+
+  .kc {
+    color: map-get($syntax-highlight-color, keyword-constant);
+  }
+
+  .kd {
+    color: map-get($syntax-highlight-color, keyword-declaration);
+  }
+
+  .kn {
+    color: map-get($syntax-highlight-color, keyword-name-space);
+  }
+
+  .kp {
+    color: map-get($syntax-highlight-color, keyword-pseudo);
+  }
+
+  .kr {
+    color: map-get($syntax-highlight-color, keyword-reserved);
+  }
+
+  .kt {
+    color: map-get($syntax-highlight-color, keyword-type);
+  }
+
+  .ld {
+    color: map-get($syntax-highlight-color, literal-date);
+  }
+
+  .m {
+    color: map-get($syntax-highlight-color, literal-number);
+  }
+
+  .s {
+    color: map-get($syntax-highlight-color, literal-string);
+  }
+
+  .na {
+    color: map-get($syntax-highlight-color, name-attribute);
+  }
+
+  .nb {
+    color: map-get($syntax-highlight-color, name-built-in);
+  }
+
+  .nc {
+    color: map-get($syntax-highlight-color, name-class);
+  }
+
+  .no {
+    color: map-get($syntax-highlight-color, name-constant);
+  }
+
+  .nd {
+    color: map-get($syntax-highlight-color, name-decorator);
+  }
+
+  .ni {
+    color: map-get($syntax-highlight-color, name-entity);
+  }
+
+  .ne {
+    color: map-get($syntax-highlight-color, name-exception);
+  }
+
+  .nf {
+    color: map-get($syntax-highlight-color, name-function);
+  }
+
+  .nl {
+    color: map-get($syntax-highlight-color, name-label);
+  }
+
+  .nn {
+    color: map-get($syntax-highlight-color, name-name-space);
+  }
+
+  .nx {
+    color: map-get($syntax-highlight-color, name-other);
+  }
+
+  .py {
+    color: map-get($syntax-highlight-color, name-property);
+  }
+
+  .nt {
+    color: map-get($syntax-highlight-color, name-tag);
+  }
+
+  .nv {
+    color: map-get($syntax-highlight-color, name-variable);
+  }
+
+  .ow {
+    color: map-get($syntax-highlight-color, operator-word);
+  }
+
+  .w {
+    color: map-get($syntax-highlight-color, text-whitespace);
+  }
+
+  .mf {
+    color: map-get($syntax-highlight-color, literal-number-float);
+  }
+
+  .mh {
+    color: map-get($syntax-highlight-color, literal-number-hex);
+  }
+
+  .mi {
+    color: map-get($syntax-highlight-color, literal-number-integer);
+  }
+
+  .mo {
+    color: map-get($syntax-highlight-color, literal-number-oct);
+  }
+
+  .sb {
+    color: map-get($syntax-highlight-color, literal-string-backtick);
+  }
+
+  .sc {
+    color: map-get($syntax-highlight-color, literal-string-char);
+  }
+
+  .sd {
+    color: map-get($syntax-highlight-color, literal-string-doc);
+  }
+
+  .s2 {
+    color: map-get($syntax-highlight-color, literal-string-double);
+  }
+
+  .se {
+    color: map-get($syntax-highlight-color, literal-string-escape);
+  }
+
+  .sh {
+    color: map-get($syntax-highlight-color, literal-string-heredoc);
+  }
+
+  .si {
+    color: map-get($syntax-highlight-color, literal-string-interpol);
+  }
+
+  .sx {
+    color: map-get($syntax-highlight-color, literal-string-other);
+  }
+
+  .sr {
+    color: map-get($syntax-highlight-color, literal-string-regex);
+  }
+
+  .s1 {
+    color: map-get($syntax-highlight-color, literal-string-single);
+  }
+
+  .ss {
+    color: map-get($syntax-highlight-color, literal-string-symbol);
+  }
+
+  .bp {
+    color: map-get($syntax-highlight-color, name-built-in-pseudo);
+  }
+
+  .vc {
+    color: map-get($syntax-highlight-color, name-variable-class);
+  }
+
+  .vg {
+    color: map-get($syntax-highlight-color, name-variable-global);
+  }
+
+  .vi {
+    color: map-get($syntax-highlight-color, name-variable-instance);
+  }
+
+  .il {
+    color: map-get($syntax-highlight-color, literal-number-integer-long);
+  }
+}

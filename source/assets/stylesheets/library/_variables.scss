@@ -32,7 +32,6 @@ $heading-spacing: 1rem;
 $aproximate-nav-height: 85px;
 
 // Grids
-
 $neat-grid: (
   columns: 12,
   gutter: 1rem,
@@ -61,9 +60,17 @@ $light-gray: #ccc;
 $extra-light-gray: #eee;
 $white: #fff;
 
+$dark-green: #859900;
+$dark-red: #cb4b16;
+$cool-gray: #586e75;
+$red: #dc322f;
+$teal: #2aa198;
+$gold: #b58900;
+
 $bourbon-orange: #f27126;
 $thoughtbot-red: #ed3e44;
 $neat-blue: #00d4ff;
+$neat-dark-blue: #27a8d3;
 $neat-gradient: linear-gradient(to bottom right, #21e9f4, #00d4ff);
 
 // Font Colors
