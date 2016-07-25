@@ -43,11 +43,19 @@
 }
 
 .site-nav__logo__image {
-  @include size(20px);
+  @include size(23px);
   display: inline;
-  margin-top: -3px;
+  margin-top: -5px;
   margin-right: 0.7em;
   vertical-align: middle;
+}
+
+.site-nav__logo__text {
+  font-size: modular-scale(3);
+  line-height: 0;
+  font-family: $heading-font-family;
+  font-weight: normal;
+
 }
 
 .site-nav__container {
