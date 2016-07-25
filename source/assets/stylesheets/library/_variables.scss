@@ -28,6 +28,7 @@ $base-z-index: 0;
 $letter-spacing-small: 0.02em;
 $letter-spacing-extra-small: $letter-spacing-small / 2;
 $heading-spacing: 1rem;
+$aproximate-nav-height: 85px;
 
 // Grids
 
@@ -43,7 +44,7 @@ $neat-grid-tablet: (
 
 $neat-grid-desktop: (
   gutter: 2rem,
-  media: 1000px,
+  media: 1100px,
 );
 
 // Colors
@@ -61,6 +62,7 @@ $neat-gradient: linear-gradient(to bottom right, #21e9f4, #00d4ff);
 
 // Font Colors
 $base-font-color: $dark-gray;
+$alt-font-color: $medium-gray;
 $action-color: $neat-blue;
 $link-color: $thoughtbot-red;
 

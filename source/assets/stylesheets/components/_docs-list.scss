@@ -1,5 +1,6 @@
 .docs-list {
   @include grid-column(12);
+  padding-top: $base-spacing;
 
   @include grid-media($neat-grid-tablet) {
     @include grid-column(9);

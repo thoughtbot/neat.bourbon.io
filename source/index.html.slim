@@ -1,15 +1,17 @@
-header
-  .container
-    .column--8.column--push-2
-      h1 Neat
-      h2
+header.hero.container
+  .column--8.column--push-2.hero__flex-container
+    header
+      h1.hero__title Neat
+      p.hero__version
+        | Version&nbsp;#{config[:latest_version]}
+    section
+      h2.hero__sub-title
         | A lightweight and flexible Sass&nbsp;grid
-      = config[:latest_version]
-      nav role="navigation"
+      nav.hero__action role="navigation"
         = link_to "Documentation",
           "/docs/latest/",
           class: "button"
-      ul
+      ul.hero__links
         li
           | File bugs and questions on
             #{link_to "GitHub", "https://github.com/thoughtbot/neat"}.
