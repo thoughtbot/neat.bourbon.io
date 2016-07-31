@@ -1,0 +1,26 @@
+.site-footer {
+  border-top: $base-border;
+  margin-top: 3rem;
+  padding: ($base-spacing * 2) 0 $base-spacing;
+
+  @include grid-media($neat-grid-tablet) {
+    margin-top: 4rem;
+  }
+}
+
+.site-footer__column {
+  @include grid-column(12);
+
+  @include grid-media($neat-grid-tablet) {
+    @include grid-push(1);
+  }
+
+  @include grid-media($neat-grid-tablet) {
+    @include grid-column(10);
+  }
+
+  @include grid-media($neat-grid-desktop) {
+    @include grid-column(8);
+    @include grid-push(2);
+  }
+}

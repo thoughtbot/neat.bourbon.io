@@ -1,4 +1,5 @@
 .emoji {
   @include position(relative, 0.125em null null);
   font-size: modular-scale(5);
+  line-height: 1 / strip-unit(modular-scale(5)) * $base-line-height;
 }
