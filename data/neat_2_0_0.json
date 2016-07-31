@@ -219,7 +219,7 @@
     },
     "context": {
       "type": "mixin",
-      "name": "Grid push",
+      "name": "Grid shift",
       "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    left: $_shift-value;\n  } @else {\n    left: auto;\n  }\n\n  position: relative;\n",
       "line": {
         "start": 26,
