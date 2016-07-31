@@ -380,7 +380,20 @@
     "group": [
       "settings"
     ],
-    "see": [],
+    "see": [
+      {
+        "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid media",
+          "code": "\n  $_media: _retrieve-neat-setting($grid, media);\n  $_query: _neat-parse-media($_media);\n\n  @media #{$_query} {\n    $_default-neat-grid: $neat-grid;\n    $neat-grid: $grid !global;\n    @content;\n    $neat-grid: $_default-neat-grid !global;\n  }\n",
+          "line": {
+            "start": 44,
+            "end": 54
+          }
+        }
+      }
+    ],
     "property": [
       {
         "type": "number (unitless)",

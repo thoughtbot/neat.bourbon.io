@@ -1,9 +1,8 @@
 .doc-item {
   margin-bottom: 3rem;
-  padding-bottom: 3rem;
 
-  &:not(:last-child) {
-    border-bottom: $base-border;
+  @include grid-media($neat-grid-tablet) {
+    margin-bottom: 5rem;
   }
 }
 

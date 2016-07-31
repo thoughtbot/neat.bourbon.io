@@ -27,6 +27,7 @@ h2 {
   font-size: modular-scale(10);
   font-weight: 400;
   letter-spacing: $letter-spacing-small;
+  margin: 0 0 ($heading-spacing * 2);
 }
 
 h3 {

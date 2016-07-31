@@ -8,5 +8,27 @@
 }
 
 .docs-nav__heading {
+  color: $alt-font-color;
+  font-size: $small-font-size;
+  font-weight: 300;
+  margin: 0 0 0.5em;
+  text-transform: uppercase;
+}
+
+.docs-nav__link {
+  border: 0;
+  color: inherit;
   font-size: $base-font-size;
+}
+
+.docs-nav__list {
+  list-style: none;
+  margin: 0 0 1em;
+  padding-left: 0;
+}
+
+.docs-nav__item {
+  font-size: $base-font-size;
+  font-weight: 600;
+  line-height: 1.8;
 }
