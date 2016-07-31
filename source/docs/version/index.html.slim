@@ -7,11 +7,6 @@
 
 .container
   nav.docs-nav role="navigation"
-    h2.docs-nav__heading Version
-    ol.docs-nav__list
-      - versions.each do |version|
-        li.docs-nav__item
-          = link_to version, "/docs/#{version}", class: "docs-nav__link"
     - version.doc_items.group_by {|a| a.group }.reverse_each do |group, items|
       h2.docs-nav__heading
         = link_to group.join.titleize, "##{group.join.slugify}",
@@ -21,6 +16,11 @@
           li.docs-nav__item
             = link_to "##{item.context.name.slugify}", class: "docs-nav__link" do
               = item.context.name
+    h2.docs-nav__heading Version
+    ol.docs-nav__list
+      - versions.each do |version|
+        li.docs-nav__item
+          = link_to version, "/docs/#{version}", class: "docs-nav__link"
   section.docs-list
     - version.doc_items.group_by {|a| a.group }.reverse_each do |group, items|
       .docs-section
