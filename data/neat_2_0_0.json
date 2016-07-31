@@ -1,5 +1,419 @@
 [
   {
+    "description": "Creates Neat a grid column of requested size.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 23
+    },
+    "context": {
+      "type": "mixin",
+      "name": "Grid column",
+      "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
+      "line": {
+        "start": 25,
+        "end": 33
+      }
+    },
+    "group": [
+      "features"
+    ],
+    "parameter": [
+      {
+        "type": "number (unitless)",
+        "name": "columns",
+        "default": "null"
+      },
+      {
+        "type": "map",
+        "name": "grid",
+        "default": "$neat-grid",
+        "description": "The grid used to generate the column.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include grid-column(3);\n}"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  width: calc(25% - 25px);\n  float: left;\n  margin-left: 20px;\n}"
+      }
+    ],
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "_neat-column-default"
+      },
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      },
+      {
+        "type": "function",
+        "name": "_neat-column-width"
+      }
+    ],
+    "file": {
+      "path": "neat/mixins/_grid-column.scss",
+      "name": "_grid-column.scss"
+    }
+  },
+  {
+    "description": "Creates a Neat grid container with clearfix.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 21
+    },
+    "context": {
+      "type": "mixin",
+      "name": "Grid containter",
+      "code": "\n  &::after {\n    clear: both;\n    content: \"\";\n    display: block;\n  }\n",
+      "line": {
+        "start": 23,
+        "end": 29
+      }
+    },
+    "group": [
+      "features"
+    ],
+    "parameter": [
+      {
+        "type": "map",
+        "name": "grid",
+        "default": "$neat-grid",
+        "description": "The type of grid for this column.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include grid-container;\n}"
+      },
+      {
+        "type": "css",
+        "code": ".element::after {\n  clear: both;\n  content: \"\";\n  display: block;\n}"
+      }
+    ],
+    "access": "public",
+    "file": {
+      "path": "neat/mixins/_grid-container.scss",
+      "name": "_grid-container.scss"
+    }
+  },
+  {
+    "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 42
+    },
+    "context": {
+      "type": "mixin",
+      "name": "Grid media",
+      "code": "\n  $_media: _retrieve-neat-setting($grid, media);\n  $_query: _neat-parse-media($_media);\n\n  @media #{$_query} {\n    $_default-neat-grid: $neat-grid;\n    $neat-grid: $grid !global;\n    @content;\n    $neat-grid: $_default-neat-grid !global;\n  }\n",
+      "line": {
+        "start": 44,
+        "end": 54
+      }
+    },
+    "group": [
+      "features"
+    ],
+    "parameter": [
+      {
+        "type": "map",
+        "name": "grid",
+        "description": "The grid used to generate the column.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "$custom-neat-grid: (\n  columns: 12,\n  gutter: 50px,\n  media: 1000px,\n);\n\n.element {\n  @include grid-column(3);\n\n  @include grid-media($custom-neat-grid){\n    @include grid-column(6);\n  }\n}"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  width: calc(25% - 25px);\n  float: left;\n  margin-left: 20px;\n}\n\n@media only screen and (min-width: 1000px) {\n  .element {\n    width: calc(50% - 75px);\n    float: left;\n    margin-left: 50px;\n  }\n}"
+      }
+    ],
+    "access": "public",
+    "content": "",
+    "require": [
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      },
+      {
+        "type": "function",
+        "name": "_neat-parse-media"
+      }
+    ],
+    "file": {
+      "path": "neat/mixins/_grid-media.scss",
+      "name": "_grid-media.scss"
+    }
+  },
+  {
+    "description": "Push or pull a Neat grid column by manipulating its left margin.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 22
+    },
+    "context": {
+      "type": "mixin",
+      "name": "Grid push",
+      "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-left: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-left: $_margin-value;\n  }\n",
+      "line": {
+        "start": 24,
+        "end": 36
+      }
+    },
+    "group": [
+      "features"
+    ],
+    "parameter": [
+      {
+        "type": "number (unitless)",
+        "name": "push",
+        "default": "false"
+      },
+      {
+        "type": "map",
+        "name": "grid",
+        "default": "$neat-grid",
+        "description": "The grid to be used to generate the column.\n  By default, the global `$neat-grid` will be used.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include grid-push(3);\n}"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  margin-left: calc(25% - 25px + 40px);\n}"
+      }
+    ],
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      },
+      {
+        "type": "function",
+        "name": "_neat-column-width"
+      }
+    ],
+    "file": {
+      "path": "neat/mixins/_grid-push.scss",
+      "name": "_grid-push.scss"
+    }
+  },
+  {
+    "description": "Shift columns and reorder them within their container using relative\npositioning.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 24
+    },
+    "context": {
+      "type": "mixin",
+      "name": "Grid push",
+      "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    left: $_shift-value;\n  } @else {\n    left: auto;\n  }\n\n  position: relative;\n",
+      "line": {
+        "start": 26,
+        "end": 35
+      }
+    },
+    "group": [
+      "features"
+    ],
+    "parameter": [
+      {
+        "type": "number (unitless)",
+        "name": "shift",
+        "default": "false"
+      },
+      {
+        "type": "map",
+        "name": "grid",
+        "default": "$neat-grid",
+        "description": "The grid to be used to generate the column.\n  By default, the global `$neat-grid` will be used.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include grid-shift(3);\n}"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  left: calc(25% - 25px + 20px);\n  position: relative;\n}"
+      }
+    ],
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "_neat-column-width"
+      },
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      }
+    ],
+    "file": {
+      "path": "neat/mixins/_grid-shift.scss",
+      "name": "_grid-shift.scss"
+    }
+  },
+  {
+    "description": "Neat’s default grid.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 19
+    },
+    "context": {
+      "type": "variable",
+      "name": "Default settings",
+      "value": "(\n  columns: 12,\n  gutter: 20px,\n  media: null,\n)",
+      "scope": "private",
+      "line": {
+        "start": 21,
+        "end": 25
+      }
+    },
+    "group": [
+      "settings"
+    ],
+    "type": "map",
+    "property": [
+      {
+        "type": "number (unitless)",
+        "name": "columns",
+        "default": "12",
+        "description": "Default number of the total grid columns."
+      },
+      {
+        "type": "number (with unit)",
+        "name": "gutter",
+        "default": "20px",
+        "description": "Default grid gutter width between columns."
+      },
+      {
+        "type": "string | number (with unit)",
+        "name": "gutter",
+        "default": "null",
+        "description": "Grid media query."
+      }
+    ],
+    "access": "private",
+    "file": {
+      "path": "neat/settings/_settings.scss",
+      "name": "_settings.scss"
+    }
+  },
+  {
+    "description": "This variable is a sass map that overrides Neat's default grid settings.\nUse this to define your project's grid properties incluting gutters and\ntotal column count.\n\n",
+    "commentRange": {
+      "start": 27,
+      "end": 47
+    },
+    "context": {
+      "type": "variable",
+      "name": "Neat grid",
+      "value": "()",
+      "scope": "default",
+      "line": {
+        "start": 49,
+        "end": 49
+      }
+    },
+    "type": "map",
+    "group": [
+      "settings"
+    ],
+    "property": [
+      {
+        "type": "number (unitless)",
+        "name": "columns",
+        "default": "12",
+        "description": "Number of the total grid columns."
+      },
+      {
+        "type": "number (with unit)",
+        "name": "gutter",
+        "default": "20px",
+        "description": "Grid gutter width between columns."
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "$neat-grid: (\n  columns: 12,\n  gutter: 20px,\n);"
+      }
+    ],
+    "access": "public",
+    "file": {
+      "path": "neat/settings/_settings.scss",
+      "name": "_settings.scss"
+    }
+  },
+  {
+    "description": "If you would like to have multiple grids in a single project, you can do\nthis by defining a new map stored within a variable of your choosing. This\nvariable can then be passed directly in to any of Neat's mixins like\n[`grid-span(12, $my-custom-grid)`](#grid-span).\n\nCustom grids are especially useful with [`grid-media`](#grid-media). By\ndefining a `media` attribute within your custom grid, you are able to easily\ndefine both the attributes of a grid as well as at what breakpoint this grid\nshould activate.\n\n",
+    "commentRange": {
+      "start": 51,
+      "end": 91
+    },
+    "context": {
+      "type": "variable",
+      "name": "Custom grids",
+      "value": "()",
+      "scope": "default",
+      "line": {
+        "start": 93,
+        "end": 93
+      }
+    },
+    "type": "map",
+    "group": [
+      "settings"
+    ],
+    "see": [],
+    "property": [
+      {
+        "type": "number (unitless)",
+        "name": "columns",
+        "default": "12",
+        "description": "Number of the total grid columns."
+      },
+      {
+        "type": "number (with unit)",
+        "name": "gutter",
+        "default": "20px",
+        "description": "Grid gutter width between columns."
+      },
+      {
+        "type": "number (with unit) | string | null",
+        "name": "media",
+        "default": "null",
+        "description": "The `@media` definition that is used by the [`grid-media`](#grid-media)\n  mixin to detirmine the media properties."
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "$my-custom-grid: (\n  columns: 12,\n  gutter: 20px,\n  media: 1200px,\n);\n\n$other-custom-grid-for-print: (\n  columns: 14,\n  gutter: 1.5rem,\n  media: print,\n);"
+      }
+    ],
+    "access": "public",
+    "file": {
+      "path": "neat/settings/_settings.scss",
+      "name": "_settings.scss"
+    }
+  },
+  {
     "description": "Determine if a column count has been given.\nIf no columns have been given return the grid's total column count.\n\n",
     "commentRange": {
       "start": 2,
@@ -52,11 +466,11 @@
         "description": "Creates Neat a grid column of requested size.\n\n",
         "context": {
           "type": "mixin",
-          "name": "grid-column",
+          "name": "Grid column",
           "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
           "line": {
-            "start": 21,
-            "end": 29
+            "start": 25,
+            "end": 33
           }
         }
       }
@@ -186,11 +600,11 @@
         "description": "Creates Neat a grid column of requested size.\n\n",
         "context": {
           "type": "mixin",
-          "name": "grid-column",
+          "name": "Grid column",
           "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
           "line": {
-            "start": 21,
-            "end": 29
+            "start": 25,
+            "end": 33
           }
         }
       },
@@ -198,11 +612,11 @@
         "description": "Push or pull a Neat grid column by manipulating its left margin.\n\n",
         "context": {
           "type": "mixin",
-          "name": "grid-push",
+          "name": "Grid push",
           "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-left: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-left: $_margin-value;\n  }\n",
           "line": {
-            "start": 20,
-            "end": 32
+            "start": 24,
+            "end": 36
           }
         }
       },
@@ -210,11 +624,11 @@
         "description": "Shift columns and reorder them within their container using relative\npositioning.\n\n",
         "context": {
           "type": "mixin",
-          "name": "grid-shift",
+          "name": "Grid push",
           "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    left: $_shift-value;\n  } @else {\n    left: auto;\n  }\n\n  position: relative;\n",
           "line": {
-            "start": 22,
-            "end": 31
+            "start": 26,
+            "end": 35
           }
         }
       }
@@ -321,11 +735,11 @@
         "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
         "context": {
           "type": "mixin",
-          "name": "grid-media",
+          "name": "Grid media",
           "code": "\n  $_media: _retrieve-neat-setting($grid, media);\n  $_query: _neat-parse-media($_media);\n\n  @media #{$_query} {\n    $_default-neat-grid: $neat-grid;\n    $neat-grid: $grid !global;\n    @content;\n    $neat-grid: $_default-neat-grid !global;\n  }\n",
           "line": {
-            "start": 40,
-            "end": 50
+            "start": 44,
+            "end": 54
           }
         }
       }
@@ -369,17 +783,60 @@
     "group": [
       "undefined"
     ],
-    "require": [
-      {
-        "type": "variable",
-        "name": "_neat-grid-defaults"
-      }
-    ],
+    "require": [],
     "file": {
       "path": "neat/functions/_retrieve-neat-settings.scss",
       "name": "_retrieve-neat-settings.scss"
     },
     "usedBy": [
+      {
+        "description": "Creates Neat a grid column of requested size.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid column",
+          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
+          "line": {
+            "start": 25,
+            "end": 33
+          }
+        }
+      },
+      {
+        "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid media",
+          "code": "\n  $_media: _retrieve-neat-setting($grid, media);\n  $_query: _neat-parse-media($_media);\n\n  @media #{$_query} {\n    $_default-neat-grid: $neat-grid;\n    $neat-grid: $grid !global;\n    @content;\n    $neat-grid: $_default-neat-grid !global;\n  }\n",
+          "line": {
+            "start": 44,
+            "end": 54
+          }
+        }
+      },
+      {
+        "description": "Push or pull a Neat grid column by manipulating its left margin.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid push",
+          "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-left: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-left: $_margin-value;\n  }\n",
+          "line": {
+            "start": 24,
+            "end": 36
+          }
+        }
+      },
+      {
+        "description": "Shift columns and reorder them within their container using relative\npositioning.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid push",
+          "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    left: $_shift-value;\n  } @else {\n    left: auto;\n  }\n\n  position: relative;\n",
+          "line": {
+            "start": 26,
+            "end": 35
+          }
+        }
+      },
       {
         "description": "Determine if a column count has been given.\nIf no columns have been given return the grid's total column count.\n\n",
         "context": {
@@ -413,447 +870,6 @@
           "line": {
             "start": 15,
             "end": 25
-          }
-        }
-      },
-      {
-        "description": "Creates Neat a grid column of requested size.\n\n",
-        "context": {
-          "type": "mixin",
-          "name": "grid-column",
-          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
-          "line": {
-            "start": 21,
-            "end": 29
-          }
-        }
-      },
-      {
-        "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
-        "context": {
-          "type": "mixin",
-          "name": "grid-media",
-          "code": "\n  $_media: _retrieve-neat-setting($grid, media);\n  $_query: _neat-parse-media($_media);\n\n  @media #{$_query} {\n    $_default-neat-grid: $neat-grid;\n    $neat-grid: $grid !global;\n    @content;\n    $neat-grid: $_default-neat-grid !global;\n  }\n",
-          "line": {
-            "start": 40,
-            "end": 50
-          }
-        }
-      },
-      {
-        "description": "Push or pull a Neat grid column by manipulating its left margin.\n\n",
-        "context": {
-          "type": "mixin",
-          "name": "grid-push",
-          "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-left: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-left: $_margin-value;\n  }\n",
-          "line": {
-            "start": 20,
-            "end": 32
-          }
-        }
-      },
-      {
-        "description": "Shift columns and reorder them within their container using relative\npositioning.\n\n",
-        "context": {
-          "type": "mixin",
-          "name": "grid-shift",
-          "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    left: $_shift-value;\n  } @else {\n    left: auto;\n  }\n\n  position: relative;\n",
-          "line": {
-            "start": 22,
-            "end": 31
-          }
-        }
-      }
-    ]
-  },
-  {
-    "description": "Creates Neat a grid column of requested size.\n\n",
-    "commentRange": {
-      "start": 2,
-      "end": 19
-    },
-    "context": {
-      "type": "mixin",
-      "name": "grid-column",
-      "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
-      "line": {
-        "start": 21,
-        "end": 29
-      }
-    },
-    "parameter": [
-      {
-        "type": "number (unitless)",
-        "name": "columns",
-        "default": "null"
-      },
-      {
-        "type": "map",
-        "name": "grid",
-        "default": "$neat-grid",
-        "description": "The grid used to generate the column.\n"
-      }
-    ],
-    "example": [
-      {
-        "type": "scss",
-        "code": ".element {\n  @include grid-column(3);\n}"
-      },
-      {
-        "type": "css",
-        "code": ".element {\n  width: calc(25% - 25px);\n  float: left;\n  margin-left: 20px;\n}"
-      }
-    ],
-    "access": "public",
-    "group": [
-      "undefined"
-    ],
-    "require": [
-      {
-        "type": "function",
-        "name": "_neat-column-default"
-      },
-      {
-        "type": "function",
-        "name": "_retrieve-neat-setting"
-      },
-      {
-        "type": "function",
-        "name": "_neat-column-width"
-      }
-    ],
-    "file": {
-      "path": "neat/mixins/_grid-column.scss",
-      "name": "_grid-column.scss"
-    }
-  },
-  {
-    "description": "Creates a Neat grid container with clearfix.\n\n",
-    "commentRange": {
-      "start": 2,
-      "end": 17
-    },
-    "context": {
-      "type": "mixin",
-      "name": "grid-container",
-      "code": "\n  &::after {\n    clear: both;\n    content: \"\";\n    display: block;\n  }\n",
-      "line": {
-        "start": 19,
-        "end": 25
-      }
-    },
-    "parameter": [
-      {
-        "type": "map",
-        "name": "grid",
-        "default": "$neat-grid",
-        "description": "The type of grid for this column.\n"
-      }
-    ],
-    "example": [
-      {
-        "type": "scss",
-        "code": ".element {\n  @include grid-container;\n}"
-      },
-      {
-        "type": "css",
-        "code": ".element::after {\n  clear: both;\n  content: \"\";\n  display: block;\n}"
-      }
-    ],
-    "access": "public",
-    "group": [
-      "undefined"
-    ],
-    "file": {
-      "path": "neat/mixins/_grid-container.scss",
-      "name": "_grid-container.scss"
-    }
-  },
-  {
-    "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
-    "commentRange": {
-      "start": 2,
-      "end": 38
-    },
-    "context": {
-      "type": "mixin",
-      "name": "grid-media",
-      "code": "\n  $_media: _retrieve-neat-setting($grid, media);\n  $_query: _neat-parse-media($_media);\n\n  @media #{$_query} {\n    $_default-neat-grid: $neat-grid;\n    $neat-grid: $grid !global;\n    @content;\n    $neat-grid: $_default-neat-grid !global;\n  }\n",
-      "line": {
-        "start": 40,
-        "end": 50
-      }
-    },
-    "parameter": [
-      {
-        "type": "map",
-        "name": "grid",
-        "description": "The grid used to generate the column.\n"
-      }
-    ],
-    "example": [
-      {
-        "type": "scss",
-        "code": "$custom-neat-grid: (\n  columns: 12,\n  gutter: 50px,\n  media: 1000px,\n);\n\n.element {\n  @include grid-column(3);\n\n  @include grid-media($custom-neat-grid){\n    @include grid-column(6);\n  }\n}"
-      },
-      {
-        "type": "css",
-        "code": ".element {\n  width: calc(25% - 25px);\n  float: left;\n  margin-left: 20px;\n}\n\n@media only screen and (min-width: 1000px) {\n  .element {\n    width: calc(50% - 75px);\n    float: left;\n    margin-left: 50px;\n  }\n}"
-      }
-    ],
-    "access": "public",
-    "content": "",
-    "group": [
-      "undefined"
-    ],
-    "require": [
-      {
-        "type": "function",
-        "name": "_retrieve-neat-setting"
-      },
-      {
-        "type": "function",
-        "name": "_neat-parse-media"
-      },
-      {
-        "type": "variable",
-        "name": "neat-grid"
-      }
-    ],
-    "file": {
-      "path": "neat/mixins/_grid-media.scss",
-      "name": "_grid-media.scss"
-    }
-  },
-  {
-    "description": "Push or pull a Neat grid column by manipulating its left margin.\n\n",
-    "commentRange": {
-      "start": 2,
-      "end": 18
-    },
-    "context": {
-      "type": "mixin",
-      "name": "grid-push",
-      "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-left: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-left: $_margin-value;\n  }\n",
-      "line": {
-        "start": 20,
-        "end": 32
-      }
-    },
-    "parameter": [
-      {
-        "type": "number (unitless)",
-        "name": "push",
-        "default": "false"
-      },
-      {
-        "type": "map",
-        "name": "grid",
-        "default": "$neat-grid",
-        "description": "The grid to be used to generate the column.\n  By default, the global `$neat-grid` will be used.\n"
-      }
-    ],
-    "example": [
-      {
-        "type": "scss",
-        "code": ".element {\n  @include grid-push(3);\n}"
-      },
-      {
-        "type": "css",
-        "code": ".element {\n  margin-left: calc(25% - 25px + 40px);\n}"
-      }
-    ],
-    "access": "public",
-    "group": [
-      "undefined"
-    ],
-    "require": [
-      {
-        "type": "function",
-        "name": "_retrieve-neat-setting"
-      },
-      {
-        "type": "function",
-        "name": "_neat-column-width"
-      }
-    ],
-    "file": {
-      "path": "neat/mixins/_grid-push.scss",
-      "name": "_grid-push.scss"
-    }
-  },
-  {
-    "description": "Shift columns and reorder them within their container using relative\npositioning.\n\n",
-    "commentRange": {
-      "start": 2,
-      "end": 20
-    },
-    "context": {
-      "type": "mixin",
-      "name": "grid-shift",
-      "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    left: $_shift-value;\n  } @else {\n    left: auto;\n  }\n\n  position: relative;\n",
-      "line": {
-        "start": 22,
-        "end": 31
-      }
-    },
-    "parameter": [
-      {
-        "type": "number (unitless)",
-        "name": "shift",
-        "default": "false"
-      },
-      {
-        "type": "map",
-        "name": "grid",
-        "default": "$neat-grid",
-        "description": "The grid to be used to generate the column.\n  By default, the global `$neat-grid` will be used.\n"
-      }
-    ],
-    "example": [
-      {
-        "type": "scss",
-        "code": ".element {\n  @include grid-shift(3);\n}"
-      },
-      {
-        "type": "css",
-        "code": ".element {\n  left: calc(25% - 25px + 20px);\n  position: relative;\n}"
-      }
-    ],
-    "access": "public",
-    "group": [
-      "undefined"
-    ],
-    "require": [
-      {
-        "type": "function",
-        "name": "_neat-column-width"
-      },
-      {
-        "type": "function",
-        "name": "_retrieve-neat-setting"
-      }
-    ],
-    "file": {
-      "path": "neat/mixins/_grid-shift.scss",
-      "name": "_grid-shift.scss"
-    }
-  },
-  {
-    "description": "Neat’s default grid.\n\n",
-    "commentRange": {
-      "start": 2,
-      "end": 15
-    },
-    "context": {
-      "type": "variable",
-      "name": "_neat-grid-defaults",
-      "value": "(\n  columns: 12,\n  gutter: 20px,\n  media: null,\n)",
-      "scope": "private",
-      "line": {
-        "start": 17,
-        "end": 21
-      }
-    },
-    "type": "map",
-    "property": [
-      {
-        "type": "number (unitless)",
-        "name": "columns",
-        "default": "12",
-        "description": "Deefault number of grid columns."
-      },
-      {
-        "type": "number (with unit)",
-        "name": "gutter",
-        "default": "20px",
-        "description": "Default grid gutter width."
-      },
-      {
-        "type": "string | number (with unit)",
-        "name": "gutter",
-        "default": "null",
-        "description": "Grid media query."
-      }
-    ],
-    "access": "private",
-    "group": [
-      "undefined"
-    ],
-    "file": {
-      "path": "neat/settings/_settings.scss",
-      "name": "_settings.scss"
-    },
-    "usedBy": [
-      {
-        "description": "Return a Neat setting.\n\n",
-        "context": {
-          "type": "function",
-          "name": "_retrieve-neat-setting",
-          "code": "\n  $_grid-settings: map-merge($_neat-grid-defaults, $grid);\n  @return map-get($_grid-settings, $setting);\n",
-          "line": {
-            "start": 15,
-            "end": 18
-          }
-        }
-      }
-    ]
-  },
-  {
-    "description": "This variable is a sass map that overrides Neat's default grid settings.\nUse this to define your project's grid properties incluting gutters, and\ntotal column count.\n\n",
-    "commentRange": {
-      "start": 23,
-      "end": 39
-    },
-    "context": {
-      "type": "variable",
-      "name": "neat-grid",
-      "value": "()",
-      "scope": "default",
-      "line": {
-        "start": 41,
-        "end": 41
-      }
-    },
-    "type": "map",
-    "property": [
-      {
-        "type": "number (unitless)",
-        "name": "columns",
-        "default": "12",
-        "description": "Number of grid columns."
-      },
-      {
-        "type": "number (with unit)",
-        "name": "gutter",
-        "default": "20px",
-        "description": "Grid gutter width."
-      }
-    ],
-    "example": [
-      {
-        "type": "scss",
-        "code": "$neat-grid: (\n  columns: 12,\n  gutter: 20px,\n);"
-      }
-    ],
-    "access": "public",
-    "group": [
-      "undefined"
-    ],
-    "file": {
-      "path": "neat/settings/_settings.scss",
-      "name": "_settings.scss"
-    },
-    "usedBy": [
-      {
-        "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
-        "context": {
-          "type": "mixin",
-          "name": "grid-media",
-          "code": "\n  $_media: _retrieve-neat-setting($grid, media);\n  $_query: _neat-parse-media($_media);\n\n  @media #{$_query} {\n    $_default-neat-grid: $neat-grid;\n    $neat-grid: $grid !global;\n    @content;\n    $neat-grid: $_default-neat-grid !global;\n  }\n",
-          "line": {
-            "start": 40,
-            "end": 50
           }
         }
       }
