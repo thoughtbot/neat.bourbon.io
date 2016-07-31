@@ -146,6 +146,7 @@ GEM
       rubocop (>= 0.36.0)
       slim (~> 3.0)
       sysexits (~> 1.1)
+    slugify (1.0.7)
     sysexits (1.2.0)
     temple (0.7.7)
     thor (0.19.1)
@@ -176,6 +177,7 @@ DEPENDENCIES
   scss_lint
   slim
   slim_lint
+  slugify
 
 RUBY VERSION
    ruby 2.3.1p112
