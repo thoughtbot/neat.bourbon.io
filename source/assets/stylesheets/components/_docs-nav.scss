@@ -1,9 +1,22 @@
 .docs-nav {
   @include grid-column(12);
+  @include clearfix;
   padding-top: $base-spacing;
 
   @include grid-media($neat-grid-tablet) {
     @include grid-column(3);
+    position: absolute;
+
+    &.fixed {
+      position: fixed;
+      top: 0;
+      max-height: 100vh;
+      overflow-y: scroll;
+    }
+
+    &.bottom-out {
+
+    }
   }
 }
 

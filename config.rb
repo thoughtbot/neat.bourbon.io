@@ -11,6 +11,7 @@ end
 
 set :css_dir, "assets/stylesheets"
 set :images_dir, "assets/images"
+set :js_dir, "assets/javascripts"
 set :markdown_engine, :redcarpet
 set :markdown,
   autolink: true,

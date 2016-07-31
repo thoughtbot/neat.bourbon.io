@@ -1,4 +1,6 @@
 .site-footer {
+  position: relative;
+  z-index: 10;
   border-top: $base-border;
   margin-top: 3rem;
   padding: ($base-spacing * 2) 0 $base-spacing;
