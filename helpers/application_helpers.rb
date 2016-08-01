@@ -1,6 +1,11 @@
 module ApplicationHelpers
   def github_file_url(file_path, version)
-    "https://github.com/thoughtbot/neat/blob/v#{version}/core/#{file_path}"
+    major_version = version.to_s.split(".").first
+    if major_version == "1"
+      "https://github.com/thoughtbot/neat/blob/v#{version}/app/assets/stylesheets/#{file_path}"
+    else
+      "https://github.com/thoughtbot/neat/blob/v#{version}/core/#{file_path}"
+    end
   end
 
   def markdown(contents)
