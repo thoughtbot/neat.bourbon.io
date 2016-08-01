@@ -3,7 +3,7 @@
     border: 0;
   }
 
-  .site-nav__logo__text {
+  .site-nav__logo:not(:focus) .site-nav__logo__text {
     display: none;
   }
 }

@@ -31,9 +31,90 @@ section
       p
         span.emoji
           ' 👋
-        br
+      p
         | Neat also works great with Bourbon, Bitters,
           and Refills. They are all lightweight and
           easy to work with so it’s a blast to try
           them out and see if they’re right for your
           next project.
+      .repo-card-container
+        = link_to "http://github.com/thoughtbot/bourbon",
+          class: "repo-card repo-card--link repo-card-container__repo-card" do
+          .repo-card__info
+            .repo-card__logo
+              = image_tag "bourbon-logo.svg"
+            h4.repo-card__title
+              | Bourbon
+            p.repo-card__description
+              | A lightweight Sass tool set.
+          .repo-card__stats
+            .repo-card__stats-group
+              h5.repo-card__stats-title
+                | stars
+              h6.repo-card__stat-number
+                | 7,273
+            .repo-card__stats-group
+              h5.repo-card__stats-title
+                | Forks
+              h6.repo-card__stat-number
+                | 844
+        .repo-card.repo-card-container__repo-card
+          .repo-card__info
+            .repo-card__logo
+              = image_tag "neat-logo.svg"
+            h4.repo-card__title
+              | Neat
+            p.repo-card__description
+              | A lightweight and flexible Sass grid.
+          .repo-card__stats
+            .repo-card__stats-group
+              h5.repo-card__stats-title
+                | stars
+              h6.repo-card__stat-number
+                | 3,723
+            .repo-card__stats-group
+              h5.repo-card__stats-title
+                | Forks
+              h6.repo-card__stat-number
+                | 392
+        = link_to "http://github.com/thoughtbot/bitters",
+          class: "repo-card repo-card--link repo-card-container__repo-card" do
+          .repo-card__info
+            .repo-card__logo
+              = image_tag "bitters-logo.svg"
+            h4.repo-card__title
+              | Bitters
+            p.repo-card__description
+              | Scaffold styles, variables and structure for projects.
+          .repo-card__stats
+            .repo-card__stats-group
+              h5.repo-card__stats-title
+                | stars
+              h6.repo-card__stat-number
+                | 1,217
+            .repo-card__stats-group
+              h5.repo-card__stats-title
+                | Forks
+              h6.repo-card__stat-number
+                | 157
+
+        = link_to "http://github.com/thoughtbot/refills",
+          class: "repo-card repo-card--link repo-card-container__repo-card" do
+          .repo-card__info
+            .repo-card__logo
+              = image_tag "refills-logo.svg"
+            h4.repo-card__title
+              | Refills
+            p.repo-card__description
+              | Components and patterns built with Bourbon and Neat.
+          .repo-card__stats
+            .repo-card__stats-group
+              h5.repo-card__stats-title
+                | stars
+              h6.repo-card__stat-number
+                | 1,483
+            .repo-card__stats-group
+              h5.repo-card__stats-title
+                | Forks
+              h6.repo-card__stat-number
+                | 176

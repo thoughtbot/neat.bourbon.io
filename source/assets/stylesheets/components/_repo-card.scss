@@ -1,0 +1,84 @@
+.repo-card {
+  background-color: $white;
+  border-radius: $base-border-radius;
+  border: $secondary-border;
+  box-shadow: $base-box-shadow;
+  color: $base-font-color;
+  display: flex;
+  flex-direction: row;
+  line-height: $repo-card-line-height;
+  margin-bottom: $small-spacing;
+}
+
+.repo-card--link{
+  transition: box-shadow 200ms;
+
+  &:hover,
+  &:focus {
+    border: $secondary-border;
+    box-shadow: $large-box-shadow;
+    color: inherit;
+    transition: box-shadow $base-timing $base-duration;
+  }
+}
+
+.repo-card__info {
+  align-self: center;
+  flex-grow: 1;
+  padding: 0.25rem 1rem 1rem;
+}
+
+.repo-card__description {
+  color: $alt-font-color;
+  font-size: modular-scale(-1);
+  font-weight: 300;
+  line-height: inherit;
+  margin-bottom: 0;
+}
+
+.repo-card__title {
+  display: inline-block;
+  font-family: $heading-font-family;
+  font-size: modular-scale(2);
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.repo-card__stats {
+  border-left: $secondary-border;
+  flex-shrink: 0;
+}
+
+.repo-card__stats-title {
+  color: $alt-font-color;
+  font-size: modular-scale(-3);
+  letter-spacing: 1px;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+.repo-card__stats-group {
+  padding: 0.5rem 0.5rem  0.3rem;
+  text-align: center;
+
+  &:last-of-type {
+    border-top: $secondary-border;
+  }
+}
+
+.repo-card__stat-number {
+  font-family: $base-font-family;
+  font-size: modular-scale(-1);
+  font-weight: 500;
+  line-height: $base-line-height;
+  margin-bottom: 0;
+}
+
+
+.repo-card__logo {
+  display: inline-block;
+  line-height: inherit;
+  margin-right: 0.5em;
+  vertical-align: middle;
+  width: 1.3rem;
+}

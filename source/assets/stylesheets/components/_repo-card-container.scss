@@ -1,0 +1,16 @@
+.repo-card-container {
+  @include grid-collapse;
+  padding-top: $base-spacing;
+
+  @include grid-media($neat-grid-tablet) {
+    @include grid-collapse;
+  }
+}
+
+.repo-card-container__repo-card {
+  @include grid-column(12);
+
+  @include grid-media($neat-grid-tablet) {
+    @include grid-column(6);
+  }
+}
