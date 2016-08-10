@@ -25,7 +25,7 @@ header.hero.container
 
 section
   .container
-    .column--8.column--push-2
+    .column
       h3
         | Welcome to the family
       p
@@ -37,7 +37,8 @@ section
           easy to work with so it’s a blast to try
           them out and see if they’re right for your
           next project.
-      .repo-card-container
+    .repo-card-container
+      .repo-card-container__inner
         = link_to "http://github.com/thoughtbot/bourbon",
           class: "repo-card repo-card--link repo-card-container__repo-card" do
           .repo-card__info

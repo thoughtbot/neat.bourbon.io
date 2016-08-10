@@ -48,6 +48,11 @@ $neat-grid-desktop: (
   media: 1100px,
 );
 
+$neat-grid-desktop-large: (
+  gutter: 2rem,
+  media: 1300px,
+);
+
 // Colors
 $black: #000;
 $dark-gray: #333;

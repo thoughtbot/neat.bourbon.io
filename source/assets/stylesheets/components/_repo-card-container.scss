@@ -1,4 +1,22 @@
 .repo-card-container {
+  @include grid-column(12);
+
+  @include grid-media($neat-grid-tablet) {
+    @include grid-column(12);
+  }
+
+  @include grid-media($neat-grid-desktop-large) {
+    @include grid-column(10);
+    @include grid-push(1);
+  }
+
+  @include grid-media($neat-grid-desktop-large) {
+    @include grid-column(8);
+    @include grid-push(2);
+  }
+}
+
+.repo-card-container__inner {
   @include grid-collapse;
   padding-top: $base-spacing;
 

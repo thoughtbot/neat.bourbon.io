@@ -1,7 +1,21 @@
+.column {
+   @include grid-column(12);
+
+  @include grid-media($neat-grid-tablet) {
+    @include grid-column(10);
+    @include grid-push(1);
+  }
+
+  @include grid-media($neat-grid-desktop) {
+    @include grid-column(6);
+    @include grid-push(2);
+  }
+}
+
 .column--6 {
   @include grid-column(12);
 
-  @include grid-media($neat-grid-tablet) {
+  @include grid-media($neat-grid-desktop) {
     @include grid-column(6);
   }
 }
