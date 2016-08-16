@@ -38,4 +38,10 @@ module ApplicationHelpers
     return File.read(file_path) if File.exists?(file_path)
     "(not found)"
   end
+
+  def inline_stylesheet(path, **options)
+    asset = sprockets["#{ path }.css"]
+
+    content_tag(:style, asset.to_s, { type: 'text/css' }.merge(options))
+  end
 end

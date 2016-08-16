@@ -8,6 +8,7 @@ activate :dotenv
 activate :syntax do |syntax|
   syntax.css_class = "syntax-highlight"
 end
+activate :sprockets
 
 set :css_dir, "assets/stylesheets"
 set :images_dir, "assets/images"
