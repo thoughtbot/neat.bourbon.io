@@ -11,7 +11,6 @@ activate :syntax do |syntax|
   syntax.css_class = "syntax-highlight"
 end
 
-
 set :css_dir, "assets/stylesheets"
 set :images_dir, "assets/images"
 set :js_dir, "assets/javascripts"

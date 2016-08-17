@@ -71,3 +71,8 @@ hr {
   border-top: 0;
   margin: $base-spacing 0;
 }
+
+blockquote {
+  font-style: italic;
+  line-height: $heading-line-height;
+}

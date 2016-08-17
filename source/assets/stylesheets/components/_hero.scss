@@ -13,19 +13,23 @@
   }
 }
 
-.hero__flex-container {
+.hero__flex-container,
+.hero__flex-container--small {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @include padding(10vh null);
+}
+
+.hero__flex-container {
   min-height: calc(90vh - #{$aproximate-nav-height});
-  padding: 10vh 0;
 
   @include grid-media($neat-grid-tablet) {
-    padding: 12vh 0;
+    @include padding(12vh null);
   }
 
   @include grid-media($neat-grid-desktop) {
-    padding: 16vh 0;
+    @include padding(16vh null);
   }
 }
 

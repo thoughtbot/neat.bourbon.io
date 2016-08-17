@@ -1,0 +1,9 @@
+@import "neat";
+
+.example-1 {
+  @include grid-container;
+}
+
+.example-1__column-1 {
+  @include grid-column(1);
+}

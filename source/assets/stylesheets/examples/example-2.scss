@@ -1,0 +1,29 @@
+@import "neat";
+
+.example-2,
+.example-2__row {
+  @include grid-container;
+}
+
+.example-2__heading {
+  @include grid-column;
+}
+
+.example-2__hero {
+  @include grid-column(6);
+  @include grid-push(3);
+}
+
+.example-2__rule {
+  @include grid-column(4);
+  @include grid-push(4);
+}
+
+.example-2__column-1 {
+  @include grid-column(2);
+  @include grid-push(2);
+}
+
+.example-2__column-2 {
+  @include grid-column(6);
+}
