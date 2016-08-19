@@ -1,5 +1,6 @@
 .button {
   appearance: none;
+  box-shadow: $neat-complex-box-shadow;
   background-color: $action-color;
   background-image: $neat-gradient;
   border: 0;
@@ -18,12 +19,16 @@
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
+  transition: transform 200ms $ease-out-back, box-shadow 300ms $ease-out-back;;
 
   &:hover,
   &:focus {
+    transition: transform 300ms $ease-out-back;
     background-color: shade($action-color, 20%);
     border: 0;
     color: $white;
+    transform: scale(1.05) translateY(-0.25rem);
+    box-shadow: $neat-complex-box-shadow-hover;
   }
 
   &:disabled {

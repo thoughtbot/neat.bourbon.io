@@ -25,6 +25,7 @@ $heading-line-height: 1.2;
 $base-border-radius: 3px;
 $base-spacing: $base-line-height * 1em;
 $small-spacing: $base-spacing / 2;
+$tiny-spacing: $base-spacing / 4;
 $base-z-index: 0;
 $letter-spacing-small: 0.02em;
 $letter-spacing-extra-small: $letter-spacing-small / 2;
@@ -84,13 +85,31 @@ $base-border-color: $light-gray;
 $base-border: 4px solid $neat-blue;
 $secondary-border: 1px solid $light-gray;
 
-// Shadow
-$base-box-shadow: 0 1px 2px rgba(#000, 0.08);
-$large-box-shadow: 0 4px 8px 0 rgba($black, 0.1);
-
 // Background Colors
 $base-background-color: #fff;
 $secondary-background-color: tint($base-border-color, 75%);
+
+// Shadow
+$base-box-shadow-color: mix($base-font-color, $neat-blue, 85%);
+$base-box-shadow: 0 1px 2px rgba(#000, 0.08);
+$large-box-shadow: 0 4px 8px 0 rgba($black, 0.1);
+$base-complex-box-shadow:
+  0 1.25rem 1rem -1.5rem rgba($base-box-shadow-color, 0.4),
+  0 0.5rem 1.75rem -0.25rem rgba($base-box-shadow-color, 0.2),
+  0 1.25rem 2.5rem rgba($base-box-shadow-color, 0.2);
+$base-complex-box-shadow-open-top:
+  0 -2em 0 $base-background-color,
+  0 1.25rem 1rem -1.5rem rgba($base-box-shadow-color, 0.4),
+  0 0.5rem 1.75rem -0.25rem rgba($base-box-shadow-color, 0.2),
+  0 1.25rem 2.5rem rgba($base-box-shadow-color, 0.2);
+$neat-complex-box-shadow:
+  0 1.25rem 1rem -1.5rem rgba($neat-blue, 0.3),
+  0 0.5rem 1.75rem -0.25rem rgba($neat-blue, 0.2),
+  0 1.25rem 2.5rem rgba($neat-blue, 0.1);
+$neat-complex-box-shadow-hover:
+  0 1.5rem 1rem -2rem rgba($neat-blue, 0.3),
+  0 1rem 1rem -0.5rem rgba($neat-blue, 0.2),
+  0 1.5rem 3rem rgba($neat-blue, 0.1);
 
 // Forms
 $form-box-shadow: inset 0 1px 3px rgba($black, 0.06);

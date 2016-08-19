@@ -3,11 +3,14 @@ require "lib/version"
 activate :autoprefixer do |prefix|
   prefix.browsers = "last 2 versions"
 end
+
 activate :directory_indexes
 activate :dotenv
+activate :sprockets
 activate :syntax do |syntax|
   syntax.css_class = "syntax-highlight"
 end
+
 
 set :css_dir, "assets/stylesheets"
 set :images_dir, "assets/images"

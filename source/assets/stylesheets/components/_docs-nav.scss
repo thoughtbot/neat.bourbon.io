@@ -12,10 +12,7 @@
       top: 0;
       max-height: 100vh;
       overflow-y: scroll;
-    }
-
-    &.bottom-out {
-
+      overflow-x: visible;
     }
   }
 }
@@ -26,6 +23,12 @@
   font-weight: 300;
   margin: 0 0 0.5em;
   text-transform: uppercase;
+}
+
+.docs-nav__heading--has-dropdown {
+  margin-bottom: $base-spacing;
+  position: relative;
+  z-index: 2;
 }
 
 .docs-nav__link {
