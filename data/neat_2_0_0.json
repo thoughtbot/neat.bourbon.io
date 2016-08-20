@@ -103,6 +103,54 @@
     }
   },
   {
+    "description": "Creates collapsed grid object that consumes the gutters of its container,\nfor use in nested layouts.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 23
+    },
+    "context": {
+      "type": "mixin",
+      "name": "Grid collapse",
+      "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  float: left;\n  margin-left: -($_grid-gutter);\n  margin-right: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
+      "line": {
+        "start": 25,
+        "end": 36
+      }
+    },
+    "group": [
+      "features"
+    ],
+    "parameter": [
+      {
+        "type": "map",
+        "name": "grid",
+        "default": "$neat-grid",
+        "description": "The grid used to determine gutter size.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include grid-collapse;\n}"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  float: left;\n  margin-left: -20px;\n  margin-right: -20px;\n  width: calc(100% + 40px);\n}"
+      }
+    ],
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      }
+    ],
+    "file": {
+      "path": "neat/mixins/_grid-collapse.scss",
+      "name": "_grid-collapse.scss"
+    }
+  },
+  {
     "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
     "commentRange": {
       "start": 2,
@@ -637,7 +685,7 @@
         "description": "Shift columns and reorder them within their container using relative\npositioning.\n\n",
         "context": {
           "type": "mixin",
-          "name": "Grid push",
+          "name": "Grid shift",
           "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    left: $_shift-value;\n  } @else {\n    left: auto;\n  }\n\n  position: relative;\n",
           "line": {
             "start": 26,
@@ -803,6 +851,18 @@
     },
     "usedBy": [
       {
+        "description": "Creates collapsed grid object that consumes the gutters of its container,\nfor use in nested layouts.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid collapse",
+          "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  float: left;\n  margin-left: -($_grid-gutter);\n  margin-right: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
+          "line": {
+            "start": 25,
+            "end": 36
+          }
+        }
+      },
+      {
         "description": "Creates Neat a grid column of requested size.\n\n",
         "context": {
           "type": "mixin",
@@ -842,7 +902,7 @@
         "description": "Shift columns and reorder them within their container using relative\npositioning.\n\n",
         "context": {
           "type": "mixin",
-          "name": "Grid push",
+          "name": "Grid shift",
           "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    left: $_shift-value;\n  } @else {\n    left: auto;\n  }\n\n  position: relative;\n",
           "line": {
             "start": 26,
