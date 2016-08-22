@@ -23,7 +23,40 @@ header.hero.container
             #{link_to "Twitter", "https://twitter.com/bourbonsass"}
             for announcements.
 
-section
+section.container--spacing
+  .container
+    .column
+      h3
+        | Installation
+      p
+        | If you are using Ruby on Rails, Middleman, or Jekyll, install the Neat
+          using RubyGems. Just add the following to your <code>Gemfile</code>.
+      pre
+        code.syntax-highlight
+          | <span class="kd">gem</span> "<span class="kr">neat</span>"
+      p
+        | Alternatively, you can install Neat with Bower, Ruby, or NPM. You can
+          also use the Neat CLI tool to install Neat in the current directory.
+      pre
+        code.syntax-highlight
+          | <span class="kd">gem</span> <span class="k">install</span> <span class="kr">neat</span>
+            <span class="kd">neat</span> <span class="k">install</span>
+      p
+        | Next up just import Neat in to your scss files by placing the `@import`
+          in to the top your sass file.
+      pre
+        code.syntax-highlight
+          | <span class="k">@import</span> "<span class="kr">neat</span>";
+      p
+        span.emoji
+          ' 🎉🎉🎉
+      markdown:
+        You're all set from there! If you need more info you can check out the
+        detailed Installation instructions in the
+        [README](https://github.com/thoughtbot/neat#installation)
+        or check the [documentation](/docs/latest/) on how to get started.
+
+section.container--spacing
   .container
     .column
       h3

@@ -7,4 +7,12 @@
 
 .container--spacing {
   @include margin($base-spacing null);
+
+  @include grid-media($neat-grid-tablet) {
+    @include margin(($base-spacing * 2) null);
+  }
+
+  @include grid-media($neat-grid-desktop) {
+    @include margin(($base-spacing * 3) null);
+  }
 }

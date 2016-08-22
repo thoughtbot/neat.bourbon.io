@@ -22,7 +22,7 @@
 }
 
 .hero__flex-container {
-  min-height: calc(90vh - #{$aproximate-nav-height});
+  min-height: calc(70vh - #{$aproximate-nav-height});
 
   @include grid-media($neat-grid-tablet) {
     @include padding(12vh null);
