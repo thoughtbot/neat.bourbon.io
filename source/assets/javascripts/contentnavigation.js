@@ -19,8 +19,8 @@ class ContentNavigation {
   }
 
   get parentBottom() {
-    const navParentTop = this.$parent.offset().top;
-    const navParentHeight = this.$parent.outerHeight();
+    var navParentTop = this.$parent.offset().top;
+    var navParentHeight = this.$parent.outerHeight();
 
     return navParentHeight + navParentTop;
   }
@@ -44,15 +44,15 @@ class ContentNavigation {
   _animate() {
     event.preventDefault();
 
-    const topPadding = 20;
-    const target = $(this).attr("href");
-    const targetPosition = $(target).offset().top - topPadding;
+    var topPadding = 20;
+    var target = $(this).attr("href");
+    var targetPosition = $(target).offset().top - topPadding;
 
     $("html, body").animate({ scrollTop: targetPosition}, 500);
   }
 
   _setNavigationClass() {
-    const self = this;
+    var self = this;
 
     if(this.bottomOut) {
       self._bottomOutNav();

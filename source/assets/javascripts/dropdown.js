@@ -10,8 +10,8 @@ class dropDown {
   }
 
   get parentBottom() {
-    const navParentTop = this.$parent.offset().top;
-    const navParentHeight = this.$parent.outerHeight();
+    var navParentTop = this.$parent.offset().top;
+    var navParentHeight = this.$parent.outerHeight();
 
     return navParentHeight + navParentTop;
   }
