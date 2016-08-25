@@ -3,6 +3,15 @@ table {
   margin: $small-spacing 0;
   table-layout: auto;
   width: 100%;
+
+  @media only screen and (max-width: #{$media-tablet}) {
+    display: block;
+    overflow-x: scroll;
+
+    td:last-child {
+      min-width: 18em;
+    }
+  }
 }
 
 th {

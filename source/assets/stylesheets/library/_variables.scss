@@ -33,6 +33,11 @@ $letter-spacing-extra-small: $letter-spacing-small / 2;
 $heading-spacing: 1rem;
 $aproximate-nav-height: 85px;
 
+// Media
+$media-tablet: 600px;
+$media-desktop: 1100px;
+$media-desktop-large: 1300px;
+
 // Grids
 $neat-grid: (
   columns: 12,
@@ -41,17 +46,17 @@ $neat-grid: (
 
 $neat-grid-tablet: (
   gutter: 2rem,
-  media: 600px,
+  media: $media-tablet,
 );
 
 $neat-grid-desktop: (
   gutter: 2rem,
-  media: 1100px,
+  media: $media-desktop,
 );
 
 $neat-grid-desktop-large: (
   gutter: 2rem,
-  media: 1300px,
+  media: $media-desktop-large,
 );
 
 // Colors
