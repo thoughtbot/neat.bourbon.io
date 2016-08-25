@@ -1,4 +1,4 @@
-[<img src="http://images.thoughtbot.com/bourbon/neat-logo.svg" width="200" alt="Neat logo">][Neat website]
+[<img src="http://images.thoughtbot.com/bourbon/neat-logo-v2.svg" width="200" alt="Neat logo">][Neat website]
 
 # Neat Website
 
