@@ -1,5 +1,61 @@
 [
   {
+    "description": "Creates collapsed grid object that consumes the gutters of its container,\nfor use in nested layouts.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 23
+    },
+    "context": {
+      "type": "mixin",
+      "name": "Grid collapse",
+      "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
+      "line": {
+        "start": 25,
+        "end": 36
+      }
+    },
+    "group": [
+      "features"
+    ],
+    "parameter": [
+      {
+        "type": "map",
+        "name": "grid",
+        "default": "$neat-grid",
+        "description": "The grid used to determine gutter size.\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include grid-collapse;\n}"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  float: left;\n  margin-left: -20px;\n  margin-right: -20px;\n  width: calc(100% + 40px);\n}"
+      }
+    ],
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      },
+      {
+        "type": "function",
+        "name": "_neat-float-direction"
+      },
+      {
+        "type": "function",
+        "name": "_neat-opposite-direction"
+      }
+    ],
+    "file": {
+      "path": "neat/mixins/_grid-collapse.scss",
+      "name": "_grid-collapse.scss"
+    }
+  },
+  {
     "description": "Creates Neat a grid column of requested size.\n\n",
     "commentRange": {
       "start": 2,
@@ -8,7 +64,7 @@
     "context": {
       "type": "mixin",
       "name": "Grid column",
-      "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
+      "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: $_grid-gutter;\n",
       "line": {
         "start": 25,
         "end": 33
@@ -53,6 +109,10 @@
       {
         "type": "function",
         "name": "_neat-column-width"
+      },
+      {
+        "type": "function",
+        "name": "_neat-float-direction"
       }
     ],
     "file": {
@@ -100,54 +160,6 @@
     "file": {
       "path": "neat/mixins/_grid-container.scss",
       "name": "_grid-container.scss"
-    }
-  },
-  {
-    "description": "Creates collapsed grid object that consumes the gutters of its container,\nfor use in nested layouts.\n\n",
-    "commentRange": {
-      "start": 2,
-      "end": 23
-    },
-    "context": {
-      "type": "mixin",
-      "name": "Grid collapse",
-      "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  float: left;\n  margin-left: -($_grid-gutter);\n  margin-right: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
-      "line": {
-        "start": 25,
-        "end": 36
-      }
-    },
-    "group": [
-      "features"
-    ],
-    "parameter": [
-      {
-        "type": "map",
-        "name": "grid",
-        "default": "$neat-grid",
-        "description": "The grid used to determine gutter size.\n"
-      }
-    ],
-    "example": [
-      {
-        "type": "scss",
-        "code": ".element {\n  @include grid-collapse;\n}"
-      },
-      {
-        "type": "css",
-        "code": ".element {\n  float: left;\n  margin-left: -20px;\n  margin-right: -20px;\n  width: calc(100% + 40px);\n}"
-      }
-    ],
-    "access": "public",
-    "require": [
-      {
-        "type": "function",
-        "name": "_retrieve-neat-setting"
-      }
-    ],
-    "file": {
-      "path": "neat/mixins/_grid-collapse.scss",
-      "name": "_grid-collapse.scss"
     }
   },
   {
@@ -211,7 +223,7 @@
     "context": {
       "type": "mixin",
       "name": "Grid push",
-      "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-left: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-left: $_margin-value;\n  }\n",
+      "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  }\n",
       "line": {
         "start": 24,
         "end": 36
@@ -252,6 +264,10 @@
       {
         "type": "function",
         "name": "_neat-column-width"
+      },
+      {
+        "type": "function",
+        "name": "_neat-float-direction"
       }
     ],
     "file": {
@@ -268,7 +284,7 @@
     "context": {
       "type": "mixin",
       "name": "Grid shift",
-      "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    left: $_shift-value;\n  } @else {\n    left: auto;\n  }\n\n  position: relative;\n",
+      "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    #{_neat-float-direction($grid)}: $_shift-value;\n  } @else {\n    #{_neat-float-direction($grid)}: auto;\n  }\n\n  position: relative;\n",
       "line": {
         "start": 26,
         "end": 35
@@ -309,6 +325,10 @@
       {
         "type": "function",
         "name": "_retrieve-neat-setting"
+      },
+      {
+        "type": "function",
+        "name": "_neat-float-direction"
       }
     ],
     "file": {
@@ -317,19 +337,80 @@
     }
   },
   {
+    "description": "Creates a guide on a grid container to visualise the columns.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 22
+    },
+    "context": {
+      "type": "mixin",
+      "name": "Grid visual",
+      "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color 1px,\n    transparent 1px,\n    transparent $_grid-gutter,\n    $color calc(#{$_grid-gutter} + 1px),\n    transparent calc(#{$_grid-gutter} + 2px),\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + 1px),\n      transparent calc(#{$location} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter} + 1px),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n    transparent calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - 1px),\n    $color calc(100% - 1px),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image:\n    linear-gradient(to right, $_grid-visual),\n    linear-gradient(to bottom,\n      $color,\n      $color 1px,\n      transparent 1px,\n      transparent calc(100% - 1px),\n      $color calc(100% - 1px),\n      $color\n  );\n",
+      "line": {
+        "start": 24,
+        "end": 85
+      }
+    },
+    "group": [
+      "features"
+    ],
+    "parameter": [
+      {
+        "type": "color",
+        "name": "color",
+        "description": "The color of the guide lines created.\n"
+      },
+      {
+        "type": "map",
+        "name": "grid",
+        "default": "$neat-grid",
+        "description": "The grid used to determine the guide\n"
+      }
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": ".element {\n  @include grid-visual;\n}"
+      },
+      {
+        "type": "css",
+        "code": ".element {\n  background-image: … ;\n}"
+      }
+    ],
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      },
+      {
+        "type": "function",
+        "name": "_neat-column-width"
+      },
+      {
+        "type": "function",
+        "name": "_neat-append-grid-visual"
+      }
+    ],
+    "file": {
+      "path": "neat/mixins/_grid-visual.scss",
+      "name": "_grid-visual.scss"
+    }
+  },
+  {
     "description": "Neat’s default grid.\n\n",
     "commentRange": {
       "start": 2,
-      "end": 19
+      "end": 22
     },
     "context": {
       "type": "variable",
       "name": "Default settings",
-      "value": "(\n  columns: 12,\n  gutter: 20px,\n  media: null,\n)",
+      "value": "(\n  columns: 12,\n  gutter: 20px,\n  media: null,\n  color: rgba(#00d4ff, 0.25),\n  direction: ltr,\n)",
       "scope": "private",
       "line": {
-        "start": 21,
-        "end": 25
+        "start": 24,
+        "end": 30
       }
     },
     "group": [
@@ -354,6 +435,12 @@
         "name": "gutter",
         "default": "null",
         "description": "Grid media query."
+      },
+      {
+        "type": "color",
+        "name": "color",
+        "default": "rgba(#00d4ff, 0.25)",
+        "description": "Default visual grid color."
       }
     ],
     "access": "private",
@@ -365,8 +452,8 @@
   {
     "description": "This variable is a sass map that overrides Neat's default grid settings.\nUse this to define your project's grid properties incluting gutters and\ntotal column count.\n\n",
     "commentRange": {
-      "start": 27,
-      "end": 47
+      "start": 32,
+      "end": 52
     },
     "context": {
       "type": "variable",
@@ -374,8 +461,8 @@
       "value": "()",
       "scope": "default",
       "line": {
-        "start": 49,
-        "end": 49
+        "start": 54,
+        "end": 54
       }
     },
     "type": "map",
@@ -411,8 +498,8 @@
   {
     "description": "If you would like to have multiple grids in a single project, you can do\nthis by defining a new map stored within a variable of your choosing. This\nvariable can then be passed directly in to any of Neat's mixins like\n[`grid-span(12, $my-custom-grid)`](#grid-span).\n\nCustom grids are especially useful with [`grid-media`](#grid-media). By\ndefining a `media` attribute within your custom grid, you are able to easily\ndefine both the attributes of a grid as well as at what breakpoint this grid\nshould activate.\n\n",
     "commentRange": {
-      "start": 51,
-      "end": 91
+      "start": 56,
+      "end": 96
     },
     "context": {
       "type": "variable",
@@ -420,8 +507,8 @@
       "value": "()",
       "scope": "default",
       "line": {
-        "start": 93,
-        "end": 93
+        "start": 98,
+        "end": 98
       }
     },
     "type": "map",
@@ -473,6 +560,64 @@
       "path": "neat/settings/_settings.scss",
       "name": "_settings.scss"
     }
+  },
+  {
+    "description": "Append attributes to a the `$_grid-visual` variable in `grid-visual` mixin\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 13
+    },
+    "context": {
+      "type": "function",
+      "name": "_neat-append-grid-visual",
+      "code": "\n  @each $attribute in $attributes {\n    $grid-visual-list: append($grid-visual-list, $attribute, comma);\n  }\n\n  @return $grid-visual-list;\n",
+      "line": {
+        "start": 15,
+        "end": 21
+      }
+    },
+    "parameter": [
+      {
+        "type": "map",
+        "name": "grid"
+      },
+      {
+        "type": "number (unitless) | null",
+        "name": "columns"
+      }
+    ],
+    "return": {
+      "type": "number"
+    },
+    "example": [
+      {
+        "type": "scss",
+        "code": "_neat-column-default($neat-grid, 4)"
+      }
+    ],
+    "access": "private",
+    "group": [
+      "undefined"
+    ],
+    "require": [],
+    "file": {
+      "path": "neat/functions/_neat-append-grid-visual.scss",
+      "name": "_neat-append-grid-visual.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates a guide on a grid container to visualise the columns.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid visual",
+          "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color 1px,\n    transparent 1px,\n    transparent $_grid-gutter,\n    $color calc(#{$_grid-gutter} + 1px),\n    transparent calc(#{$_grid-gutter} + 2px),\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + 1px),\n      transparent calc(#{$location} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter} + 1px),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n    transparent calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - 1px),\n    $color calc(100% - 1px),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image:\n    linear-gradient(to right, $_grid-visual),\n    linear-gradient(to bottom,\n      $color,\n      $color 1px,\n      transparent 1px,\n      transparent calc(100% - 1px),\n      $color calc(100% - 1px),\n      $color\n  );\n",
+          "line": {
+            "start": 24,
+            "end": 85
+          }
+        }
+      }
+    ]
   },
   {
     "description": "Determine if a column count has been given.\nIf no columns have been given return the grid's total column count.\n\n",
@@ -528,7 +673,7 @@
         "context": {
           "type": "mixin",
           "name": "Grid column",
-          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
+          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: $_grid-gutter;\n",
           "line": {
             "start": 25,
             "end": 33
@@ -662,7 +807,7 @@
         "context": {
           "type": "mixin",
           "name": "Grid column",
-          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
+          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: $_grid-gutter;\n",
           "line": {
             "start": 25,
             "end": 33
@@ -674,7 +819,7 @@
         "context": {
           "type": "mixin",
           "name": "Grid push",
-          "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-left: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-left: $_margin-value;\n  }\n",
+          "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  }\n",
           "line": {
             "start": 24,
             "end": 36
@@ -686,10 +831,176 @@
         "context": {
           "type": "mixin",
           "name": "Grid shift",
-          "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    left: $_shift-value;\n  } @else {\n    left: auto;\n  }\n\n  position: relative;\n",
+          "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    #{_neat-float-direction($grid)}: $_shift-value;\n  } @else {\n    #{_neat-float-direction($grid)}: auto;\n  }\n\n  position: relative;\n",
           "line": {
             "start": 26,
             "end": 35
+          }
+        }
+      },
+      {
+        "description": "Creates a guide on a grid container to visualise the columns.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid visual",
+          "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color 1px,\n    transparent 1px,\n    transparent $_grid-gutter,\n    $color calc(#{$_grid-gutter} + 1px),\n    transparent calc(#{$_grid-gutter} + 2px),\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + 1px),\n      transparent calc(#{$location} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter} + 1px),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n    transparent calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - 1px),\n    $color calc(100% - 1px),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image:\n    linear-gradient(to right, $_grid-visual),\n    linear-gradient(to bottom,\n      $color,\n      $color 1px,\n      transparent 1px,\n      transparent calc(100% - 1px),\n      $color calc(100% - 1px),\n      $color\n  );\n",
+          "line": {
+            "start": 24,
+            "end": 85
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Return the float direction of the grid.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 11
+    },
+    "context": {
+      "type": "function",
+      "name": "_neat-float-direction",
+      "code": "\n  $_direction: _retrieve-neat-setting($grid, direction);\n  $_float-direction: null;\n  @if $_direction == \"ltr\" {\n      $_float-direction: left;\n  } @else if $_direction == \"rtl\" {\n    $_float-direction: right;\n  }\n  @return $_float-direction;\n",
+      "line": {
+        "start": 13,
+        "end": 22
+      }
+    },
+    "parameter": [
+      {
+        "type": "map",
+        "name": "grid"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "example": [
+      {
+        "type": "scss",
+        "code": "_neat-float-direction($neat-grid)"
+      }
+    ],
+    "access": "private",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      }
+    ],
+    "file": {
+      "path": "neat/functions/_neat-float-direction.scss",
+      "name": "_neat-float-direction.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates collapsed grid object that consumes the gutters of its container,\nfor use in nested layouts.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid collapse",
+          "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
+          "line": {
+            "start": 25,
+            "end": 36
+          }
+        }
+      },
+      {
+        "description": "Creates Neat a grid column of requested size.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid column",
+          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: $_grid-gutter;\n",
+          "line": {
+            "start": 25,
+            "end": 33
+          }
+        }
+      },
+      {
+        "description": "Push or pull a Neat grid column by manipulating its left margin.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid push",
+          "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  }\n",
+          "line": {
+            "start": 24,
+            "end": 36
+          }
+        }
+      },
+      {
+        "description": "Shift columns and reorder them within their container using relative\npositioning.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid shift",
+          "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    #{_neat-float-direction($grid)}: $_shift-value;\n  } @else {\n    #{_neat-float-direction($grid)}: auto;\n  }\n\n  position: relative;\n",
+          "line": {
+            "start": 26,
+            "end": 35
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Return the oppoite of the float direction of the grid.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 11
+    },
+    "context": {
+      "type": "function",
+      "name": "_neat-opposite-direction",
+      "code": "\n  $_direction: _retrieve-neat-setting($grid, direction);\n  $_float-direction: null;\n  @if $_direction == \"ltr\" {\n      $_float-direction: right;\n  } @else if $_direction == \"rtl\" {\n    $_float-direction: left;\n  }\n  @return $_float-direction;\n",
+      "line": {
+        "start": 13,
+        "end": 22
+      }
+    },
+    "parameter": [
+      {
+        "type": "map",
+        "name": "grid"
+      }
+    ],
+    "return": {
+      "type": "string"
+    },
+    "example": [
+      {
+        "type": "scss",
+        "code": "_neat-opposite-direction($neat-grid)"
+      }
+    ],
+    "access": "private",
+    "group": [
+      "undefined"
+    ],
+    "require": [
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      }
+    ],
+    "file": {
+      "path": "neat/functions/_neat-opposite-direction.scss",
+      "name": "_neat-opposite-direction.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates collapsed grid object that consumes the gutters of its container,\nfor use in nested layouts.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid collapse",
+          "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
+          "line": {
+            "start": 25,
+            "end": 36
           }
         }
       }
@@ -855,7 +1166,7 @@
         "context": {
           "type": "mixin",
           "name": "Grid collapse",
-          "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  float: left;\n  margin-left: -($_grid-gutter);\n  margin-right: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
+          "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
           "line": {
             "start": 25,
             "end": 36
@@ -867,7 +1178,7 @@
         "context": {
           "type": "mixin",
           "name": "Grid column",
-          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: left;\n  margin-left: $_grid-gutter;\n",
+          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: $_grid-gutter;\n",
           "line": {
             "start": 25,
             "end": 33
@@ -891,7 +1202,7 @@
         "context": {
           "type": "mixin",
           "name": "Grid push",
-          "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-left: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-left: $_margin-value;\n  }\n",
+          "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  }\n",
           "line": {
             "start": 24,
             "end": 36
@@ -903,10 +1214,22 @@
         "context": {
           "type": "mixin",
           "name": "Grid shift",
-          "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    left: $_shift-value;\n  } @else {\n    left: auto;\n  }\n\n  position: relative;\n",
+          "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    #{_neat-float-direction($grid)}: $_shift-value;\n  } @else {\n    #{_neat-float-direction($grid)}: auto;\n  }\n\n  position: relative;\n",
           "line": {
             "start": 26,
             "end": 35
+          }
+        }
+      },
+      {
+        "description": "Creates a guide on a grid container to visualise the columns.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid visual",
+          "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color 1px,\n    transparent 1px,\n    transparent $_grid-gutter,\n    $color calc(#{$_grid-gutter} + 1px),\n    transparent calc(#{$_grid-gutter} + 2px),\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + 1px),\n      transparent calc(#{$location} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter} + 1px),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n    transparent calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - 1px),\n    $color calc(100% - 1px),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image:\n    linear-gradient(to right, $_grid-visual),\n    linear-gradient(to bottom,\n      $color,\n      $color 1px,\n      transparent 1px,\n      transparent calc(100% - 1px),\n      $color calc(100% - 1px),\n      $color\n  );\n",
+          "line": {
+            "start": 24,
+            "end": 85
           }
         }
       },
@@ -943,6 +1266,30 @@
           "line": {
             "start": 15,
             "end": 25
+          }
+        }
+      },
+      {
+        "description": "Return the float direction of the grid.\n\n",
+        "context": {
+          "type": "function",
+          "name": "_neat-float-direction",
+          "code": "\n  $_direction: _retrieve-neat-setting($grid, direction);\n  $_float-direction: null;\n  @if $_direction == \"ltr\" {\n      $_float-direction: left;\n  } @else if $_direction == \"rtl\" {\n    $_float-direction: right;\n  }\n  @return $_float-direction;\n",
+          "line": {
+            "start": 13,
+            "end": 22
+          }
+        }
+      },
+      {
+        "description": "Return the oppoite of the float direction of the grid.\n\n",
+        "context": {
+          "type": "function",
+          "name": "_neat-opposite-direction",
+          "code": "\n  $_direction: _retrieve-neat-setting($grid, direction);\n  $_float-direction: null;\n  @if $_direction == \"ltr\" {\n      $_float-direction: right;\n  } @else if $_direction == \"rtl\" {\n    $_float-direction: left;\n  }\n  @return $_float-direction;\n",
+          "line": {
+            "start": 13,
+            "end": 22
           }
         }
       }
