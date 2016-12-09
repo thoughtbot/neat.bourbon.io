@@ -22,7 +22,9 @@ code {
     border: $secondary-border;
     box-shadow: $code-block-box-shadow;
     display: block;
+    overflow-y: scroll;
     padding: $code-block-spacing;
+    max-width: 100%;
   }
 }
 
@@ -30,4 +32,5 @@ pre {
   line-height: 1.5;
   margin: 0 0 $small-spacing;
   padding: 3px;
+  max-width: 100%;
 }
