@@ -1,10 +1,35 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file. This
+project adheres to [Semantic Versioning](http://semver.org).
 
-This project adheres to [Semantic Versioning](http://semver.org).
+## [Unreleased]
 
-## [Unreleased (2.0.0-alpha)]
+## [2.0.0.beta.2]
+
+### Added
+
+- Added `grid-visual` to show visual grid guides
+- Added ltr/rtl support
+
+### Removed
+
+- Removed `node-sass` dependency from `package.json`
+
+## [2.0.0.beta.1]
+
+### Added
+
+- Added `grid-collapse` to allow the creation of nested layouts
+
+## [2.0.0.alpha.1]
+
+### Added
+
+- Added `grid-shift` functionality
+- Added `grid-media` to allow the creation of media queries with custom grids
+
+## [2.0.0.alpha.0]
 
 ### Added
 
@@ -13,8 +38,6 @@ This project adheres to [Semantic Versioning](http://semver.org).
 - Added improved documentation and releasing information
 - Added `grid-container` for floated grid which contains a simple clearfix
 - Added `grid-push` functionality
-- Added `grid-shift` functionality
-- Added `grid-media` to allow the creation of media queries with custom grids
 
 ### Changed
 
@@ -53,6 +76,7 @@ This project adheres to [Semantic Versioning](http://semver.org).
     - `$visual-grid-color` has been removed
     - `$visual-grid-index` has been removed
     - `$visual-grid-opacity` has been removed
+
 
 ## 1.8.0 - 2016-06-21
 
@@ -279,4 +303,8 @@ This project adheres to [Semantic Versioning](http://semver.org).
 
 - Initial release
 
-[Unreleased (2.0.0-alpha)]: https://github.com/thoughtbot/neat/compare/v1.8.0...neat-2.0.0
+[Unreleased]: https://github.com/thoughtbot/neat/compare/v2.0.0.beta.1...neat-2.0.0
+[2.0.0.beta.2]: https://github.com/thoughtbot/neat/compare/v2.0.0.beta.1...v2.0.0.beta.2
+[2.0.0.beta.1]: https://github.com/thoughtbot/neat/compare/v2.0.0.alpha.1...v2.0.0.beta.1
+[2.0.0.alpha.1]: https://github.com/thoughtbot/neat/compare/v2.0.0.alpha.0...v2.0.0.alpha.1
+[2.0.0.alpha.0]: https://github.com/thoughtbot/neat/compare/v1.8.0...v2.0.0.alpha.0
