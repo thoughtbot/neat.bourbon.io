@@ -543,7 +543,7 @@
         "description": "Grid gutter width between columns."
       },
       {
-        "type": "number (with unit) | string | null",
+        "type": "number | string",
         "name": "media",
         "default": "null",
         "description": "The `@media` definition that is used by the [`grid-media`](#grid-media)\n  mixin to detirmine the media properties."

@@ -1,4 +1,4 @@
-h5 Arguments
+h5 Properties
 
 table
   tr
@@ -11,15 +11,15 @@ table
     th scope="col"
       | Description
 
-  - item.parameter.each do |argument|
+  - item.property.each do |argument|
     tr
       td
-        small
-          code
+        code
+          small
             = argument.name
       td
-        small
-          code
+        code
+          small
             = argument.type
       td
         - if argument.default

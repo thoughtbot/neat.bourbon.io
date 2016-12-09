@@ -43,6 +43,9 @@
             - if item.parameter.present?
               .doc-item__section
                 = partial "partials/doc_item_arguments", locals: { item: item }
+            - if item.property.present?
+              .doc-item__section
+                = partial "partials/doc_item_properties", locals: { item: item }
             - if item.example.present?
               .doc-item__section
                 = partial "partials/doc_item_example", locals: { item: item }
