@@ -163,7 +163,7 @@
     }
   },
   {
-    "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
+    "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-width` value. Your custom grid can then be passed to the mixin.\n\n",
     "commentRange": {
       "start": 2,
       "end": 42
@@ -517,7 +517,7 @@
     ],
     "see": [
       {
-        "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
+        "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-width` value. Your custom grid can then be passed to the mixin.\n\n",
         "context": {
           "type": "mixin",
           "name": "Grid media",
@@ -1104,7 +1104,7 @@
     },
     "usedBy": [
       {
-        "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
+        "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-width` value. Your custom grid can then be passed to the mixin.\n\n",
         "context": {
           "type": "mixin",
           "name": "Grid media",
@@ -1186,7 +1186,7 @@
         }
       },
       {
-        "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
+        "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If  only a number is defined, it is assumed this\nis a `min-width` value. Your custom grid can then be passed to the mixin.\n\n",
         "context": {
           "type": "mixin",
           "name": "Grid media",
