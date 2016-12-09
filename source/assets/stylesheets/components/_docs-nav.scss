@@ -11,8 +11,13 @@
       position: fixed;
       top: 0;
       max-height: 100vh;
+      overflow: -moz-scrollbars-none;
       overflow-y: scroll;
       overflow-x: visible;
+
+      &::-webkit-scrollbar {
+        width: 0 !important;
+      }
     }
   }
 }
