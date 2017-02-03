@@ -9,6 +9,39 @@ html lang="en"
     - if content_for?(:preferred_path)
       link rel="canonical" href=preferred_url
     = inline_stylesheet :main
+
+    meta name="HandheldFriendly" content="True"
+    link rel="shortcut icon" href="http://images.thoughtbot.com/bourbon/neat-logo-v2-icon.jpg"
+    meta name="referrer" content="no-referrer-when-downgrade"
+
+    meta property="og:site_name" content="Neat - A Lightweight and flexible Sass grid"
+    meta property="og:type" content="website"
+    meta property="og:title" content="Neat - A Lightweight and flexible Sass grid"
+    meta property="og:description" content="Neat is a library of pure Sass mixins and functions that are designed to make createing dynamic and engaging layouts absolutely effortless."
+    meta property="og:url" content="http://neat.bourbon.io"
+    meta name="twitter:card" content="summary"
+    meta name="twitter:title" content="Neat - A Lightweight and flexible Sass grid"
+    meta name="twitter:image" content="http://images.thoughtbot.com/bourbon/neat-logo-v2-icon.jpg"
+    meta name="twitter:image:alt" content="The Neat logo"
+    meta name="twitter:description" content="Neat is a library of pure Sass mixins and functions that are designed to make createing dynamic and engaging layouts absolutely effortless."
+    meta name="twitter:url" content="http://neat.bourbon.io"
+    meta name="twitter:site" content="@bourbonsass"
+
+    script type="application/ld+json"
+      |  {
+            "@context": "https://schema.org",
+            "@type": "SoftwareSourceCode",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Thoughtbot",
+            },
+            "url": "http://neat.bourbon.io/",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://neat.bourbon.io"
+            },
+            "description": "Neat is a library of pure Sass mixins and functions that are designed to make createing dynamic and engaging layouts absolutely effortless."
+        }
   body class= "page-#{page_classes}"
     = partial "partials/site_nav"
     main role="main"
