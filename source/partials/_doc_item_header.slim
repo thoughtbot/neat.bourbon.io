@@ -1,15 +1,16 @@
-span.doc-item__directive-type
+code.doc-item__directive-type
   = item.context.type
 
-h3.doc-item__title
-  = item.context.name
+header.doc-item__header
+  h3.doc-item__title
+    = item.context.name
 
-- if item.return.present?
-  .doc-item__returns
-    | Returns: #{ item.return.type }
+  - if item.return.present?
+    .doc-item__returns
+      | Returns: #{ item.return.type }
 
-.doc-item__source-link
-  = link_to "View Source", github_file_url(item.file.path, version)
+  .doc-item__source-link
+    = link_to "View Source", github_file_url(item.file.path, version)
 
 - if item.description.present?
   .doc-item__description

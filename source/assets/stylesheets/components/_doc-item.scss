@@ -6,6 +6,16 @@
   }
 }
 
+.doc-item__header {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .doc-item__section:not(:last-child) {
   margin-bottom: $base-spacing;
+}
+
+.doc-item__title {
+  flex-grow: 1;
 }
