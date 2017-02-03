@@ -129,7 +129,7 @@
     },
     "context": {
       "type": "mixin",
-      "name": "Grid containter",
+      "name": "Grid container",
       "code": "\n  &::after {\n    clear: both;\n    content: \"\";\n    display: block;\n  }\n",
       "line": {
         "start": 24,
