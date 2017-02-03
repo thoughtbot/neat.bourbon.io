@@ -36,9 +36,9 @@ You can find the [Neat Sass library source code here][library repo].
 
 ## Generate Documentation
 
-Bourbon uses [SassDoc] to document its source code. For this website, we use
+Neat uses [SassDoc] to document its source code. For this website, we use
 Rake tasks to run SassDoc’s CLI, which parses documentation-specific comments
-from [Bourbon’s source] and outputs them as versioned JSON files
+from [Neat’s source] and outputs them as versioned JSON files
 (e.g. [`neat_2_0_0.json`]). We then use a [proxy] in Middleman to generate
 unique pages for each version.
 
