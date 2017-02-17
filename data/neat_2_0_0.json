@@ -8,10 +8,10 @@
     "context": {
       "type": "mixin",
       "name": "Grid collapse",
-      "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
+      "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
       "line": {
         "start": 26,
-        "end": 37
+        "end": 36
       }
     },
     "group": [
@@ -109,7 +109,15 @@
       },
       {
         "type": "function",
+        "name": "_retrieve-neat-setting"
+      },
+      {
+        "type": "function",
         "name": "_neat-column-width"
+      },
+      {
+        "type": "function",
+        "name": "_neat-float-direction"
       },
       {
         "type": "function",
@@ -164,18 +172,18 @@
     }
   },
   {
-    "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
+    "description": "`grid-media` allows you to change your layout based on a media query.\nFor example, an object can span 3 columns on small screens and 6 columns\non large screens.\n\nYou can take this a step further and set different grid attributes like\ngutter size and total column count for each media query. So, for example,\nyou can have a `1rem` gutter on small screens, and a `2rem` gutter on large\nscreens.\n\n",
     "commentRange": {
       "start": 2,
-      "end": 45
+      "end": 55
     },
     "context": {
       "type": "mixin",
       "name": "Grid media",
-      "code": "\n  $_media: _retrieve-neat-setting($grid, media);\n  $_query: _neat-parse-media($_media);\n\n  @media #{$_query} {\n    $_default-neat-grid: $neat-grid;\n    $neat-grid: $grid !global;\n    @content;\n    $neat-grid: $_default-neat-grid !global;\n  }\n",
+      "code": "\n  $_media: _retrieve-neat-setting($grid, media);\n  $_query: _neat-parse-media($_media);\n\n  @media #{$_query} {\n    $_default-neat-grid: $neat-grid;\n    $neat-grid: map-merge($neat-grid, $grid) !global;\n    @content;\n    $neat-grid: $_default-neat-grid !global;\n  }\n",
       "line": {
-        "start": 47,
-        "end": 57
+        "start": 57,
+        "end": 67
       }
     },
     "group": [
@@ -185,9 +193,10 @@
       {
         "type": "map",
         "name": "grid",
-        "description": "The grid to be used within the scope of the block.\n  This grid should include the `media` property to determine the expression\n  for the media query.\n  By default, the global `$neat-grid` will be used.\n"
+        "description": "The grid to be used within the scope of the block.\n  This grid should include the `media` property to determine the expression\n  for the media query.\n"
       }
     ],
+    "content": "Grid media will temporarily the override the default grid with the\n  attributes of the custom grid. This change is scoped to within the mixin\n  block, and once the mixin has ended the default grid will revert to its\n  original state as defined by `$neat-grid`. This allows for different\n  gutter width and column count based on screen size or other properties.",
     "example": [
       {
         "type": "scss",
@@ -199,7 +208,6 @@
       }
     ],
     "access": "public",
-    "content": "",
     "require": [
       {
         "type": "function",
@@ -265,7 +273,19 @@
       },
       {
         "type": "function",
+        "name": "_retrieve-neat-setting"
+      },
+      {
+        "type": "function",
         "name": "_neat-column-width"
+      },
+      {
+        "type": "function",
+        "name": "_neat-float-direction"
+      },
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
       },
       {
         "type": "function",
@@ -332,6 +352,10 @@
       {
         "type": "function",
         "name": "_neat-float-direction"
+      },
+      {
+        "type": "function",
+        "name": "_neat-float-direction"
       }
     ],
     "file": {
@@ -348,10 +372,10 @@
     "context": {
       "type": "mixin",
       "name": "Grid visual",
-      "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color 1px,\n    transparent 1px,\n    transparent $_grid-gutter,\n    $color calc(#{$_grid-gutter} + 1px),\n    transparent calc(#{$_grid-gutter} + 2px),\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + 1px),\n      transparent calc(#{$location} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter} + 1px),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n    transparent calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - 1px),\n    $color calc(100% - 1px),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image:\n    linear-gradient(to right, $_grid-visual),\n    linear-gradient(to bottom,\n      $color,\n      $color 1px,\n      transparent 1px,\n      transparent calc(100% - 1px),\n      $color calc(100% - 1px),\n      $color\n  );\n",
+      "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color $_grid-gutter,\n    transparent $_grid-gutter,\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n      transparent calc(100% - #{$_grid-gutter}),\n      $color calc(100% - #{$_grid-gutter}),\n      $color calc(100%),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image: linear-gradient(to right, $_grid-visual);\n",
       "line": {
         "start": 25,
-        "end": 86
+        "end": 67
       }
     },
     "group": [
@@ -388,7 +412,19 @@
       },
       {
         "type": "function",
+        "name": "_retrieve-neat-setting"
+      },
+      {
+        "type": "function",
+        "name": "_retrieve-neat-setting"
+      },
+      {
+        "type": "function",
         "name": "_neat-column-width"
+      },
+      {
+        "type": "function",
+        "name": "_neat-append-grid-visual"
       },
       {
         "type": "function",
@@ -401,62 +437,10 @@
     }
   },
   {
-    "description": "Neat’s default grid.\n\n",
+    "description": "This variable is a sass map that overrides Neat's default grid settings.\nUse this to define your project's grid properties incluting gutters and\ntotal column count.\n\n",
     "commentRange": {
       "start": 2,
       "end": 22
-    },
-    "context": {
-      "type": "variable",
-      "name": "Default settings",
-      "value": "(\n  columns: 12,\n  gutter: 20px,\n  media: null,\n  color: rgba(#00d4ff, 0.25),\n  direction: ltr,\n)",
-      "scope": "private",
-      "line": {
-        "start": 24,
-        "end": 30
-      }
-    },
-    "group": [
-      "settings"
-    ],
-    "type": "map",
-    "property": [
-      {
-        "type": "number (unitless)",
-        "name": "columns",
-        "default": "12",
-        "description": "Default number of the total grid columns."
-      },
-      {
-        "type": "number (with unit)",
-        "name": "gutter",
-        "default": "20px",
-        "description": "Default grid gutter width between columns."
-      },
-      {
-        "type": "string | number (with unit)",
-        "name": "media",
-        "default": "null",
-        "description": "Grid media query."
-      },
-      {
-        "type": "color",
-        "name": "color",
-        "default": "rgba(#00d4ff, 0.25)",
-        "description": "Default visual grid color."
-      }
-    ],
-    "access": "private",
-    "file": {
-      "path": "neat/settings/_settings.scss",
-      "name": "_settings.scss"
-    }
-  },
-  {
-    "description": "This variable is a sass map that overrides Neat's default grid settings.\nUse this to define your project's grid properties incluting gutters and\ntotal column count.\n\n",
-    "commentRange": {
-      "start": 32,
-      "end": 52
     },
     "context": {
       "type": "variable",
@@ -464,8 +448,8 @@
       "value": "()",
       "scope": "default",
       "line": {
-        "start": 54,
-        "end": 54
+        "start": 24,
+        "end": 24
       }
     },
     "type": "map",
@@ -499,10 +483,10 @@
     }
   },
   {
-    "description": "If you would like to have multiple grids in a single project, you can do\nthis by defining a new map stored within a variable of your choosing. This\nvariable can then be passed directly in to any of Neat's mixins like\n[`grid-column(12, $my-custom-grid)`](#grid-column).\n\nCustom grids are especially useful with [`grid-media`](#grid-media). By\ndefining a `media` attribute within your custom grid, you are able to easily\ndefine both the attributes of a grid as well the breakpoint at which this\ngrid should activate.\n\n",
+    "description": "If you need multiple grids in a single project, you can do\nthis by defining a new map stored within a variable of your choosing. This\nvariable can then be passed directly in to any of Neat's mixins like\n[`grid-column(12, $my-custom-grid)`](#grid-column).\n\nCustom grids are especially useful with [`grid-media`](#grid-media). By\ndefining a `media` attribute within your custom grid, you are able to easily\ndefine gutter width and total column count as well the breakpoint at which\nthey should activate.\n\n",
     "commentRange": {
-      "start": 56,
-      "end": 102
+      "start": 26,
+      "end": 72
     },
     "context": {
       "type": "variable",
@@ -510,8 +494,8 @@
       "value": "()",
       "scope": "default",
       "line": {
-        "start": 104,
-        "end": 104
+        "start": 74,
+        "end": 74
       }
     },
     "type": "map",
@@ -611,10 +595,22 @@
         "context": {
           "type": "mixin",
           "name": "Grid visual",
-          "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color 1px,\n    transparent 1px,\n    transparent $_grid-gutter,\n    $color calc(#{$_grid-gutter} + 1px),\n    transparent calc(#{$_grid-gutter} + 2px),\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + 1px),\n      transparent calc(#{$location} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter} + 1px),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n    transparent calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - 1px),\n    $color calc(100% - 1px),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image:\n    linear-gradient(to right, $_grid-visual),\n    linear-gradient(to bottom,\n      $color,\n      $color 1px,\n      transparent 1px,\n      transparent calc(100% - 1px),\n      $color calc(100% - 1px),\n      $color\n  );\n",
+          "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color $_grid-gutter,\n    transparent $_grid-gutter,\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n      transparent calc(100% - #{$_grid-gutter}),\n      $color calc(100% - #{$_grid-gutter}),\n      $color calc(100%),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image: linear-gradient(to right, $_grid-visual);\n",
           "line": {
             "start": 25,
-            "end": 86
+            "end": 67
+          }
+        }
+      },
+      {
+        "description": "Creates a series of guide lines using the `background-image` property on a\ngrid container to visualise the columns and gutters of the grid.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid visual",
+          "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color $_grid-gutter,\n    transparent $_grid-gutter,\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n      transparent calc(100% - #{$_grid-gutter}),\n      $color calc(100% - #{$_grid-gutter}),\n      $color calc(100%),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image: linear-gradient(to right, $_grid-visual);\n",
+          "line": {
+            "start": 25,
+            "end": 67
           }
         }
       }
@@ -844,10 +840,10 @@
         "context": {
           "type": "mixin",
           "name": "Grid visual",
-          "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color 1px,\n    transparent 1px,\n    transparent $_grid-gutter,\n    $color calc(#{$_grid-gutter} + 1px),\n    transparent calc(#{$_grid-gutter} + 2px),\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + 1px),\n      transparent calc(#{$location} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter} + 1px),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n    transparent calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - 1px),\n    $color calc(100% - 1px),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image:\n    linear-gradient(to right, $_grid-visual),\n    linear-gradient(to bottom,\n      $color,\n      $color 1px,\n      transparent 1px,\n      transparent calc(100% - 1px),\n      $color calc(100% - 1px),\n      $color\n  );\n",
+          "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color $_grid-gutter,\n    transparent $_grid-gutter,\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n      transparent calc(100% - #{$_grid-gutter}),\n      $color calc(100% - #{$_grid-gutter}),\n      $color calc(100%),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image: linear-gradient(to right, $_grid-visual);\n",
           "line": {
             "start": 25,
-            "end": 86
+            "end": 67
           }
         }
       }
@@ -903,10 +899,22 @@
         "context": {
           "type": "mixin",
           "name": "Grid collapse",
-          "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
+          "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
           "line": {
             "start": 26,
-            "end": 37
+            "end": 36
+          }
+        }
+      },
+      {
+        "description": "Creates a grid column of requested size.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid column",
+          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: $_grid-gutter;\n",
+          "line": {
+            "start": 31,
+            "end": 39
           }
         }
       },
@@ -935,6 +943,18 @@
         }
       },
       {
+        "description": "Push or pull a grid column by manipulating its left margin.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid push",
+          "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  }\n",
+          "line": {
+            "start": 25,
+            "end": 37
+          }
+        }
+      },
+      {
         "description": "Shift columns and reorder them within their container using relative\npositioning.\n\n",
         "context": {
           "type": "mixin",
@@ -943,6 +963,72 @@
           "line": {
             "start": 27,
             "end": 36
+          }
+        }
+      },
+      {
+        "description": "Shift columns and reorder them within their container using relative\npositioning.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid shift",
+          "code": "\n  @if $shift {\n    $_shift-value: calc(#{_neat-column-width($grid, $shift)} + #{_retrieve-neat-setting($grid, gutter)});\n    #{_neat-float-direction($grid)}: $_shift-value;\n  } @else {\n    #{_neat-float-direction($grid)}: auto;\n  }\n\n  position: relative;\n",
+          "line": {
+            "start": 27,
+            "end": 36
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Apply Neat's default properties to undefined values within a map.\n\n",
+    "commentRange": {
+      "start": 2,
+      "end": 11
+    },
+    "context": {
+      "type": "function",
+      "name": "_neat-merge-defaults",
+      "code": "\n  $_merged-grid: map-merge((\n    columns: 12,\n    gutter: 20px,\n    media: null,\n    color: rgba(#00d4ff, 0.25),\n    direction: ltr,\n  ), $grid);\n\n  @return $_merged-grid;\n",
+      "line": {
+        "start": 13,
+        "end": 23
+      }
+    },
+    "parameter": [
+      {
+        "type": "map",
+        "name": "grid"
+      }
+    ],
+    "return": {
+      "type": "map"
+    },
+    "example": [
+      {
+        "type": "scss",
+        "code": "_retrieve-neat-setting($neat-grid)"
+      }
+    ],
+    "access": "private",
+    "group": [
+      "undefined"
+    ],
+    "require": [],
+    "file": {
+      "path": "neat/functions/_neat-merge-defaults.scss",
+      "name": "_neat-merge-defaults.scss"
+    },
+    "usedBy": [
+      {
+        "description": "This function recives a grid map and merges it with Neat's defauls.\nIt then returns the value of the property that has been passed to it.\n\n",
+        "context": {
+          "type": "function",
+          "name": "_retrieve-neat-setting",
+          "code": "\n  $_grid-settings: map-merge(_neat-merge-defaults($neat-grid), $grid);\n  @return map-get($_grid-settings, $setting);\n",
+          "line": {
+            "start": 16,
+            "end": 19
           }
         }
       }
@@ -998,10 +1084,10 @@
         "context": {
           "type": "mixin",
           "name": "Grid collapse",
-          "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
+          "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
           "line": {
             "start": 26,
-            "end": 37
+            "end": 36
           }
         }
       }
@@ -1105,32 +1191,32 @@
     },
     "usedBy": [
       {
-        "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
+        "description": "`grid-media` allows you to change your layout based on a media query.\nFor example, an object can span 3 columns on small screens and 6 columns\non large screens.\n\nYou can take this a step further and set different grid attributes like\ngutter size and total column count for each media query. So, for example,\nyou can have a `1rem` gutter on small screens, and a `2rem` gutter on large\nscreens.\n\n",
         "context": {
           "type": "mixin",
           "name": "Grid media",
-          "code": "\n  $_media: _retrieve-neat-setting($grid, media);\n  $_query: _neat-parse-media($_media);\n\n  @media #{$_query} {\n    $_default-neat-grid: $neat-grid;\n    $neat-grid: $grid !global;\n    @content;\n    $neat-grid: $_default-neat-grid !global;\n  }\n",
+          "code": "\n  $_media: _retrieve-neat-setting($grid, media);\n  $_query: _neat-parse-media($_media);\n\n  @media #{$_query} {\n    $_default-neat-grid: $neat-grid;\n    $neat-grid: map-merge($neat-grid, $grid) !global;\n    @content;\n    $neat-grid: $_default-neat-grid !global;\n  }\n",
           "line": {
-            "start": 47,
-            "end": 57
+            "start": 57,
+            "end": 67
           }
         }
       }
     ]
   },
   {
-    "description": "Return a Neat setting.\n\n",
+    "description": "This function recives a grid map and merges it with Neat's defauls.\nIt then returns the value of the property that has been passed to it.\n\n",
     "commentRange": {
       "start": 2,
-      "end": 13
+      "end": 14
     },
     "context": {
       "type": "function",
       "name": "_retrieve-neat-setting",
-      "code": "\n  $_grid-settings: map-merge($_neat-grid-defaults, $grid);\n  @return map-get($_grid-settings, $setting);\n",
+      "code": "\n  $_grid-settings: map-merge(_neat-merge-defaults($neat-grid), $grid);\n  @return map-get($_grid-settings, $setting);\n",
       "line": {
-        "start": 15,
-        "end": 18
+        "start": 16,
+        "end": 19
       }
     },
     "parameter": [
@@ -1156,7 +1242,12 @@
     "group": [
       "undefined"
     ],
-    "require": [],
+    "require": [
+      {
+        "type": "function",
+        "name": "_neat-merge-defaults"
+      }
+    ],
     "file": {
       "path": "neat/functions/_retrieve-neat-settings.scss",
       "name": "_retrieve-neat-settings.scss"
@@ -1167,10 +1258,10 @@
         "context": {
           "type": "mixin",
           "name": "Grid collapse",
-          "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
+          "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
           "line": {
             "start": 26,
-            "end": 37
+            "end": 36
           }
         }
       },
@@ -1187,14 +1278,50 @@
         }
       },
       {
-        "description": "Creates a media query in which custom grid properties can be defined.\nAdd the `media` property to your custom grid settings map and add the media\nyou would like to scope to. If only a number is defined, it is assumed this\nis a `min-with` value. Your custom grid can then be passed to the mixin.\n\n",
+        "description": "Creates a grid column of requested size.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid column",
+          "code": "\n  $columns: _neat-column-default($grid, $columns);\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  width: calc(#{_neat-column-width($grid, $columns)});\n  float: _neat-float-direction($grid);\n  margin-#{_neat-float-direction($grid)}: $_grid-gutter;\n",
+          "line": {
+            "start": 31,
+            "end": 39
+          }
+        }
+      },
+      {
+        "description": "`grid-media` allows you to change your layout based on a media query.\nFor example, an object can span 3 columns on small screens and 6 columns\non large screens.\n\nYou can take this a step further and set different grid attributes like\ngutter size and total column count for each media query. So, for example,\nyou can have a `1rem` gutter on small screens, and a `2rem` gutter on large\nscreens.\n\n",
         "context": {
           "type": "mixin",
           "name": "Grid media",
-          "code": "\n  $_media: _retrieve-neat-setting($grid, media);\n  $_query: _neat-parse-media($_media);\n\n  @media #{$_query} {\n    $_default-neat-grid: $neat-grid;\n    $neat-grid: $grid !global;\n    @content;\n    $neat-grid: $_default-neat-grid !global;\n  }\n",
+          "code": "\n  $_media: _retrieve-neat-setting($grid, media);\n  $_query: _neat-parse-media($_media);\n\n  @media #{$_query} {\n    $_default-neat-grid: $neat-grid;\n    $neat-grid: map-merge($neat-grid, $grid) !global;\n    @content;\n    $neat-grid: $_default-neat-grid !global;\n  }\n",
           "line": {
-            "start": 47,
-            "end": 57
+            "start": 57,
+            "end": 67
+          }
+        }
+      },
+      {
+        "description": "Push or pull a grid column by manipulating its left margin.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid push",
+          "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  }\n",
+          "line": {
+            "start": 25,
+            "end": 37
+          }
+        }
+      },
+      {
+        "description": "Push or pull a grid column by manipulating its left margin.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid push",
+          "code": "\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if $push {\n    $_gutter-affordance: $_grid-gutter * 2;\n    $_margin-value: calc(#{_neat-column-width($grid, $push)} + #{$_gutter-affordance});\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  } @else {\n    $_margin-value: _retrieve-neat-setting($grid, gutter);\n    margin-#{_neat-float-direction($grid)}: $_margin-value;\n  }\n",
+          "line": {
+            "start": 25,
+            "end": 37
           }
         }
       },
@@ -1227,10 +1354,34 @@
         "context": {
           "type": "mixin",
           "name": "Grid visual",
-          "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color 1px,\n    transparent 1px,\n    transparent $_grid-gutter,\n    $color calc(#{$_grid-gutter} + 1px),\n    transparent calc(#{$_grid-gutter} + 2px),\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + 1px),\n      transparent calc(#{$location} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      $color calc(#{$location} + #{$_grid-gutter} + 1px),\n      transparent calc(#{$location} + #{$_grid-gutter} + 1px),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n    transparent calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter}),\n    $color calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - #{$_grid-gutter} + 1px),\n    transparent calc(100% - 1px),\n    $color calc(100% - 1px),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image:\n    linear-gradient(to right, $_grid-visual),\n    linear-gradient(to bottom,\n      $color,\n      $color 1px,\n      transparent 1px,\n      transparent calc(100% - 1px),\n      $color calc(100% - 1px),\n      $color\n  );\n",
+          "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color $_grid-gutter,\n    transparent $_grid-gutter,\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n      transparent calc(100% - #{$_grid-gutter}),\n      $color calc(100% - #{$_grid-gutter}),\n      $color calc(100%),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image: linear-gradient(to right, $_grid-visual);\n",
           "line": {
             "start": 25,
-            "end": 86
+            "end": 67
+          }
+        }
+      },
+      {
+        "description": "Creates a series of guide lines using the `background-image` property on a\ngrid container to visualise the columns and gutters of the grid.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid visual",
+          "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color $_grid-gutter,\n    transparent $_grid-gutter,\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n      transparent calc(100% - #{$_grid-gutter}),\n      $color calc(100% - #{$_grid-gutter}),\n      $color calc(100%),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image: linear-gradient(to right, $_grid-visual);\n",
+          "line": {
+            "start": 25,
+            "end": 67
+          }
+        }
+      },
+      {
+        "description": "Creates a series of guide lines using the `background-image` property on a\ngrid container to visualise the columns and gutters of the grid.\n\n",
+        "context": {
+          "type": "mixin",
+          "name": "Grid visual",
+          "code": "\n  @if not $color {\n    $color: _retrieve-neat-setting($grid, color);\n  }\n\n  $_grid-columns: _retrieve-neat-setting($grid, columns);\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n  $_grid-visual-object: () !default;\n  $_grid-visual:\n    $color,\n    $color $_grid-gutter,\n    transparent $_grid-gutter,\n  ;\n\n  @for $i from 1 to $_grid-columns {\n    $_grid-visual-local: (\n      #{$i}: \"#{_neat-column-width($grid, $i)} + #{$_grid-gutter}\",\n    );\n\n    $_grid-visual-object: map-merge($_grid-visual-object, $_grid-visual-local);\n  }\n\n  @each $stop, $location in $_grid-visual-object {\n    $_grid-visual-loop-list:\n      transparent calc(#{$location}),\n      $color calc(#{$location}),\n      $color calc(#{$location} + #{$_grid-gutter}),\n      transparent calc(#{$location} + #{$_grid-gutter}),\n    ;\n\n    $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n  }\n\n  $_grid-visual-loop-list:\n      transparent calc(100% - #{$_grid-gutter}),\n      $color calc(100% - #{$_grid-gutter}),\n      $color calc(100%),\n  ;\n\n  $_grid-visual: _neat-append-grid-visual($_grid-visual, $_grid-visual-loop-list);\n\n  background-image: linear-gradient(to right, $_grid-visual);\n",
+          "line": {
+            "start": 25,
+            "end": 67
           }
         }
       },
