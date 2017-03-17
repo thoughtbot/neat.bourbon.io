@@ -101,42 +101,48 @@ section.container.container--spacing
 
 section.container.container--spacing
   .column
+    h2.h5
+      | A responsive grid
+    p
+      markdown:
+        Call `grid-media` as a handy responsive shortcut. All `@include`s of
+        Neat mixins within the block will now have the context of the provided
+        grid.
+  .column
     figure
       figcaption SCSS
       pre
-        = inline_stylesheet :"examples/example-2"
-        = code_block :"examples/example-2"
-  .example
-    .example-2
-      .example-2__heading.example__column--spaced
-        h1.example__heading
-          | August Pair Cake
-        h2.example__sub-heading
-          | Jan 12 — Recipies
-      .example-2__hero.example__column--spaced.example__column--fancy
-        blockquote.example__heading
-          | This is one of my favorites! It's great for hanging out with the family on a hot August afternoon!
+        = inline_stylesheet :"examples/article-layout"
+        = code_block :"examples/article-layout"
+    figure
+      figcaption SLIM
+      pre
+        code
+          | .article-layout
+              .article-layout__hero
+                / ...content...
+              .article-layout__sidebar
+                / ...content...
+              .article-layout__main
+                / ...content...
 
-      / = image_tag "https://hd.unsplash.com/photo-1447078806655-40579c2520d6", class: "example-2__hero"
-      .example-2__row
-        hr.example-2__rule
-      .example-2__column-1.example__column--spaced
-        h6
-          | Ingredients:
-        ul
-          li
-            | Lorem ipsum
-          li
-            | Lorem ipsum
-          li
-            | Lorem ipsum
-          li
-            | Lorem ipsum
-      .example-2__column-2.example__column--spaced
-        p
-          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  .example
+    .article-layout
+      .article-layout__hero.example__column--empty-medium.example__column--fancy
+        .message
+          .message__text
+            | 1 of 1 columns
+      .article-layout__sidebar
+        .example__column--empty.example__column--fancy
+          .message
+            .message__text
+              | 1 of 1 columns below 786px
+              br
+              | 2 of 5 columns above
+      .article-layout__main
+        .example__column--empty.example__column--fancy
+          .message
+            .message__text
+              | 1 of 1 columns below 786px
+              br
+              | 3 of 5 columns above

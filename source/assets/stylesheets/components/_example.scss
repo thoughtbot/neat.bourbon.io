@@ -7,11 +7,15 @@
 }
 
 .example__column--empty {
-  min-height: 20rem;
+  height: 20rem;
+}
+
+.example__column--empty-medium {
+  height: 10rem;
 }
 
 .example__column--empty-small {
-  min-height: 6rem;
+  height: 6rem;
 }
 
 .example__column--fancy {
@@ -21,15 +25,6 @@
 
 .example__column--spaced {
   padding: $base-spacing 0;
-}
-
-.example__heading {
-  font-family: $base-font-family;
-  font-size: modular-scale(3);
-  font-weight: 600;
-  letter-spacing: $letter-spacing;
-  margin-bottom: $small-spacing;
-  text-align: center;
 }
 
 .example__sub-heading {
