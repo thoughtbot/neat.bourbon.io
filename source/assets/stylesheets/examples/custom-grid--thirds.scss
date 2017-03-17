@@ -1,0 +1,14 @@
+@import "neat";
+
+$custom-grid--thirds: (
+  columns: 3,
+  gutter: 60px,
+);
+
+.custom-grid--thirds {
+  @include grid-container($custom-grid--thirds);
+}
+
+.custom-grid--thirds__a-single-column {
+  @include grid-column(1, $custom-grid--thirds);
+}

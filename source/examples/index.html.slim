@@ -16,7 +16,7 @@ header.hero.container
 section.container.container--spacing
   .column
     h2.h5
-      | Using the Default Neat Grid
+      | Using the default Neat grid
     p
       markdown:
         The `.default-neat-grid` pattern includes the `grid-container` mixin
@@ -30,10 +30,43 @@ section.container.container--spacing
       pre
         = inline_stylesheet :"examples/default-neat-grid"
         = code_block :"examples/default-neat-grid"
+    figure
+      figcaption SLIM
+      pre
+        code
+          |.default-neat-grid
+             - 12.times do
+               .default-neat-grid__a-single-column
   .example
     .default-neat-grid
       - 12.times do
         .example__column--empty.example__column--fancy.default-neat-grid__a-single-column
+
+section.container.container--spacing
+  .column
+    h2.h5
+      | Make a custom Neat grid
+    p
+      ' Instead of using Neat's default grid, make a custom one. Store
+      ' it as a map variable, and provide it when calling the Neat's mixins.
+      ' Here is a grid with three columns and 60px gutters.
+    figure
+      figcaption SCSS
+      pre
+        = inline_stylesheet :"examples/custom-grid--thirds"
+        = code_block :"examples/custom-grid--thirds"
+    figure
+      figcaption SLIM
+      pre
+        code
+          |.custom-grid--thirds
+             .custom-grid--thirds__a-single-column
+             .custom-grid--thirds__a-single-column
+             .custom-grid--thirds__a-single-column
+  .example
+    .custom-grid--thirds
+      - 3.times do
+        .example__column--empty.example__column--fancy.custom-grid--thirds__a-single-column
 
 section.container.container--spacing
   .column
