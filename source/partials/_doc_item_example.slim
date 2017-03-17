@@ -7,13 +7,15 @@ h5 Example
       = example.description
 
   - if example.type == "scss"
-    figure.doc-item__code-example
+    figure
       figcaption SCSS
-      = code("scss") do
-        = example.code
+      pre
+        = code("scss") do
+          = example.code
 
   - if example.type == "css"
-    figure.doc-item__code-example
+    figure
       figcaption CSS Output
-      = code("css") do
-        = example.code
+      pre
+        = code("css") do
+          = example.code
