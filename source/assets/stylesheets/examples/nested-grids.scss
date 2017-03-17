@@ -1,0 +1,33 @@
+@import "neat";
+
+$sidebar-layout: (
+  columns: 3,
+  gutter: 40px,
+);
+
+$product-gallery: (
+  columns: 4,
+  gutter: 40px,
+);
+
+.sidebar-layout {
+  @include grid-container($sidebar-layout);
+}
+
+.sidebar-layout__sidebar {
+  @include grid-column(1, $sidebar-layout);
+}
+
+.sidebar-layout__main {
+  @include grid-column(2, $sidebar-layout);
+}
+
+.product-gallery {
+  @include grid-collapse($product-gallery);
+  @include grid-container($product-gallery);
+}
+
+.product-gallery__item {
+  @include grid-column(1, $product-gallery);
+  margin-bottom: 1rem;
+}

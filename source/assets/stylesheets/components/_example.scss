@@ -10,6 +10,10 @@
   min-height: 20rem;
 }
 
+.example__column--empty-small {
+  min-height: 6rem;
+}
+
 .example__column--fancy {
   background-image: $neat-gradient;
   color: $base-background-color;

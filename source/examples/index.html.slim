@@ -34,9 +34,9 @@ section.container.container--spacing
       figcaption SLIM
       pre
         code
-          |.default-neat-grid
-             - 12.times do
-               .default-neat-grid__a-single-column
+          | .default-neat-grid
+              - 12.times do
+                .default-neat-grid__a-single-column
   .example
     .default-neat-grid
       - 12.times do
@@ -59,14 +59,45 @@ section.container.container--spacing
       figcaption SLIM
       pre
         code
-          |.custom-grid--thirds
-             .custom-grid--thirds__a-single-column
-             .custom-grid--thirds__a-single-column
-             .custom-grid--thirds__a-single-column
+          | .custom-grid--thirds
+              .custom-grid--thirds__a-single-column
+              .custom-grid--thirds__a-single-column
+              .custom-grid--thirds__a-single-column
   .example
     .custom-grid--thirds
       - 3.times do
         .example__column--empty.example__column--fancy.custom-grid--thirds__a-single-column
+
+section.container.container--spacing
+  .column
+    h2.h5
+      | Nest one grid inside another
+    p
+      markdown:
+        Make two custom grids and nest one inside the other. The nested grid
+        calls `grid-collapse` to fit it nicely inside its parent.
+    figure
+      figcaption SCSS
+      pre
+        = inline_stylesheet :"examples/nested-grids"
+        = code_block :"examples/nested-grids"
+    figure
+      figcaption SLIM
+      pre
+        code
+          | .sidebar-layout
+              .sidebar-layout__sidebar
+              .sidebar-layout__main
+                .product-gallery
+                  - 12.times do
+                    .product-gallery__item
+  .example
+    .sidebar-layout
+      .sidebar-layout__sidebar.example__column--empty.example__column--fancy
+      .sidebar-layout__main
+        .product-gallery
+          - 12.times do
+            .product-gallery__item.example__column--empty-small.example__column--fancy
 
 section.container.container--spacing
   .column
