@@ -15,15 +15,25 @@ header.hero.container
 
 section.container.container--spacing
   .column
+    h2.h5
+      | Using the Default Neat Grid
+    p
+      markdown:
+        The `.default-neat-grid` pattern includes the `grid-container` mixin
+        without passing any paramaters. Therefore it uses the default grid that
+        comes with Neat, which has 12 columns and 20px wide gutters.
+        Neat employs the same default grid when
+        `.default-neat-grid__a-single-column` includes `grid-column` and only
+        specifies a column count of one.
     figure
       figcaption SCSS
       pre
-        = inline_stylesheet :"examples/example-1"
-        = code_block :"examples/example-1"
+        = inline_stylesheet :"examples/default-neat-grid"
+        = code_block :"examples/default-neat-grid"
   .example
-    .example-1
+    .default-neat-grid
       - 12.times do
-        .example__column--empty.example__column--fancy.example-1__column-1
+        .example__column--empty.example__column--fancy.default-neat-grid__a-single-column
 
 section.container.container--spacing
   .column

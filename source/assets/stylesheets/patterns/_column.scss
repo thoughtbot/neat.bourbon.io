@@ -1,5 +1,5 @@
 .column {
-   @include grid-column(12);
+  @include grid-column(12);
 
   @include grid-media($neat-grid-tablet) {
     @include grid-column(10);

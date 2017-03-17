@@ -1,9 +1,9 @@
 @import "neat";
 
-.example-1 {
+.default-neat-grid {
   @include grid-container;
 }
 
-.example-1__column-1 {
+.default-neat-grid__a-single-column {
   @include grid-column(1);
 }

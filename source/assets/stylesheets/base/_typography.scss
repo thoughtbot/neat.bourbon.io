@@ -35,7 +35,8 @@ h3 {
 }
 
 h4,
-h5 {
+h5,
+.h5 {
   font-family: $base-font-family;
   font-size: modular-scale(6);
   font-weight: 300;
