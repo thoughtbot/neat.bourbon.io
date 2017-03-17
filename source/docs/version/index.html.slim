@@ -20,9 +20,10 @@
             code
               = version
     - version.doc_items.group_by {|a| a.group }.reverse_each do |group, items|
-      h2.docs-nav__heading
-        = link_to group.join.titleize, "##{group.join.slugify}",
-          class: "docs-nav__link"
+      - if group.join != "undefined"
+        h2.docs-nav__heading
+          = link_to group.join.titleize, "##{group.join.slugify}",
+            class: "docs-nav__link"
       ol.docs-nav__list
         - items.each do |item|
           li.docs-nav__item
@@ -33,8 +34,9 @@
   section.docs-list
     - version.doc_items.group_by {|a| a.group }.reverse_each do |group, items|
       .docs-section
-        h2 id="#{group.join.slugify}"
-          = group.join.titleize
+        - if group.join != "undefined"
+          h2 id="#{group.join.slugify}"
+            = group.join.titleize
         - items.each do |item|
           article.doc-item id="#{item.context.name.slugify}"
             .doc-item__section
