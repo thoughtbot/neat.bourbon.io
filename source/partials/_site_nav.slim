@@ -1,19 +1,19 @@
 nav.site-nav role="navigation"
   .container.site-nav__container
     .column--12
-      = link_to "/",
-                class: "site-nav__logo" do
+      = current_link_to "/",
+                        class: "site-nav__logo" do
         = image_tag 'neat-logo.svg',
           alt: "Neat logo",
           class: "site-nav__logo__image"
         span.site-nav__logo__text Neat
       .site-nav__section
-        = link_to "Documentation",
-                  "/docs/latest/",
-                  class: "site-nav__link"
-        = link_to "Examples",
-                  "/examples/",
-                  class: "site-nav__link"
+        = current_link_to "Documentation",
+                          "/docs/latest/",
+                          class: "site-nav__link"
+        = current_link_to "Examples",
+                          "/examples/",
+                          class: "site-nav__link"
         = link_to "GitHub",
                   "https://github.com/thoughtbot/neat",
                   class: "site-nav__link"

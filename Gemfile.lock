@@ -57,6 +57,8 @@ GEM
       middleman-cli (= 4.1.9)
       middleman-core (= 4.1.9)
       sass (>= 3.4.0, < 4.0)
+    middleman-aria_current (0.1.1)
+      middleman-core (~> 4.0)
     middleman-autoprefixer (2.7.0)
       autoprefixer-rails (>= 6.3.1, < 7.0.0)
       middleman-core (>= 3.3.3)
@@ -171,6 +173,7 @@ DEPENDENCIES
   bourbon (= 5.0.0.beta.7)
   builder
   middleman
+  middleman-aria_current
   middleman-autoprefixer
   middleman-dotenv
   middleman-livereload
