@@ -22,7 +22,7 @@ code {
     border: $secondary-border;
     box-shadow: $code-block-box-shadow;
     display: block;
-    overflow-y: scroll;
+    overflow-x: scroll;
     padding: $code-block-spacing;
     max-width: 100%;
   }
