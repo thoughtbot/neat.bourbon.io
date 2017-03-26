@@ -5,13 +5,11 @@ h5 Example
   - if example.type == "scss"
     figure
       figcaption SCSS
-      pre
-        = code("scss") do
-          = example.code
+      = code("scss") do
+        = example.code
 
   - if example.type == "css"
     figure
       figcaption CSS Output
-      pre
-        = code("css") do
-          = example.code
+      = code("css") do
+        = example.code
