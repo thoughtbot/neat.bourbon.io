@@ -11,15 +11,21 @@
       position: fixed;
       top: 0;
       max-height: 100vh;
-      overflow: -moz-scrollbars-none;
-      overflow-y: scroll;
-      overflow-x: visible;
+      overflow: hidden;
 
       &::-webkit-scrollbar {
         width: 0 !important;
       }
+
+      .docs-nav__inner {
+        overflow-y: scroll;
+      }
     }
   }
+}
+
+.docs-nav__inner {
+  width: calc(100% + 18px);
 }
 
 .docs-nav__heading {

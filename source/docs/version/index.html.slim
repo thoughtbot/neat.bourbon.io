@@ -7,31 +7,32 @@
 
 .container
   nav.docs-nav role="navigation" data-content-navigation="navigation"
-    = link_to "#", data: {dropdown: {trigger: "versions"}}
-      h2.docs-nav__heading.docs-nav__heading--has-dropdown
-        | Version&nbsp;&nbsp;&nbsp;
-        code data-dropdown-status="versions"
-          = version
-          small &nbsp;▽
-    ol.docs-nav__list.dropdown-list data-dropdown-list="versions"
-      - versions.reverse_each do |version|
-        li.dropdown-list__item
-          = link_to "/docs/#{version}", class: "dropdown-list__link" do
-            ' VERSION
-            code
-              = version
-    - version.doc_items.group_by {|a| a.group }.reverse_each do |group, items|
-      - if group.join != "undefined"
-        h2.docs-nav__heading
-          = link_to group.join.titleize, "##{group.join.slugify}",
-            class: "docs-nav__link"
-      ol.docs-nav__list
-        - items.each do |item|
-          li.docs-nav__item
-            = link_to "##{item.context.name.slugify}",
-              class: "docs-nav__link",
-              "data-content-navigation-link": "true" do
-              = item.context.name
+    .docs-nav__inner
+      = link_to "#", data: {dropdown: {trigger: "versions"}}
+        h2.docs-nav__heading.docs-nav__heading--has-dropdown
+          | Version&nbsp;&nbsp;&nbsp;
+          code data-dropdown-status="versions"
+            = version
+            small &nbsp;▽
+      ol.docs-nav__list.dropdown-list data-dropdown-list="versions"
+        - versions.reverse_each do |version|
+          li.dropdown-list__item
+            = link_to "/docs/#{version}", class: "dropdown-list__link" do
+              ' VERSION
+              code
+                = version
+      - version.doc_items.group_by {|a| a.group }.reverse_each do |group, items|
+        - if group.join != "undefined"
+          h2.docs-nav__heading
+            = link_to group.join.titleize, "##{group.join.slugify}",
+              class: "docs-nav__link"
+        ol.docs-nav__list
+          - items.each do |item|
+            li.docs-nav__item
+              = link_to "##{item.context.name.slugify}",
+                class: "docs-nav__link",
+                "data-content-navigation-link": "true" do
+                = item.context.name
   section.docs-list
     - version.doc_items.group_by {|a| a.group }.reverse_each do |group, items|
       .docs-section
