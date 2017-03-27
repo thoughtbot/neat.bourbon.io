@@ -3,15 +3,15 @@
     "description": "Creates collapsed grid object that consumes the gutters of its container,\nfor use in nested layouts.\n\n",
     "commentRange": {
       "start": 2,
-      "end": 24
+      "end": 23
     },
     "context": {
       "type": "mixin",
       "name": "Grid collapse",
       "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
       "line": {
-        "start": 26,
-        "end": 36
+        "start": 25,
+        "end": 35
       }
     },
     "group": [
@@ -32,7 +32,7 @@
       },
       {
         "type": "css",
-        "code": ".element {\n  float: left;\n  margin-left: -20px;\n  margin-right: -20px;\n  width: calc(100% + 40px);\n}"
+        "code": ".element {\n  margin-left: -20px;\n  margin-right: -20px;\n  width: calc(100% + 40px);\n}"
       }
     ],
     "access": "public",
@@ -252,7 +252,7 @@
         "type": "map",
         "name": "grid",
         "default": "$neat-grid",
-        "description": "The grid to be used to detirmine how far to push the column.\n  By default, the global `$neat-grid` will be used.\n"
+        "description": "The grid to be used to determine how far to push the column.\n  By default, the global `$neat-grid` will be used.\n"
       }
     ],
     "example": [
@@ -326,7 +326,7 @@
         "type": "map",
         "name": "grid",
         "default": "$neat-grid",
-        "description": "The grid to be used to detirmine how far to shift the column.\n  By default, the global `$neat-grid` will be used.\n"
+        "description": "The grid to be used to determine how far to shift the column.\n  By default, the global `$neat-grid` will be used.\n"
       }
     ],
     "example": [
@@ -437,7 +437,7 @@
     }
   },
   {
-    "description": "This variable is a sass map that overrides Neat's default grid settings.\nUse this to define your project's grid properties incluting gutters and\ntotal column count.\n\n",
+    "description": "This variable is a sass map that overrides Neat's default grid settings.\nUse this to define your project's grid properties including gutters and\ntotal column count.\n\n",
     "commentRange": {
       "start": 2,
       "end": 22
@@ -519,7 +519,7 @@
         "type": "number (with unit) | string | null",
         "name": "media",
         "default": "null",
-        "description": "The `@media` definition that is used by the [`grid-media`](#grid-media)\n  mixin to detirmine the media properties."
+        "description": "The `@media` definition that is used by the [`grid-media`](#grid-media)\n  mixin to determine the media properties."
       },
       {
         "type": "color",
@@ -680,7 +680,7 @@
     ]
   },
   {
-    "description": "Determine the ratio of `$columns` to the total column count.\nIf `$columns` is more than one value, they are handed to\n`_neat-parse-columns()` which will detirmine the total columns and use this\nvalue instead of `total-columns`.\n\n",
+    "description": "Determine the ratio of `$columns` to the total column count.\nIf `$columns` is more than one value, they are handed to\n`_neat-parse-columns()` which will determine the total columns and use this\nvalue instead of `total-columns`.\n\n",
     "commentRange": {
       "start": 2,
       "end": 16
@@ -901,8 +901,8 @@
           "name": "Grid collapse",
           "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
           "line": {
-            "start": 26,
-            "end": 36
+            "start": 25,
+            "end": 35
           }
         }
       },
@@ -1086,8 +1086,8 @@
           "name": "Grid collapse",
           "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
           "line": {
-            "start": 26,
-            "end": 36
+            "start": 25,
+            "end": 35
           }
         }
       }
@@ -1137,7 +1137,7 @@
     },
     "usedBy": [
       {
-        "description": "Determine the ratio of `$columns` to the total column count.\nIf `$columns` is more than one value, they are handed to\n`_neat-parse-columns()` which will detirmine the total columns and use this\nvalue instead of `total-columns`.\n\n",
+        "description": "Determine the ratio of `$columns` to the total column count.\nIf `$columns` is more than one value, they are handed to\n`_neat-parse-columns()` which will determine the total columns and use this\nvalue instead of `total-columns`.\n\n",
         "context": {
           "type": "function",
           "name": "_neat-column-ratio",
@@ -1260,8 +1260,8 @@
           "name": "Grid collapse",
           "code": "\n  $_grid-gutter: _retrieve-neat-setting($grid, gutter);\n\n  @if unit($_grid-gutter) == \"%\" {\n    @warn \"`grid-collapse` is not compatible with percentage based gutters.\";\n  }\n\n  margin-#{_neat-float-direction($grid)}: -($_grid-gutter);\n  margin-#{_neat-opposite-direction($grid)}: -($_grid-gutter);\n  width: calc(100% + #{($_grid-gutter * 2)});\n",
           "line": {
-            "start": 26,
-            "end": 36
+            "start": 25,
+            "end": 35
           }
         }
       },
@@ -1398,7 +1398,7 @@
         }
       },
       {
-        "description": "Determine the ratio of `$columns` to the total column count.\nIf `$columns` is more than one value, they are handed to\n`_neat-parse-columns()` which will detirmine the total columns and use this\nvalue instead of `total-columns`.\n\n",
+        "description": "Determine the ratio of `$columns` to the total column count.\nIf `$columns` is more than one value, they are handed to\n`_neat-parse-columns()` which will determine the total columns and use this\nvalue instead of `total-columns`.\n\n",
         "context": {
           "type": "function",
           "name": "_neat-column-ratio",
