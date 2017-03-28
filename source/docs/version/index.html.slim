@@ -12,6 +12,7 @@
         | Version&nbsp;&nbsp;&nbsp;
         code data-dropdown-status="versions"
           = version
+          small &nbsp;▽
     ol.docs-nav__list.dropdown-list data-dropdown-list="versions"
       - versions.reverse_each do |version|
         li.dropdown-list__item
