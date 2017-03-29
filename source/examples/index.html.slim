@@ -20,11 +20,9 @@ section.container.container--spacing
     p
       markdown:
         The `.default-neat-grid` pattern includes the `grid-container` mixin
-        without passing any paramaters. Therefore it uses the default grid that
-        comes with Neat, which has 12 columns and 20px wide gutters.
-        Neat employs the same default grid when
-        `.default-neat-grid__a-single-column` includes `grid-column` and only
-        specifies a column count of one.
+        as the wrapper. `.default-neat-grid__a-single-column` then includes
+        `grid-column` and only specifies a column count of one for the default
+        grid that comes with Neat, which has 12 columns and 20px wide gutters.
     figure
       figcaption SCSS
       pre
