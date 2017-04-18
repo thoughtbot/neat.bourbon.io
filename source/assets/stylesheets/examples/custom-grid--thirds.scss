@@ -6,7 +6,7 @@ $custom-grid--thirds: (
 );
 
 .custom-grid--thirds {
-  @include grid-container($custom-grid--thirds);
+  @include grid-container;
 }
 
 .custom-grid--thirds__a-single-column {

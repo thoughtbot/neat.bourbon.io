@@ -11,7 +11,7 @@ $product-gallery: (
 );
 
 .sidebar-layout {
-  @include grid-container($sidebar-layout);
+  @include grid-container;
 }
 
 .sidebar-layout__sidebar {
@@ -24,7 +24,7 @@ $product-gallery: (
 
 .product-gallery {
   @include grid-collapse($product-gallery);
-  @include grid-container($product-gallery);
+  @include grid-container;
 }
 
 .product-gallery__item {
