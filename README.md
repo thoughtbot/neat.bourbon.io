@@ -14,25 +14,25 @@ You can find the [Neat Sass library source code here][library repo].
 
 1. Get the code:
 
-  ```
-  git clone https://github.com/thoughtbot/neat.bourbon.io.git
-  ```
+    ```
+    git clone https://github.com/thoughtbot/neat.bourbon.io.git
+    ```
 
 1. Set up your machine:
 
-  ```
-  bin/setup
-  ```
+    ```
+    bin/setup
+    ```
 
 1. Run the app:
 
-  ```
-  bundle exec middleman
-  ```
+    ```
+    bundle exec middleman
+    ```
 
-  ```
-  open http://localhost:4567
-  ```
+    ```
+    open http://localhost:4567
+    ```
 
 ## Generate Documentation
 
@@ -44,16 +44,16 @@ unique pages for each version.
 
 To generate documentation for the gem version specified in the `Gemfile`, run:
 
-  ```
-  rake generate
-  ```
+```
+rake generate
+```
 
 You can also generate documentation for the gem version from GitHub by using the
 `generate_for` command:
 
-  ```
-  rake generate_for 5.0.0
-  ```
+```
+rake generate_for 2.0.0
+```
 
 [SassDoc]: http://sassdoc.com/
 [Neat’s source]: https://github.com/thoughtbot/neat/
