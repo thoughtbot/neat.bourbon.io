@@ -3,9 +3,36 @@
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org).
 
-## [Unreleased]
+## [2.1.0] - 2017-06-27
 
-## [2.0.0.beta.2]
+### Added
+
+- A `--path` CLI option, which lets you install Neat into specific
+  directory. ([#459])
+- A `style` property has been added to our `package.json`, which makes for easy
+  importing when using npm-sass, sass-module-importer and others. ([#514])
+
+### Fixed
+
+- Fixed an issue that would cause Neat to not be found within Rails
+  apps. ([#612])
+- Simplified the gradient used in the `grid-visual` mixin for more consistent
+  cross-browser behaviour. ([#569])
+
+[#459]: https://github.com/thoughtbot/neat/pull/459
+[#514]: https://github.com/thoughtbot/neat/pull/514
+[#569]: https://github.com/thoughtbot/neat/pull/569
+[#612]: https://github.com/thoughtbot/neat/pull/612
+
+## [2.0.0] - 2017-02-17
+
+### Fixed
+
+- Custom grids inherit undefined properties from global `$neat-grid`
+- Fixed instillation from CLI
+- Remove float property from `grid-collapse`
+
+## [2.0.0.beta.2] - 2016-12-08
 
 ### Added
 
@@ -16,13 +43,13 @@ project adheres to [Semantic Versioning](http://semver.org).
 
 - Removed `node-sass` dependency from `package.json`
 
-## [2.0.0.beta.1]
+## [2.0.0.beta.1] - 2016-08-20
 
 ### Added
 
 - Added `grid-collapse` to allow the creation of nested layouts
 
-## [2.0.0.alpha.1]
+## [2.0.0.alpha.1] - 2016-07-23
 
 ### Added
 
@@ -77,6 +104,29 @@ project adheres to [Semantic Versioning](http://semver.org).
     - `$visual-grid-index` has been removed
     - `$visual-grid-opacity` has been removed
 
+## [1.9.0] - 2017-06-27
+
+### Added
+
+- Add support for complex `nth-child` selectors in `omega()`. ([#340])
+
+### Changed
+
+- The background color for visual grid columns now alternates. ([#373])
+- Update node-sass dependency to 4.1.1. ([#520])
+
+### Fixed
+
+- Removed unnecessary deprecation warning when using the `reset-display` mixin.
+  ([#456])
+- The description of the `remove` CLI command now correctly outputs "remove".
+  ([#451])
+
+[#340]: https://github.com/thoughtbot/neat/pull/340
+[#373]: https://github.com/thoughtbot/neat/pull/373
+[#451]: https://github.com/thoughtbot/neat/pull/451
+[#456]: https://github.com/thoughtbot/neat/pull/456
+[#520]: https://github.com/thoughtbot/neat/pull/520
 
 ## 1.8.0 - 2016-06-21
 
@@ -303,8 +353,11 @@ project adheres to [Semantic Versioning](http://semver.org).
 
 - Initial release
 
-[Unreleased]: https://github.com/thoughtbot/neat/compare/v2.0.0.beta.1...neat-2.0.0
+[unreleased]: https://github.com/thoughtbot/neat/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/thoughtbot/neat/compare/v2.0.0...v2.1.0
+[2.0.0]: https://github.com/thoughtbot/neat/compare/v2.0.0.beta.2...v2.0.0
 [2.0.0.beta.2]: https://github.com/thoughtbot/neat/compare/v2.0.0.beta.1...v2.0.0.beta.2
 [2.0.0.beta.1]: https://github.com/thoughtbot/neat/compare/v2.0.0.alpha.1...v2.0.0.beta.1
 [2.0.0.alpha.1]: https://github.com/thoughtbot/neat/compare/v2.0.0.alpha.0...v2.0.0.alpha.1
 [2.0.0.alpha.0]: https://github.com/thoughtbot/neat/compare/v1.8.0...v2.0.0.alpha.0
+[1.9.0]: https://github.com/thoughtbot/neat/compare/v1.8.0...v1.9.0
