@@ -85,9 +85,6 @@ GEM
       servolux
       tilt (~> 2.0)
       uglifier (~> 3.0)
-    middleman-dotenv (2.0.0)
-      dotenv (>= 2.0)
-      middleman-core (>= 4.0)
     middleman-livereload (3.4.6)
       em-websocket (~> 0.5.1)
       middleman-core (>= 3.3)
@@ -174,7 +171,6 @@ DEPENDENCIES
   middleman
   middleman-aria_current
   middleman-autoprefixer
-  middleman-dotenv
   middleman-livereload
   middleman-minify-html
   middleman-sprockets
