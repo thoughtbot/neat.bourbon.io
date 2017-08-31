@@ -34,7 +34,7 @@ module ApplicationHelpers
 
   def preferred_url
     path = yield_content :preferred_path
-    File.join(ENV["SITE_URL"], path, "/")
+    URI.join(ENV.fetch("URL"), path)
   end
 
   def svg(name)
