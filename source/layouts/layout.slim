@@ -14,17 +14,19 @@ html lang="en"
     link rel="shortcut icon" href="http://images.thoughtbot.com/bourbon/neat-logo-v2-icon.jpg"
     meta name="referrer" content="no-referrer-when-downgrade"
     meta name="google-site-verification" content="mEtyyyYcK6fpdAsd2BNW826K5EZaksT7gCLfW0uhZ2Q"
-    meta property="og:site_name" content="Neat - A Lightweight and flexible Sass grid"
+
+    meta property="og:site_name" content=data.site.title
     meta property="og:type" content="website"
-    meta property="og:title" content="Neat - A Lightweight and flexible Sass grid"
-    meta property="og:description" content="Neat is a library of pure Sass mixins and functions that are designed to make createing dynamic and engaging layouts absolutely effortless."
-    meta property="og:url" content="http://neat.bourbon.io"
+    meta property="og:title" content=data.site.title
+    meta property="og:description" content=page_description
+    meta property="og:url" content=ENV.fetch("URL")
+
     meta name="twitter:card" content="summary"
-    meta name="twitter:title" content="Neat - A Lightweight and flexible Sass grid"
+    meta name="twitter:title" content=data.site.title
     meta name="twitter:image" content="http://images.thoughtbot.com/bourbon/neat-logo-v2-icon.jpg"
     meta name="twitter:image:alt" content="The Neat logo"
-    meta name="twitter:description" content="Neat is a library of pure Sass mixins and functions that are designed to make createing dynamic and engaging layouts absolutely effortless."
-    meta name="twitter:url" content="http://neat.bourbon.io"
+    meta name="twitter:description" content=page_description
+    meta name="twitter:url" content=ENV.fetch("URL")
     meta name="twitter:site" content="@bourbonsass"
 
     script type="application/ld+json"
@@ -35,12 +37,12 @@ html lang="en"
             "@type": "Organization",
             "name": "thoughtbot, inc."
           },
-          "url": "http://neat.bourbon.io/",
+          "url": "#{ENV.fetch("URL")}",
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://neat.bourbon.io"
+            "@id": "#{ENV.fetch("URL")}"
           },
-          "description": "Neat is a library of pure Sass mixins and functions that are designed to make creating dynamic and engaging layouts absolutely effortless."
+          "description": "#{page_description}"
         }
   body class= "page-#{page_classes}"
     = partial "partials/site_nav"
