@@ -44,7 +44,7 @@ html lang="en"
             "@type": "WebPage",
             "@id": "#{ENV.fetch("URL")}"
           },
-          "description": "#{page_description}"
+          "description": #{page_description.to_json}
         }
   body class= "page-#{page_classes}"
     = partial "partials/site_nav"
