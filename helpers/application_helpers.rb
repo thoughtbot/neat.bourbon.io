@@ -58,4 +58,8 @@ module ApplicationHelpers
 
     content_tag(:code, asset_contents)
   end
+
+  def sorted_versions(versions)
+    versions.sort { |a, b| b.to_s <=> a.to_s }
+  end
 end
