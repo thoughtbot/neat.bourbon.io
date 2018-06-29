@@ -2,7 +2,7 @@ require "bundler"
 
 task :default => [:generate]
 
-desc "generate a docco json output file for the gem version defined in Gemfile"
+desc "generate a docs json output file for the gem version defined in Gemfile"
 task :generate do
   neat_path = Bundler.load.specs.find{|s| s.name == "neat" }.full_gem_path
 
