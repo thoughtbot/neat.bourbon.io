@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "2.4.1"
 
-gem "bourbon", "~> 5.1"
+gem "bourbon"
 gem "builder"
 gem "middleman"
 gem "middleman-aria_current"

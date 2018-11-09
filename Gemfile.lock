@@ -146,7 +146,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bourbon (~> 5.1)
+  bourbon
   builder
   middleman
   middleman-aria_current
