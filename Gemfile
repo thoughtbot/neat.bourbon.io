@@ -17,5 +17,4 @@ gem "redcarpet"
 gem "sassc"
 gem "scss_lint", require: false
 gem "slim"
-gem "slim_lint", require: false
 gem "slugify"
