@@ -6,3 +6,9 @@
   from = "/docs"
   to = "/docs/latest"
   status = 301
+
+[[redirects]]
+  from = "https://neat.netlify.com/*"
+  to = "https://neat.bourbon.io/:splat"
+  status = 301
+  force = true
