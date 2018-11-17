@@ -54,10 +54,6 @@ proxy(
   ignore: true,
 )
 
-proxy("_redirects", "redirects", ignore: true)
-
-redirect "docs/index.html", to: "/docs/latest"
-
 configure :development do
   activate :livereload do |reload|
     reload.no_swf = true
