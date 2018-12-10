@@ -112,7 +112,7 @@ GEM
     rack (2.0.6)
     rack-livereload (0.3.16)
       rack
-    rake (12.3.1)
+    rake (12.3.2)
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
