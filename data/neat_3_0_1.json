@@ -78,7 +78,7 @@
         "type": "number (unitless)",
         "name": "columns",
         "default": "null",
-        "description": "Specifies the number of columns an element should span based on the total\n  columns of the grid.\n\n  This can also be defined in a shorthand syntaxt which also contains the\n  total column count such as `3 of 5`.\n"
+        "description": "Specifies the number of columns an element should span based on the total\n  columns of the grid.\n\n  This can also be defined in a shorthand syntax which also contains the\n  total column count such as `3 of 5`.\n"
       },
       {
         "type": "map",
