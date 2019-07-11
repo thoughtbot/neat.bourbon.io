@@ -11,8 +11,7 @@ GEM
     autoprefixer-rails (9.5.0)
       execjs
     backports (3.15.0)
-    bourbon (5.1.0)
-      sass (~> 3.4)
+    bourbon (6.0.0)
       thor (~> 0.19)
     builder (3.2.3)
     coffee-script (2.4.1)
